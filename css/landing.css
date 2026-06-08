@@ -1,0 +1,57 @@
+/* HERO VISUALS */
+.landing-hero {
+  position: relative;
+  padding-top: 120px;
+  padding-bottom: 120px;
+  background: radial-gradient(circle at center, rgba(92,200,255,0.18), transparent 70%);
+  overflow: hidden;
+}
+
+/* PARTICLES */
+.landing-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../assets/img/particles.png');
+  opacity: 0.12;
+  animation: drift 45s linear infinite;
+}
+
+/* BUTTON GROUP */
+.hero-actions {
+  margin-top: var(--space-lg);
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+/* SECONDARY BUTTON */
+.btn-secondary {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  color: white;
+  text-decoration: none;
+  transition: opacity var(--fast);
+}
+
+.btn-secondary:hover {
+  opacity: 0.7;
+}
+
+/* TERMS */
+.terms {
+  max-width: 800px;
+  margin: auto;
+  margin-top: var(--space-xl);
+}
+
+.terms-full.hidden {
+  display: none;
+}
+
+/* ANIMATIONS */
+@keyframes drift {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 1000px; }
+}
