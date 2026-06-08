@@ -5,34 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EEP & Security Modernization — Command Center</title>
 
-  <!-- Aptos font -->
+  <!-- Aptos Font -->
   <link href="https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: "Aptos", sans-serif;
       background: #0a0a0a;
       color: #e8e8e8;
-      margin: 0;
-      padding: 0;
+      line-height: 1.6;
     }
 
     header {
       background: linear-gradient(135deg, #0048b4, #0078d4);
-      padding: 32px 40px;
+      padding: 40px;
       color: white;
+      text-align: left;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 32px;
+      font-size: 34px;
       font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
     }
 
     nav {
       background: #141414;
       padding: 14px 40px;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #1f1f1f;
       display: flex;
       gap: 28px;
     }
@@ -55,25 +62,41 @@
     }
 
     h2 {
-      color: #FF6200;
       font-size: 22px;
-      margin-bottom: 12px;
       font-weight: 600;
+      color: #FF6200;
+      margin-bottom: 12px;
     }
 
-    p {
-      color: #ccc;
-      line-height: 1.6;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .card {
+    .section {
       background: #141414;
       border: 1px solid #2a2a2a;
       border-radius: 6px;
       padding: 32px;
       margin-bottom: 32px;
+    }
+
+    .section p {
+      color: #ccc;
+      margin-bottom: 16px;
+    }
+
+    .subheading {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e8e8e8;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+      color: #ccc;
     }
 
     .button {
@@ -116,6 +139,7 @@
 
 <header>
   <h1>EEP & Security Modernization — Command Center</h1>
+  <p>Unified engineering modernization, delivery excellence, and capability uplift.</p>
 </header>
 
 <nav>
@@ -126,40 +150,86 @@
 
 <div class="container">
 
-  <div class="card">
-    <h2>Overview</h2>
+  <!-- Overview -->
+  <div class="section">
+    <h2>Program Overview</h2>
     <p>
-      The Engineering Excellence Program (EEP) Command Center provides a unified view of engineering modernization,
-      delivery quality, and organizational capability uplift. This environment includes the Command Center,
-      Self‑Assessment Tool, and Delivery Dashboard.
+      The Engineering Excellence Program (EEP) provides a structured, measurable, and repeatable approach to
+      engineering modernization. It unifies delivery excellence, capability uplift, and modernization strategy
+      into a single operating model.
+    </p>
+
+    <p>
+      This Command Center serves as the central hub for modernization insights, engineering maturity,
+      delivery performance, and organizational capability metrics.
     </p>
   </div>
 
-  <div class="card">
-    <h2>Command Center</h2>
+  <!-- Operating Model -->
+  <div class="section">
+    <h2>EEP Operating Model</h2>
+
+    <p>The EEP Operating Model is built on four core pillars:</p>
+
+    <div class="subheading">1. Modernization Strategy</div>
+    <ul>
+      <li>Identity-first security</li>
+      <li>Zero Trust alignment</li>
+      <li>Cloud-native engineering practices</li>
+      <li>Modern workplace enablement</li>
+    </ul>
+
+    <div class="subheading">2. Delivery Excellence</div>
+    <ul>
+      <li>Predictable, high-quality engineering delivery</li>
+      <li>Modern engineering workflows</li>
+      <li>Operational readiness and resilience</li>
+    </ul>
+
+    <div class="subheading">3. Capability Uplift</div>
+    <ul>
+      <li>Engineering skills development</li>
+      <li>Role-based capability frameworks</li>
+      <li>Modern engineering maturity progression</li>
+    </ul>
+
+    <div class="subheading">4. Measurement & Insights</div>
+    <ul>
+      <li>Delivery KPIs</li>
+      <li>Modernization scorecards</li>
+      <li>Engineering maturity assessments</li>
+    </ul>
+  </div>
+
+  <!-- Tools -->
+  <div class="section">
+    <h2>EEP Tools & Assets</h2>
+
+    <div class="subheading">Command Center</div>
     <p>
-      Access the full EEP Command Center to explore modernization insights, engineering capability metrics,
-      and delivery excellence indicators.
+      Explore modernization insights, engineering capability metrics, and delivery excellence indicators.
     </p>
     <a class="button" href="engineer-delivery-dashboard.html">Open Command Center</a>
-  </div>
 
-  <div class="card">
-    <h2>Self‑Assessment Tool</h2>
+    <div class="subheading">Self‑Assessment Tool</div>
     <p>
       Evaluate engineering maturity across modernization, delivery, and operational excellence dimensions.
     </p>
     <a class="button" href="eep-self-assessment.html">Open Self‑Assessment</a>
+
+    <div class="subheading">Delivery Dashboard</div>
+    <p>
+      Visualize engineering delivery performance, modernization progress, and operational health.
+    </p>
+    <a class="button" href="engineer-delivery-dashboard.html">Open Delivery Dashboard</a>
   </div>
 
-  <div class="card">
+  <!-- Resources -->
+  <div class="section">
     <h2>Resources</h2>
     <p>Additional reference materials and supporting documentation.</p>
 
-    <ul style="list-style:none; padding-left:0; line-height:1.8;">
-      <li><a class="button" href="engineer-delivery-dashboard.html">Engineer Delivery Dashboard</a></li>
-      <li><a class="button" href="about.html#about">About the Framework Author</a></li>
-    </ul>
+    <a class="button" href="about.html#about">About the Framework Author</a>
   </div>
 
 </div>
