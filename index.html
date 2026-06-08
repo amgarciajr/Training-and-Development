@@ -1,466 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>READ BEFORE ACCESS — Confidentiality Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confidential Access Portal</title>
 
-  <style>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI','Calibri',system-ui,-apple-system,sans-serif;
-      background:#0B1120;
-      color:#E5E7EB;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:40px 20px;
-      transition:opacity 0.8s ease;
+        font-family: "Segoe UI", sans-serif;
+        background: #0B1120;
+        color: #E5E7EB;
+        min-height: 100vh;
+        padding: 40px 20px;
+        transition: opacity .6s ease;
     }
-    .container{max-width:960px;width:100%;}
+    .container { max-width: 960px; margin: auto; }
 
-    .header{text-align:center;margin-bottom:32px;}
-    .badge{
-      display:inline-block;background:#0078D4;color:#fff;font-size:11px;
-      font-weight:600;letter-spacing:2px;text-transform:uppercase;
-      padding:6px 18px;border-radius:999px;margin-bottom:18px;
+    .header { text-align: center; margin-bottom: 32px; }
+    .badge {
+        display: inline-block;
+        background: #0078D4;
+        color: #fff;
+        padding: 6px 18px;
+        border-radius: 999px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
     }
-    .header h1{
-      font-size:26px;font-weight:700;color:#F9FAFB;line-height:1.3;
-      margin-bottom:8px;
-    }
-    .subtitle{
-      font-size:13px;color:#9CA3AF;letter-spacing:1px;text-transform:uppercase;
-    }
-    .divider{
-      width:72px;height:3px;background:linear-gradient(90deg,#0078D4,#886CE4,#00B7C3);
-      margin:24px auto;
-      border-radius:999px;
-    }
-
-    .card{
-      background:#111827;border:1px solid #1F2937;border-radius:8px;
-      padding:28px 32px;margin-bottom:20px;
-    }
-    .card h2{
-      font-size:12px;font-weight:700;letter-spacing:2px;
-      text-transform:uppercase;color:#60A5FA;margin-bottom:12px;
-    }
-    .card p{
-      font-size:14px;line-height:1.7;color:#D1D5DB;margin-bottom:10px;
+    h1 { font-size: 28px; color: #F9FAFB; margin-bottom: 8px; }
+    .subtitle { color: #9CA3AF; font-size: 14px; text-transform: uppercase; }
+    .divider {
+        width: 70px;
+        height: 3px;
+        background: linear-gradient(90deg,#0078D4,#886CE4,#00B7C3);
+        margin: 24px auto;
+        border-radius: 999px;
     }
 
-    .list{list-style:none;margin:10px 0;}
-    .list li{
-      font-size:14px;line-height:1.7;color:#D1D5DB;
-      padding:6px 0 6px 22px;position:relative;
+    .card {
+        background: #111827;
+        border: 1px solid #1F2937;
+        padding: 26px 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
     }
-    .list li::before{
-      content:'•';position:absolute;left:0;color:#60A5FA;font-size:14px;
+    .card h2 {
+        font-size: 14px;
+        color: #60A5FA;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .card p { font-size: 15px; line-height: 1.7; color: #D1D5DB; }
+
+    .list { list-style: none; margin-top: 10px; }
+    .list li {
+        padding-left: 20px;
+        position: relative;
+        margin-bottom: 8px;
+        color: #D1D5DB;
+        font-size: 15px;
+    }
+    .list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #60A5FA;
     }
 
-    .alert{
-      background:#1F2937;border:1px solid #F97316;border-radius:8px;
-      padding:20px 24px;margin-bottom:20px;text-align:center;
+    .alert {
+        background: #1F2937;
+        border: 1px solid #F97316;
+        padding: 20px 24px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 20px;
     }
-    .alert p{font-size:14px;line-height:1.7;color:#FED7AA;}
-    .alert strong{color:#F97316;}
+    .alert p { color: #FED7AA; }
 
-    .footer{
-      text-align:center;margin-top:28px;padding-top:20px;
-      border-top:1px solid #1F2937;font-size:12px;color:#9CA3AF;
+    .btn {
+        padding: 12px 26px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: .2s;
+        margin-top: 12px;
     }
-    .footer .seal{
-      display:inline-block;margin-top:10px;padding:6px 16px;
-      border-radius:999px;border:1px solid #374151;color:#9CA3AF;
-      font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    .btn-primary {
+        background: #1F2937;
+        color: #9CA3AF;
+        border-color: #374151;
+        cursor: not-allowed;
+    }
+    .btn-primary.enabled {
+        background: #0078D4;
+        color: #fff;
+        border-color: #0078D4;
+        cursor: pointer;
+    }
+    .btn-primary.enabled:hover { background: #886CE4; border-color: #886CE4; }
+    .btn-secondary {
+        background: #111827;
+        color: #9CA3AF;
+        border-color: #374151;
+    }
+    .btn-secondary:hover { color: #60A5FA; border-color: #60A5FA; }
+
+    .footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #1F2937;
+        font-size: 13px;
+        color: #9CA3AF;
+    }
+    .footer a { color: #60A5FA; }
+    .footer a:hover { color: #886CE4; }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+        gap: 16px;
+        margin-top: 20px;
+    }
+    .menu-card {
+        background: #111827;
+        border: 1px solid #1F2937;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .menu-card:hover {
+        border-color: #0078D4;
+        box-shadow: 0 0 0 1px rgba(0,120,212,.4);
+    }
+    .menu-title { font-size: 15px; color: #F9FAFB; margin-bottom: 6px; }
+    .menu-desc { font-size: 13px; color: #9CA3AF; }
+
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15,23,42,.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+    .modal-content {
+        background: #111827;
+        border: 1px solid #374151;
+        padding: 26px 30px;
+        border-radius: 10px;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+    }
+    .modal-buttons { display: flex; justify-content: center; gap: 10px; }
+    .loading { display: none; margin-top: 14px; color: #F97316; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const screenGate = document.getElementById("screen-gate");
+    const screenMenu = document.getElementById("screen-menu");
+    const screenOverview = document.getElementById("screen-overview");
+
+    const checkbox = document.getElementById("agree");
+    const acceptBtn = document.getElementById("acceptBtn");
+    const declineBtn = document.getElementById("declineBtn");
+
+    const modal = document.getElementById("modal");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const loading = document.getElementById("loading");
+
+    const overviewTitle = document.getElementById("overviewTitle");
+    const overviewSub = document.getElementById("overviewSub");
+    const overviewBody = document.getElementById("overviewBody");
+    const proceedBtn = document.getElementById("proceedBtn");
+    const backBtn = document.getElementById("backBtn");
+
+    let currentTarget = null;
+
+    function showScreen(s) {
+        [screenGate, screenMenu, screenOverview].forEach(x => x.classList.remove("active"));
+        s.classList.add("active");
     }
 
-    .accept-box{text-align:center;margin-top:24px;}
-    .accept-box label{font-size:14px;cursor:pointer;color:#D1D5DB;}
-    .accept-box input{margin-right:6px;}
-
-    .btn{
-      margin-top:16px;padding:10px 24px;border-radius:6px;
-      border:1px solid transparent;font-size:13px;font-weight:600;
-      letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;
-      transition:0.2s;
-    }
-    .btn-primary{
-      background:#1F2937;color:#9CA3AF;border-color:#374151;
-      cursor:not-allowed;
-    }
-    .btn-primary.enabled{
-      background:#0078D4;color:#F9FAFB;border-color:#0078D4;
-      cursor:pointer;
-    }
-    .btn-primary.enabled:hover{
-      background:#886CE4;border-color:#886CE4;
-    }
-    .btn-secondary{
-      background:#111827;color:#9CA3AF;border-color:#374151;
-    }
-    .btn-secondary:hover{
-      border-color:#F97316;color:#F97316;
-    }
-
-    /* Modal */
-    .modal{
-      display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(15,23,42,0.9);justify-content:center;align-items:center;
-      z-index:999;
-    }
-    .modal-content{
-      background:#111827;border:1px solid #374151;border-radius:10px;
-      padding:26px 28px;text-align:center;color:#F9FAFB;
-      max-width:420px;width:90%;
-    }
-    .modal-content h3{
-      font-size:18px;margin-bottom:10px;color:#60A5FA;
-    }
-    .modal-content p{
-      font-size:14px;color:#D1D5DB;margin-bottom:18px;
-    }
-    .modal-buttons{display:flex;justify-content:center;gap:10px;}
-    .loading{
-      display:none;margin-top:14px;color:#F97316;font-size:12px;
-      letter-spacing:1px;text-transform:uppercase;
-    }
-
-    /* Screens */
-    .screen{display:none;}
-    .screen.active{display:block;}
-
-    /* Menu */
-    .menu-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-      margin-top:10px;
-    }
-    .menu-card{
-      background:#111827;border:1px solid #1F2937;border-radius:8px;
-      padding:18px 20px;cursor:pointer;transition:0.2s;
-    }
-    .menu-card:hover{
-      border-color:#0078D4;
-      box-shadow:0 0 0 1px rgba(0,120,212,0.4);
-    }
-    .menu-title{
-      font-size:14px;font-weight:600;color:#F9FAFB;margin-bottom:6px;
-    }
-    .menu-desc{
-      font-size:13px;color:#9CA3AF;
-    }
-
-    .overview-title{
-      font-size:18px;font-weight:600;color:#F9FAFB;margin-bottom:8px;
-    }
-    .overview-sub{
-      font-size:13px;color:#9CA3AF;margin-bottom:16px;
-    }
-  </style>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const screenGate = document.getElementById("screen-gate");
-      const screenMenu = document.getElementById("screen-menu");
-      const screenOverview = document.getElementById("screen-overview");
-
-      const checkbox = document.getElementById("agree");
-      const acceptBtn = document.getElementById("acceptBtn");
-      const declineBtn = document.getElementById("declineBtn");
-
-      const modal = document.getElementById("modal");
-      const confirmBtn = document.getElementById("confirmBtn");
-      const cancelBtn = document.getElementById("cancelBtn");
-      const loading = document.getElementById("loading");
-
-      const overviewTitle = document.getElementById("overviewTitle");
-      const overviewSub = document.getElementById("overviewSub");
-      const overviewBody = document.getElementById("overviewBody");
-      const proceedBtn = document.getElementById("proceedBtn");
-      const backBtn = document.getElementById("backBtn");
-
-      let currentTarget = null;
-
-      function showScreen(screen) {
-        [screenGate, screenMenu, screenOverview].forEach(s => s.classList.remove("active"));
-        screen.classList.add("active");
-      }
-
-      // Checkbox → enable/disable Accept button
-      checkbox.addEventListener("change", () => {
+    checkbox.addEventListener("change", () => {
         const enabled = checkbox.checked;
         acceptBtn.disabled = !enabled;
         acceptBtn.classList.toggle("enabled", enabled);
-      });
+    });
 
-      // Accept → open modal
-      acceptBtn.addEventListener("click", () => {
-        if (acceptBtn.disabled) return;
+    acceptBtn.addEventListener("click", () => {
+        if (!checkbox.checked) return;
         modal.style.display = "flex";
-      });
+    });
 
-      // Decline → close window
-      declineBtn.addEventListener("click", () => {
-        alert("Access declined. This window will now close.");
+    declineBtn.addEventListener("click", () => {
+        alert("Access declined. Closing window.");
         window.close();
-      });
+    });
 
-      // Modal cancel
-      cancelBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-      });
+    cancelBtn.addEventListener("click", () => modal.style.display = "none");
 
-      // Modal confirm → log + go to menu
-      confirmBtn.addEventListener("click", () => {
+    confirmBtn.addEventListener("click", () => {
         loading.style.display = "block";
-        localStorage.setItem("ConfidentialityAccepted", new Date().toLocaleString());
         setTimeout(() => {
-          modal.style.display = "none";
-          loading.style.display = "none";
-          showScreen(screenMenu);
+            modal.style.display = "none";
+            loading.style.display = "none";
+            showScreen(screenMenu);
         }, 800);
-      });
+    });
 
-      // Menu selections
-      const targets = {
+    const targets = {
         "eep": {
-          title: "EEP Framework",
-          sub: "Enterprise Enablement Program — Framework Overview",
-          body: "The EEP Framework provides a structured approach to modernizing delivery, governance, and measurement across engineering and security programs. This overview highlights the core components, lifecycle, and usage patterns.",
-          link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAhqUdqeLR5SLfBn8cJef5mAWo72Uw6TL0eo2_49v19_wI?e=UCNOWW"
+            title: "EEP Framework",
+            sub: "Enterprise Enablement Program",
+            body: "A structured framework for engineering modernization, delivery excellence, and capability maturity.",
+            link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAhqUdqeLR5SLfBn8cJef5mAWo72Uw6TL0eo2_49v19_wI?e=UCNOWW"
         },
         "ceeds": {
-          title: "CEEDS",
-          sub: "Customer Experience & Engineering Delivery System",
-          body: "CEEDS focuses on aligning customer experience, engineering delivery, and measurable outcomes. This overview covers the core model, key artifacts, and how CEEDS integrates with broader modernization efforts.",
-          link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAjbSRdjJjJRpRgDsCkn3_AAdjZ3n0uxYlLyb0mqc7uZ-Q?e=AuyKwP"
+            title: "CEEDS",
+            sub: "Customer Experience & Engineering Delivery System",
+            body: "A unified model for delivery excellence, customer experience, and operational governance.",
+            link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAjbSRdjJjJRpRgDsCkn3_AAdjZ3n0uxYlLyb0mqc7uZ-Q?e=AuyKwP"
         },
         "edev4": {
-          title: "EDEv4",
-          sub: "Engineering Delivery Evolution v4",
-          body: "EDEv4 defines the evolution path for engineering delivery capabilities, including maturity stages, practices, and supporting assets. This overview introduces the v4 model and how it is applied in real programs.",
-          link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAzXhAlJe7ST7v1nETjKQcTAVM5NCZTrD6vp8gff5uyHeg?e=M1OCP5"
+            title: "EDEv4",
+            sub: "Engineering Delivery Evolution v4",
+            body: "A capability maturity model defining delivery evolution across engineering teams.",
+            link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAzXhAlJe7ST7v1nETjKQcTAVM5NCZTrD6vp8gff5uyHeg?e=M1OCP5"
         },
         "dashboards": {
-          title: "Dashboards",
-          sub: "Delivery, EEP, and Command Center Dashboards",
-          body: "The dashboards provide visibility into engineering delivery, EEP progress, self‑assessment, and command center views. You can access individual dashboards for Engineer Delivery, EEP Command Center, EEP Self‑Assessment, and EEP & Security Modernization Command Center.",
-          link: null
+            title: "Dashboards",
+            sub: "Engineering & Modernization Dashboards",
+            body: "Select from Engineer Delivery, EEP Command Center, Self‑Assessment, or Modernization dashboards.",
+            link: null
         }
-      };
+    };
 
-      function openOverview(key) {
+    function openOverview(key) {
         currentTarget = key;
         const t = targets[key];
         overviewTitle.textContent = t.title;
         overviewSub.textContent = t.sub;
         overviewBody.textContent = t.body;
-
-        // For dashboards, we’ll open a small menu on proceed
-        if (key === "dashboards") {
-          proceedBtn.textContent = "Open Dashboard Selector";
-        } else {
-          proceedBtn.textContent = "Proceed";
-        }
-
+        proceedBtn.textContent = key === "dashboards" ? "Select Dashboard" : "Proceed";
         showScreen(screenOverview);
-      }
+    }
 
-      document.getElementById("cardEEP").addEventListener("click", () => openOverview("eep"));
-      document.getElementById("cardCEEDS").addEventListener("click", () => openOverview("ceeds"));
-      document.getElementById("cardEDEv4").addEventListener("click", () => openOverview("edev4"));
-      document.getElementById("cardDashboards").addEventListener("click", () => openOverview("dashboards"));
+    document.getElementById("cardEEP").onclick = () => openOverview("eep");
+    document.getElementById("cardCEEDS").onclick = () => openOverview("ceeds");
+    document.getElementById("cardEDEv4").onclick = () => openOverview("edev4");
+    document.getElementById("cardDashboards").onclick = () => openOverview("dashboards");
 
-      // Back to menu
-      backBtn.addEventListener("click", () => {
-        showScreen(screenMenu);
-      });
+    backBtn.addEventListener("click", () => showScreen(screenMenu));
 
-      // Proceed → redirect
-      proceedBtn.addEventListener("click", () => {
+    proceedBtn.addEventListener("click", () => {
         if (!currentTarget) return;
 
         if (currentTarget === "dashboards") {
-          // Simple prompt selector for now
-          const choice = prompt(
-            "Select dashboard:\n\n1 = Engineer Delivery Dashboard\n2 = EEP Command Center (Unbranded)\n3 = EEP Self Assessment\n4 = EEP & Security Modernization — Command Center",
-            "1"
-          );
-          let url = null;
-          switch (choice) {
-            case "1":
-              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/engineer-delivery-dashboard.html";
-              break;
-            case "2":
-              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/eep-command-center-unbranded.html";
-              break;
-            case "3":
-              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/eep-self-assessment.html";
-              break;
-            case "4":
-              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/eep-command-center.html";
-              break;
-            default:
-              alert("No dashboard selected.");
-              return;
-          }
-          window.location.href = url;
+            const choice = prompt(
+                "Select dashboard:\n\n1 = Engineer Delivery Dashboard\n2 = EEP Command Center (Unbranded)\n3 = EEP Self Assessment\n4 = EEP & Security Modernization Command Center",
+                "1"
+            );
+            let url = null;
+            switch (choice) {
+                case "1":
+                    url = "https://amgarciajr.github.io/Training-and-Development/engineer-delivery-dashboard.html";
+                    break;
+                case "2":
+                    url = "https://amgarciajr.github.io/Training-and-Development/eep-command-center-unbranded.html";
+                    break;
+                case "3":
+                    url = "https://amgarciajr.github.io/Training-and-Development/eep-self-assessment.html";
+                    break;
+                case "4":
+                    url = "https://amgarciajr.github.io/Training-and-Development/eep-command-center.html";
+                    break;
+                default:
+                    alert("No dashboard selected.");
+                    return;
+            }
+            window.location.href = url;
         } else {
-          const t = targets[currentTarget];
-          window.location.href = t.link;
+            window.location.href = targets[currentTarget].link;
         }
-      });
-
-      // Start on gate screen
-      showScreen(screenGate);
     });
-  </script>
+
+    showScreen(screenGate);
+});
+</script>
 </head>
 
 <body>
 <div class="container">
 
-  <!-- Screen 1: Confidentiality Gate -->
-  <section id="screen-gate" class="screen">
+<!-- SCREEN 1: CONFIDENTIALITY GATE -->
+<section id="screen-gate" class="screen active">
     <div class="header">
-      <div class="badge">Restricted Access · Confidential</div>
-      <h1>READ BEFORE ACCESS</h1>
-      <div class="subtitle">Confidentiality & Access Terms</div>
-      <div class="divider"></div>
+        <div class="badge">Restricted Access</div>
+        <h1>READ BEFORE ACCESS</h1>
+        <div class="subtitle">Confidentiality & Access Terms</div>
+        <div class="divider"></div>
     </div>
 
     <div class="alert">
-      <p><strong>Important:</strong> By accessing any file, folder, dashboard, or content linked from this page, you acknowledge and agree to the confidentiality terms below. If you do not agree, do not proceed.</p>
+        <p><strong>Important:</strong> By continuing, you agree to the confidentiality terms below.</p>
     </div>
 
     <div class="card">
-      <h2>Confidentiality</h2>
-      <p>All materials accessible from this portal are confidential and proprietary to the content owner. This includes frameworks, methodologies, templates, dashboards, architecture models, and any derivative content.</p>
+        <h2>Confidentiality</h2>
+        <p>All materials accessible from this portal are confidential and proprietary. This includes frameworks, dashboards, models, and any derivative content.</p>
     </div>
 
     <div class="card">
-      <h2>Permitted Use</h2>
-      <p>You are granted view‑only access for the sole purpose of review and evaluation. No other rights are granted or implied.</p>
+        <h2>Permitted Use</h2>
+        <p>You are granted view‑only access for review and evaluation. No other rights are granted or implied.</p>
     </div>
 
     <div class="card">
-      <h2>Prohibited Actions</h2>
-      <p>Without explicit written permission from the content owner, you may not:</p>
-      <ul class="list">
-        <li>Copy, download, print, or export any content</li>
-        <li>Screenshot, record, or otherwise capture the content</li>
-        <li>Share, forward, or redistribute links or materials</li>
-        <li>Use the content to create derivative works</li>
-        <li>Incorporate the content into internal or commercial deliverables</li>
-        <li>Use the content for competitive analysis or product development</li>
-      </ul>
+        <h2>Prohibited Actions</h2>
+        <ul class="list">
+            <li>Copying, downloading, or exporting content</li>
+            <li>Screenshotting or recording content</li>
+            <li>Sharing or redistributing links or materials</li>
+            <li>Creating derivative works</li>
+            <li>Using content for competitive analysis</li>
+        </ul>
     </div>
 
     <div class="card">
-      <h2>Intellectual Property & Access</h2>
-      <p>All content remains the exclusive intellectual property of the framework owner. No license or ownership rights are transferred through access. Access may be revoked at any time without notice. Continued access constitutes acceptance of these terms.</p>
+        <h2>Access Revocation</h2>
+        <p>Access may be revoked at any time without notice. Continued access constitutes acceptance of these terms.</p>
     </div>
 
     <div class="alert">
-      <p><strong>If You Do Not Agree:</strong> Do not access or view the content. Unauthorized use may result in legal or contractual action.</p>
+        <p><strong>If you do not agree:</strong> Do not proceed.</p>
     </div>
 
-    <div class="accept-box">
-      <label>
-        <input type="checkbox" id="agree">
-        I have read and agree to the Confidentiality & Access Terms
-      </label>
-      <br>
-      <button id="acceptBtn" class="btn btn-primary" disabled>Accept & Continue</button>
-      <br>
-      <button id="declineBtn" class="btn btn-secondary">Decline & Close</button>
+    <div style="text-align:center; margin-top:20px;">
+        <label>
+            <input type="checkbox" id="agree"> I agree to the Confidentiality Terms
+        </label>
+        <br>
+        <button id="acceptBtn" class="btn btn-primary" disabled>Accept & Continue</button>
+        <br>
+        <button id="declineBtn" class="btn btn-secondary">Decline & Close</button>
     </div>
 
     <div class="footer">
-      <div>Security‑Aligned Access · Microsoft‑Inspired Design</div>
-      <div class="seal">Confidential · Restricted Use</div>
+        <div>Confidential Access Portal</div>
+        <a href="about.html">About the Author</a>
     </div>
-  </section>
+</section>
 
-  <!-- Screen 2: Category Menu -->
-  <section id="screen-menu" class="screen">
+<!-- SCREEN 2: CATEGORY MENU -->
+<section id="screen-menu" class="screen">
     <div class="header">
-      <div class="badge">Select Content</div>
-      <h1>What would you like to access?</h1>
-      <div class="subtitle">Choose a framework or dashboard category</div>
-      <div class="divider"></div>
+        <div class="badge">Select Content</div>
+        <h1>What would you like to access?</h1>
+        <div class="subtitle">Choose a category</div>
+        <div class="divider"></div>
     </div>
 
     <div class="card">
-      <p>Select a category below to view an overview and proceed to the corresponding assets.</p>
-      <div class="menu-grid">
-        <div id="cardEEP" class="menu-card">
-          <div class="menu-title">EEP Framework</div>
-          <div class="menu-desc">Enterprise Enablement Program framework overview and assets.</div>
+        <div class="menu-grid">
+            <div id="cardEEP" class="menu-card">
+                <div class="menu-title">EEP Framework</div>
+                <div class="menu-desc">Modernization & delivery framework.</div>
+            </div>
+            <div id="cardCEEDS" class="menu-card">
+                <div class="menu-title">CEEDS</div>
+                <div class="menu-desc">Delivery & experience system.</div>
+            </div>
+            <div id="cardEDEv4" class="menu-card">
+                <div class="menu-title">EDEv4</div>
+                <div class="menu-desc">Delivery evolution model.</div>
+            </div>
+            <div id="cardDashboards" class="menu-card">
+                <div class="menu-title">Dashboards</div>
+                <div class="menu-desc">Engineering & modernization dashboards.</div>
+            </div>
         </div>
-        <div id="cardCEEDS" class="menu-card">
-          <div class="menu-title">CEEDS</div>
-          <div class="menu-desc">Customer Experience & Engineering Delivery System model.</div>
-        </div>
-        <div id="cardEDEv4" class="menu-card">
-          <div class="menu-title">EDEv4</div>
-          <div class="menu-desc">Engineering Delivery Evolution v4 maturity and practices.</div>
-        </div>
-        <div id="cardDashboards" class="menu-card">
-          <div class="menu-title">Dashboards</div>
-          <div class="menu-desc">Engineer Delivery, EEP, Self‑Assessment, and Command Center views.</div>
-        </div>
-      </div>
     </div>
 
     <div class="footer">
-      <div>Aligned to Modern Engineering & Security Programs</div>
-      <div class="seal">Framework & Dashboards</div>
+        <div>Frameworks & Dashboards</div>
+        <a href="about.html">About the Author</a>
     </div>
-  </section>
+</section>
 
-  <!-- Screen 3: Overview -->
-  <section id="screen-overview" class="screen">
+<!-- SCREEN 3: OVERVIEW -->
+<section id="screen-overview" class="screen">
     <div class="header">
-      <div class="badge">Overview</div>
-      <h1 id="overviewTitle">Selected Content</h1>
-      <div id="overviewSub" class="subtitle">Overview details</div>
-      <div class="divider"></div>
+        <div class="badge">Overview</div>
+        <h1 id="overviewTitle">Title</h1>
+        <div id="overviewSub" class="subtitle">Subtitle</div>
+        <div class="divider"></div>
     </div>
 
     <div class="card">
-      <p id="overviewBody"></p>
+        <p id="overviewBody"></p>
     </div>
 
-    <div class="accept-box">
-      <button id="proceedBtn" class="btn btn-primary enabled">Proceed</button>
-      <br>
-      <button id="backBtn" class="btn btn-secondary">Back to Categories</button>
+    <div style="text-align:center;">
+        <button id="proceedBtn" class="btn btn-primary enabled">Proceed</button>
+        <br>
+        <button id="backBtn" class="btn btn-secondary">Back</button>
     </div>
 
     <div class="footer">
-      <div>Access subject to Confidentiality & Use Terms</div>
-      <div class="seal">Proceed with Awareness</div>
+        <div>Access subject to confidentiality terms</div>
+        <a href="about.html">About the Author</a>
     </div>
-  </section>
+</section>
 
 </div>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div id="modal" class="modal">
-  <div class="modal-content">
-    <h3>Confirm Access</h3>
-    <p>By continuing, you confirm that you have read and agree to the Confidentiality & Access Terms and understand that unauthorized use may result in legal or contractual action.</p>
-    <div class="modal-buttons">
-      <button id="confirmBtn" class="btn btn-primary enabled">Continue</button>
-      <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+    <div class="modal-content">
+        <h3>Confirm Access</h3>
+        <p>By continuing, you confirm that you agree to the confidentiality terms.</p>
+        <div class="modal-buttons">
+            <button id="confirmBtn" class="btn btn-primary enabled">Continue</button>
+            <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+        </div>
+        <div id="loading" class="loading">Preparing access…</div>
     </div>
-    <div id="loading" class="loading">Preparing access…</div>
-  </div>
 </div>
+
 </body>
 </html>
