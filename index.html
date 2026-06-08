@@ -1,41 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Confidential Access Portal</title>
 
+<!-- 
+===========================================================
+  GLOBAL THEME VARIABLES
+  - Light Mode (C3 Lavender Tint)
+  - Dark Mode
+  - High Contrast Mode
+===========================================================
+-->
 <style>
-/* ------------------------------
-   GLOBAL STYLES
------------------------------- */
+
+/* ---------------------------------------------------------
+   ROOT VARIABLES — DEFAULT THEME (LIGHT MODE, C3 LAVENDER)
+--------------------------------------------------------- */
+:root {
+    --bg: #FBF8FF;                 /* Lavender‑tinted light background */
+    --bg-panel: #FFFFFFEE;         /* Glassy white panel */
+    --text: #1A1A1A;               /* Dark text */
+    --text-muted: #555;
+    --border: #DDD;
+    --accent: #8B5CF6;             /* Lavender accent */
+    --accent-glow: rgba(139,92,246,0.45);
+    --nav-bg: rgba(255,255,255,0.65);
+    --drawer-bg: rgba(255,255,255,0.85);
+    --icon-stroke: #444;
+}
+
+/* ---------------------------------------------------------
+   DARK MODE VARIABLES
+--------------------------------------------------------- */
+[data-theme="dark"] {
+    --bg: #0B1120;
+    --bg-panel: #111827;
+    --text: #E5E7EB;
+    --text-muted: #9CA3AF;
+    --border: #1F2937;
+    --accent: #886CE4;
+    --accent-glow: rgba(136,108,228,0.45);
+    --nav-bg: rgba(17,25,40,0.55);
+    --drawer-bg: rgba(17,25,40,0.85);
+    --icon-stroke: #E5E7EB;
+}
+
+/* ---------------------------------------------------------
+   HIGH CONTRAST MODE VARIABLES (WCAG AAA)
+--------------------------------------------------------- */
+[data-theme="contrast"] {
+    --bg: #000;
+    --bg-panel: #000;
+    --text: #FFF;
+    --text-muted: #FFF;
+    --border: #FFF;
+    --accent: #FFD700;
+    --accent-glow: rgba(255,215,0,0.6);
+    --nav-bg: #000;
+    --drawer-bg: #000;
+    --icon-stroke: #FFF;
+}
+
+/* ---------------------------------------------------------
+   GLOBAL RESET & BODY
+--------------------------------------------------------- */
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
-    background: #0B1120;
-    color: #E5E7EB;
+    background: var(--bg);
+    color: var(--text);
     padding-top: 70px; /* space for floating nav */
+    transition: background 0.3s, color 0.3s;
 }
 
-/* Container */
-.container {
-    max-width: 960px;
-    margin: auto;
-    padding: 20px;
+/* Utility classes for WCAG toggles */
+.large-text { font-size: 1.15em; }
+.extra-spacing { letter-spacing: 0.5px; line-height: 1.6; }
+.underline-links a { text-decoration: underline !important; }
+
+/* Reduce motion toggle */
+.reduce-motion * {
+    animation: none !important;
+    transition: none !important;
 }
 
-/* ------------------------------
-   FLOATING NAV BAR (MODERN)
------------------------------- */
+/* ---------------------------------------------------------
+   FLOATING NAV BAR
+--------------------------------------------------------- */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 60px;
     backdrop-filter: blur(12px);
-    background: rgba(17, 25, 40, 0.55);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -46,7 +106,6 @@ body {
 .nav-title {
     font-size: 18px;
     font-weight: 600;
-    color: #F9FAFB;
 }
 
 .nav-links {
@@ -55,15 +114,30 @@ body {
 }
 
 .nav-links a {
-    color: #E5E7EB;
+    color: var(--text);
     text-decoration: none;
     font-size: 14px;
     transition: 0.2s;
 }
 
 .nav-links a:hover {
-    color: #60A5FA;
-    text-shadow: 0 0 6px rgba(96,165,250,0.6);
+    color: var(--accent);
+    text-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Accessibility icon in nav */
+.nav-accessibility-icon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--icon-stroke);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-accessibility-icon:hover {
+    border-color: var(--accent);
 }
 
 /* Mobile hamburger */
@@ -77,7 +151,7 @@ body {
 .hamburger div {
     width: 22px;
     height: 3px;
-    background: #E5E7EB;
+    background: var(--text);
     border-radius: 2px;
 }
 
@@ -87,22 +161,22 @@ body {
     position: fixed;
     top: 60px;
     right: 0;
-    background: rgba(17,25,40,0.95);
+    background: var(--drawer-bg);
     width: 200px;
     padding: 20px;
-    border-left: 1px solid rgba(255,255,255,0.08);
+    border-left: 1px solid var(--border);
     z-index: 998;
 }
 
 .mobile-menu a {
     display: block;
     padding: 10px 0;
-    color: #E5E7EB;
+    color: var(--text);
     text-decoration: none;
 }
 
 .mobile-menu a:hover {
-    color: #60A5FA;
+    color: var(--accent);
 }
 
 /* Mobile behavior */
@@ -111,52 +185,84 @@ body {
     .hamburger { display: flex; }
 }
 
-/* ------------------------------
-   HEADERS & CARDS
------------------------------- */
-.header { text-align: center; margin-bottom: 32px; }
-.badge {
-    display: inline-block;
-    background: #0078D4;
-    color: #fff;
-    padding: 6px 18px;
-    border-radius: 999px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-}
-h1 { font-size: 28px; color: #F9FAFB; margin-bottom: 8px; }
-.subtitle { color: #9CA3AF; font-size: 14px; text-transform: uppercase; }
-.divider {
-    width: 70px;
-    height: 3px;
-    background: linear-gradient(90deg,#0078D4,#886CE4,#00B7C3);
-    margin: 24px auto;
-    border-radius: 999px;
-}
+/* ---------------------------------------------------------
+   PURE CSS THIN-LINE ICONS (1.5–2px)
+--------------------------------------------------------- */
 
-.card {
-    background: #111827;
-    border: 1px solid #1F2937;
-    padding: 26px 30px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.card h2 {
-    font-size: 14px;
-    color: #60A5FA;
+/* Generic icon container */
+.icon {
+    width: 32px;
+    height: 32px;
+    position: relative;
     margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-.card p { font-size: 15px; line-height: 1.7; color: #D1D5DB; }
+/* EEP Framework icon — layered squares */
+.icon-eep::before,
+.icon-eep::after {
+    content: "";
+    position: absolute;
+    border: 2px solid var(--icon-stroke);
+    border-radius: 4px;
+}
+.icon-eep::before {
+    width: 22px; height: 22px;
+    top: 5px; left: 5px;
+}
+.icon-eep::after {
+    width: 18px; height: 18px;
+    top: 9px; left: 9px;
+}
 
-/* ------------------------------
-   CATEGORY MENU
------------------------------- */
+/* CEEDS icon — flow nodes */
+.icon-ceeds::before,
+.icon-ceeds::after {
+    content: "";
+    position: absolute;
+    border: 2px solid var(--icon-stroke);
+    border-radius: 50%;
+}
+.icon-ceeds::before {
+    width: 10px; height: 10px;
+    top: 6px; left: 6px;
+}
+.icon-ceeds::after {
+    width: 10px; height: 10px;
+    bottom: 6px; right: 6px;
+}
+.icon-ceeds {
+    border-left: 2px solid var(--icon-stroke);
+    border-bottom: 2px solid var(--icon-stroke);
+}
+
+/* EDEv4 icon — upward steps */
+.icon-edev4 {
+    border-left: 2px solid var(--icon-stroke);
+    border-bottom: 2px solid var(--icon-stroke);
+}
+.icon-edev4::before {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border-top: 2px solid var(--icon-stroke);
+    border-right: 2px solid var(--icon-stroke);
+    top: 6px; left: 6px;
+}
+
+/* Dashboards icon — chart line */
+.icon-dashboards::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--icon-stroke);
+    top: 15px; left: 4px;
+    transform: rotate(-20deg);
+}
+
+/* ---------------------------------------------------------
+   CATEGORY GRID (2×2)
+--------------------------------------------------------- */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
@@ -165,171 +271,312 @@ h1 { font-size: 28px; color: #F9FAFB; margin-bottom: 8px; }
 }
 
 .menu-card {
-    background: #111827;
-    border: 1px solid #1F2937;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
     padding: 20px;
     border-radius: 10px;
     cursor: pointer;
     transition: .2s;
+    position: relative;
+    overflow: hidden;
 }
 
 .menu-card:hover {
-    border-color: #0078D4;
-    box-shadow: 0 0 0 1px rgba(0,120,212,.4);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+    transform: translateY(-3px);
 }
 
-.menu-title { font-size: 15px; color: #F9FAFB; margin-bottom: 6px; }
-.menu-desc { font-size: 13px; color: #9CA3AF; }
-
-/* ------------------------------
-   BUTTONS
------------------------------- */
-.btn {
-    padding: 12px 26px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: .2s;
-    margin-top: 12px;
+/* Ripple effect */
+.menu-card:active::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: var(--accent-glow);
+    top: -50%; left: -50%;
+    border-radius: 50%;
+    animation: ripple 0.4s ease-out;
+}
+@keyframes ripple {
+    from { transform: scale(0); opacity: 0.6; }
+    to { transform: scale(1); opacity: 0; }
 }
 
-.btn-primary {
-    background: #1F2937;
-    color: #9CA3AF;
-    border-color: #374151;
-    cursor: not-allowed;
-}
+.menu-title { font-size: 15px; font-weight: 600; }
+.menu-desc { font-size: 13px; color: var(--text-muted); }
 
-.btn-primary.enabled {
-    background: #0078D4;
-    color: #fff;
-    border-color: #0078D4;
-    cursor: pointer;
-}
-
-.btn-primary.enabled:hover {
-    background: #886CE4;
-    border-color: #886CE4;
-}
-
-.btn-secondary {
-    background: #111827;
-    color: #9CA3AF;
-    border-color: #374151;
-}
-
-.btn-secondary:hover {
-    color: #60A5FA;
-    border-color: #60A5FA;
-}
-
-/* ------------------------------
-   FOOTER
------------------------------- */
-.footer {
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #1F2937;
-    font-size: 13px;
-    color: #9CA3AF;
-}
-
-.footer a {
-    color: #60A5FA;
-}
-
-.footer a:hover {
-    color: #886CE4;
-}
-
-/* ------------------------------
-   SCREEN HANDLING
------------------------------- */
-.screen { display: none; }
-.screen.active { display: block; }
-
-/* ------------------------------
-   RIGHT-SIDE DASHBOARD SELECTOR
------------------------------- */
+/* ---------------------------------------------------------
+   DASHBOARD DRAWER (RIGHT SIDE)
+--------------------------------------------------------- */
 .dashboard-panel {
     position: fixed;
     top: 0;
     right: -400px;
     width: 350px;
     height: 100%;
-    background: rgba(17,25,40,0.95);
+    background: var(--drawer-bg);
     backdrop-filter: blur(12px);
-    border-left: 1px solid rgba(255,255,255,0.08);
+    border-left: 1px solid var(--border);
     padding: 20px;
     transition: right .35s ease;
     z-index: 1000;
 }
+.dashboard-panel.open { right: 0; }
 
-.dashboard-panel.open {
-    right: 0;
+/* ---------------------------------------------------------
+   ACCESSIBILITY DRAWER (LEFT SIDE)
+--------------------------------------------------------- */
+.accessibility-panel {
+    position: fixed;
+    top: 0;
+    left: -350px;
+    width: 320px;
+    height: 100%;
+    background: var(--drawer-bg);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid var(--border);
+    padding: 20px;
+    transition: left .35s ease;
+    z-index: 1000;
 }
+.accessibility-panel.open { left: 0; }
 
-.dashboard-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #F9FAFB;
-    margin-bottom: 20px;
-}
-
-.dashboard-card {
-    background: #111827;
-    border: 1px solid #1F2937;
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 14px;
+/* Floating accessibility button */
+.accessibility-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
     cursor: pointer;
-    transition: .2s;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.accessibility-fab::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border: 2px solid white;
+    border-radius: 50%;
 }
 
-.dashboard-card:hover {
-    border-color: #0078D4;
-    box-shadow: 0 0 0 1px rgba(0,120,212,.4);
-}
-
-.dashboard-card-title {
-    font-size: 15px;
-    color: #F9FAFB;
-}
-
-.dashboard-card-desc {
-    font-size: 13px;
-    color: #9CA3AF;
-}
-
-/* Close button */
-.close-panel {
-    text-align: right;
-    margin-bottom: 10px;
-}
-
-.close-panel button {
-    background: none;
-    border: none;
-    color: #9CA3AF;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.close-panel button:hover {
-    color: #F9FAFB;
-}
 </style>
+</head>
+<body>
 
+<!-- =========================================================
+     FLOATING NAV BAR
+========================================================= -->
+<div class="navbar">
+    <div class="nav-title">Confidential Portal</div>
+
+    <div class="nav-links">
+        <a href="#screen-gate">Home</a>
+        <a href="#screen-menu">Frameworks</a>
+        <a id="navDashboards">Dashboards</a>
+
+        <!-- Accessibility icon in nav -->
+        <div id="navAccessibility" class="nav-accessibility-icon"></div>
+
+        <a href="about.html">About</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <div id="hamburger" class="hamburger">
+        <div></div><div></div><div></div>
+    </div>
+</div>
+
+<!-- Mobile menu -->
+<div id="mobileMenu" class="mobile-menu">
+    <a href="#screen-gate">Home</a>
+    <a href="#screen-menu">Frameworks</a>
+    <a id="mobileDashboards">Dashboards</a>
+    <a id="mobileAccessibility">Accessibility</a>
+    <a href="about.html">About</a>
+</div>
+
+<!-- =========================================================
+     ACCESSIBILITY DRAWER (LEFT SIDE)
+========================================================= -->
+<div id="accessibilityPanel" class="accessibility-panel">
+
+    <h2 style="margin-top:0;">Accessibility Settings</h2>
+
+    <!-- Theme Mode -->
+    <h3>Theme</h3>
+    <button class="btn-secondary" id="themeLight">Light Mode</button>
+    <button class="btn-secondary" id="themeDark">Dark Mode</button>
+    <button class="btn-secondary" id="themeContrast">High Contrast</button>
+
+    <!-- Font Size -->
+    <h3>Font Size</h3>
+    <button class="btn-secondary" id="fontNormal">Normal</button>
+    <button class="btn-secondary" id="fontLarge">Large</button>
+
+    <!-- Spacing -->
+    <h3>Spacing</h3>
+    <button class="btn-secondary" id="spacingNormal">Normal</button>
+    <button class="btn-secondary" id="spacingWide">Wide</button>
+
+    <!-- Underline Links -->
+    <h3>Links</h3>
+    <button class="btn-secondary" id="linksNormal">Default</button>
+    <button class="btn-secondary" id="linksUnderline">Underline</button>
+
+    <!-- Motion -->
+    <h3>Motion</h3>
+    <button class="btn-secondary" id="motionNormal">Normal</button>
+    <button class="btn-secondary" id="motionReduced">Reduce Motion</button>
+
+</div>
+
+<!-- Floating Accessibility Button -->
+<div id="accessibilityFab" class="accessibility-fab"></div>
+
+<!-- =========================================================
+     DASHBOARD DRAWER (RIGHT SIDE)
+========================================================= -->
+<div id="dashboardPanel" class="dashboard-panel">
+
+    <div class="close-panel" style="text-align:right;">
+        <button id="closeDashboard" style="background:none;border:none;font-size:22px;color:var(--text);cursor:pointer;">&times;</button>
+    </div>
+
+    <h2>Select a Dashboard</h2>
+
+    <div id="dash1" class="dashboard-card">
+        <div class="icon icon-edev4"></div>
+        <div class="dashboard-card-title">Engineer Delivery Dashboard</div>
+        <div class="dashboard-card-desc">Daily engineering delivery insights.</div>
+    </div>
+
+    <div id="dash2" class="dashboard-card">
+        <div class="icon icon-eep"></div>
+        <div class="dashboard-card-title">EEP Command Center (Unbranded)</div>
+        <div class="dashboard-card-desc">EEP program visibility & metrics.</div>
+    </div>
+
+    <div id="dash3" class="dashboard-card">
+        <div class="icon icon-ceeds"></div>
+        <div class="dashboard-card-title">EEP Self‑Assessment</div>
+        <div class="dashboard-card-desc">Capability maturity self‑evaluation.</div>
+    </div>
+
+    <div id="dash4" class="dashboard-card">
+        <div class="icon icon-dashboards"></div>
+        <div class="dashboard-card-title">EEP & Security Modernization</div>
+        <div class="dashboard-card-desc">Modernization command center.</div>
+    </div>
+
+</div>
+
+<!-- =========================================================
+     MAIN CONTENT SCREENS
+========================================================= -->
+<div class="container">
+
+<!-- SCREEN 1: CONFIDENTIALITY GATE -->
+<section id="screen-gate" class="screen active">
+    <div class="header">
+        <div class="badge">Restricted Access</div>
+        <h1>READ BEFORE ACCESS</h1>
+        <div class="subtitle">Confidentiality & Access Terms</div>
+        <div class="divider"></div>
+    </div>
+
+    <div class="card">
+        <h2>Confidentiality</h2>
+        <p>
+            By accessing this portal, you acknowledge that all materials, dashboards, frameworks, 
+            and documents are confidential and intended solely for authorized individuals.
+        </p>
+        <p>
+            Redistribution, copying, or external sharing is strictly prohibited.
+        </p>
+
+        <label style="display:flex;align-items:center;margin-top:20px;">
+            <input type="checkbox" id="agree" style="margin-right:10px;">
+            I understand and agree to the confidentiality terms.
+        </label>
+
+        <button id="acceptBtn" class="btn btn-primary" disabled>Accept</button>
+        <button id="declineBtn" class="btn btn-secondary">Decline</button>
+    </div>
+</section>
+
+<!-- SCREEN 2: CATEGORY MENU -->
+<section id="screen-menu" class="screen">
+    <div class="header">
+        <div class="badge">Select Content</div>
+        <h1>Frameworks & Dashboards</h1>
+        <div class="subtitle">Choose a category to continue</div>
+        <div class="divider"></div>
+    </div>
+
+    <div class="menu-grid">
+
+        <div id="cardEEP" class="menu-card">
+            <div class="icon icon-eep"></div>
+            <div class="menu-title">EEP Framework</div>
+            <div class="menu-desc">Enterprise Enablement Program</div>
+        </div>
+
+        <div id="cardCEEDS" class="menu-card">
+            <div class="icon icon-ceeds"></div>
+            <div class="menu-title">CEEDS</div>
+            <div class="menu-desc">Customer Experience & Engineering Delivery System</div>
+        </div>
+
+        <div id="cardEDEv4" class="menu-card">
+            <div class="icon icon-edev4"></div>
+            <div class="menu-title">EDEv4</div>
+            <div class="menu-desc">Engineering Delivery Evolution v4</div>
+        </div>
+
+        <div id="cardDashboards" class="menu-card">
+            <div class="icon icon-dashboards"></div>
+            <div class="menu-title">Dashboards</div>
+            <div class="menu-desc">Engineering & Modernization Dashboards</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SCREEN 3: OVERVIEW -->
+<section id="screen-overview" class="screen">
+    <div class="header">
+        <div class="badge">Overview</div>
+        <h1 id="overviewTitle"></h1>
+        <div class="subtitle" id="overviewSub"></div>
+        <div class="divider"></div>
+    </div>
+
+    <div class="card">
+        <p id="overviewBody"></p>
+
+        <button id="proceedBtn" class="btn btn-primary enabled">Proceed</button>
+        <button id="backBtn" class="btn btn-secondary">Back</button>
+    </div>
+</section>
+
+</div> <!-- end container -->
+
+<!-- =========================================================
+     JAVASCRIPT — INTERACTIVITY, THEMES, DRAWERS, WCAG
+========================================================= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ------------------------------
-       NAVBAR MOBILE MENU
-    ------------------------------ */
+    /* ---------------------------------------------------------
+       MOBILE MENU
+    --------------------------------------------------------- */
     const hamburger = document.getElementById("hamburger");
     const mobileMenu = document.getElementById("mobileMenu");
 
@@ -338,9 +585,9 @@ document.addEventListener("DOMContentLoaded", () => {
             mobileMenu.style.display === "block" ? "none" : "block";
     });
 
-    /* ------------------------------
+    /* ---------------------------------------------------------
        SCREEN HANDLING
-    ------------------------------ */
+    --------------------------------------------------------- */
     const screenGate = document.getElementById("screen-gate");
     const screenMenu = document.getElementById("screen-menu");
     const screenOverview = document.getElementById("screen-overview");
@@ -350,9 +597,9 @@ document.addEventListener("DOMContentLoaded", () => {
         s.classList.add("active");
     }
 
-    /* ------------------------------
+    /* ---------------------------------------------------------
        CONFIDENTIALITY CHECKBOX
-    ------------------------------ */
+    --------------------------------------------------------- */
     const checkbox = document.getElementById("agree");
     const acceptBtn = document.getElementById("acceptBtn");
 
@@ -362,41 +609,18 @@ document.addEventListener("DOMContentLoaded", () => {
         acceptBtn.classList.toggle("enabled", enabled);
     });
 
-    /* ------------------------------
-       ACCEPT MODAL
-    ------------------------------ */
-    const modal = document.getElementById("modal");
-    const confirmBtn = document.getElementById("confirmBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
-    const loading = document.getElementById("loading");
-
-    acceptBtn.addEventListener("click", () => {
-        if (!checkbox.checked) return;
-        modal.style.display = "flex";
-    });
-
-    cancelBtn.addEventListener("click", () => modal.style.display = "none");
-
-    confirmBtn.addEventListener("click", () => {
-        loading.style.display = "block";
-        setTimeout(() => {
-            modal.style.display = "none";
-            loading.style.display = "none";
-            showScreen(screenMenu);
-        }, 800);
-    });
-
-    /* ------------------------------
-       DECLINE
-    ------------------------------ */
+    /* ---------------------------------------------------------
+       ACCEPT / DECLINE
+    --------------------------------------------------------- */
+    acceptBtn.addEventListener("click", () => showScreen(screenMenu));
     document.getElementById("declineBtn").addEventListener("click", () => {
         alert("Access declined.");
         window.close();
     });
 
-    /* ------------------------------
+    /* ---------------------------------------------------------
        CATEGORY SELECTION
-    ------------------------------ */
+    --------------------------------------------------------- */
     const overviewTitle = document.getElementById("overviewTitle");
     const overviewSub = document.getElementById("overviewSub");
     const overviewBody = document.getElementById("overviewBody");
@@ -449,14 +673,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backBtn.addEventListener("click", () => showScreen(screenMenu));
 
-    /* ------------------------------
-       DASHBOARD PANEL (RIGHT SIDE)
-    ------------------------------ */
-    const panel = document.getElementById("dashboardPanel");
-    const closePanelBtn = document.getElementById("closePanel");
+    /* ---------------------------------------------------------
+       DASHBOARD DRAWER
+    --------------------------------------------------------- */
+    const dashboardPanel = document.getElementById("dashboardPanel");
+    const closeDashboard = document.getElementById("closeDashboard");
 
-    closePanelBtn.addEventListener("click", () => {
-        panel.classList.remove("open");
+    closeDashboard.addEventListener("click", () => {
+        dashboardPanel.classList.remove("open");
     });
 
     proceedBtn.addEventListener("click", () => {
@@ -464,10 +688,10 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = targets[currentTarget].link;
             return;
         }
-        panel.classList.add("open");
+        dashboardPanel.classList.add("open");
     });
 
-    /* Dashboard card redirects */
+    /* Dashboard redirects */
     document.getElementById("dash1").onclick = () =>
         window.location.href = "https://amgarciajr.github.io/Training-and-Development/engineer-delivery-dashboard.html";
 
@@ -480,83 +704,105 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("dash4").onclick = () =>
         window.location.href = "https://amgarciajr.github.io/Training-and-Development/eep-command-center.html";
 
-    /* Start on gate */
+    /* ---------------------------------------------------------
+       ACCESSIBILITY DRAWER (LEFT)
+    --------------------------------------------------------- */
+    const accessibilityPanel = document.getElementById("accessibilityPanel");
+    const accessibilityFab = document.getElementById("accessibilityFab");
+    const navAccessibility = document.getElementById("navAccessibility");
+    const mobileAccessibility = document.getElementById("mobileAccessibility");
+
+    function toggleAccessibility() {
+        accessibilityPanel.classList.toggle("open");
+    }
+
+    accessibilityFab.onclick = toggleAccessibility;
+    navAccessibility.onclick = toggleAccessibility;
+    mobileAccessibility.onclick = toggleAccessibility;
+
+    /* ---------------------------------------------------------
+       WCAG SETTINGS — THEME, FONT, SPACING, LINKS, MOTION
+    --------------------------------------------------------- */
+
+    // Theme
+    document.getElementById("themeLight").onclick = () => {
+        document.documentElement.setAttribute("data-theme", "light");
+        localStorage.setItem("theme", "light");
+    };
+    document.getElementById("themeDark").onclick = () => {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+    };
+    document.getElementById("themeContrast").onclick = () => {
+        document.documentElement.setAttribute("data-theme", "contrast");
+        localStorage.setItem("theme", "contrast");
+    };
+
+    // Font size
+    document.getElementById("fontNormal").onclick = () => {
+        document.body.classList.remove("large-text");
+        localStorage.setItem("font", "normal");
+    };
+    document.getElementById("fontLarge").onclick = () => {
+        document.body.classList.add("large-text");
+        localStorage.setItem("font", "large");
+    };
+
+    // Spacing
+    document.getElementById("spacingNormal").onclick = () => {
+        document.body.classList.remove("extra-spacing");
+        localStorage.setItem("spacing", "normal");
+    };
+    document.getElementById("spacingWide").onclick = () => {
+        document.body.classList.add("extra-spacing");
+        localStorage.setItem("spacing", "wide");
+    };
+
+    // Underline links
+    document.getElementById("linksNormal").onclick = () => {
+        document.body.classList.remove("underline-links");
+        localStorage.setItem("links", "normal");
+    };
+    document.getElementById("linksUnderline").onclick = () => {
+        document.body.classList.add("underline-links");
+        localStorage.setItem("links", "underline");
+    };
+
+    // Motion
+    document.getElementById("motionNormal").onclick = () => {
+        document.body.classList.remove("reduce-motion");
+        localStorage.setItem("motion", "normal");
+    };
+    document.getElementById("motionReduced").onclick = () => {
+        document.body.classList.add("reduce-motion");
+        localStorage.setItem("motion", "reduced");
+    };
+
+    /* ---------------------------------------------------------
+       RESTORE SETTINGS FROM LOCALSTORAGE
+    --------------------------------------------------------- */
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+
+    const savedFont = localStorage.getItem("font");
+    if (savedFont === "large") document.body.classList.add("large-text");
+
+    const savedSpacing = localStorage.getItem("spacing");
+    if (savedSpacing === "wide") document.body.classList.add("extra-spacing");
+
+    const savedLinks = localStorage.getItem("links");
+    if (savedLinks === "underline") document.body.classList.add("underline-links");
+
+    const savedMotion = localStorage.getItem("motion");
+    if (savedMotion === "reduced") document.body.classList.add("reduce-motion");
+
+    /* ---------------------------------------------------------
+       START ON CONFIDENTIALITY GATE
+    --------------------------------------------------------- */
     showScreen(screenGate);
+
 });
 </script>
-</head>
 
-<body>
-
-<!-- ------------------------------
-     FLOATING NAV BAR
------------------------------- -->
-<div class="navbar">
-    <div class="nav-title">Confidential Portal</div>
-
-    <div class="nav-links">
-        <a href="#screen-gate">Home</a>
-        <a href="#screen-menu">Frameworks</a>
-        <a id="navDashboards">Dashboards</a>
-        <a href="about.html">About</a>
-    </div>
-
-    <div id="hamburger" class="hamburger">
-        <div></div><div></div><div></div>
-    </div>
-</div>
-
-<div id="mobileMenu" class="mobile-menu">
-    <a href="#screen-gate">Home</a>
-    <a href="#screen-menu">Frameworks</a>
-    <a id="mobileDashboards">Dashboards</a>
-    <a href="about.html">About</a>
-</div>
-
-<!-- ------------------------------
-     DASHBOARD PANEL (RIGHT SIDE)
------------------------------- -->
-<div id="dashboardPanel" class="dashboard-panel">
-    <div class="close-panel">
-        <button id="closePanel">&times;</button>
-    </div>
-
-    <div class="dashboard-title">Select a Dashboard</div>
-
-    <div id="dash1" class="dashboard-card">
-        <div class="dashboard-card-title">Engineer Delivery Dashboard</div>
-        <div class="dashboard-card-desc">Daily engineering delivery insights.</div>
-    </div>
-
-    <div id="dash2" class="dashboard-card">
-        <div class="dashboard-card-title">EEP Command Center (Unbranded)</div>
-        <div class="dashboard-card-desc">EEP program visibility & metrics.</div>
-    </div>
-
-    <div id="dash3" class="dashboard-card">
-        <div class="dashboard-card-title">EEP Self‑Assessment</div>
-        <div class="dashboard-card-desc">Capability maturity self‑evaluation.</div>
-    </div>
-
-    <div id="dash4" class="dashboard-card">
-        <div class="dashboard-card-title">EEP & Security Modernization</div>
-        <div class="dashboard-card-desc">Modernization command center.</div>
-    </div>
-</div>
-
-<!-- ------------------------------
-     MAIN CONTENT
------------------------------- -->
-<div class="container">
-
-<!-- SCREEN 1: CONFIDENTIALITY GATE -->
-<section id="screen-gate" class="screen active">
-    <div class="header">
-        <div class="badge">Restricted Access</div>
-        <h1>READ BEFORE ACCESS</h1>
-        <div class="subtitle">Confidentiality & Access Terms</div>
-        <div class="divider"></div>
-    </div>
-
-    <div class="card">
-        <h2>Confidentiality</h2
+</body>
+</html>
