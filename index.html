@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>READ BEFORE ACCESS — Confidentiality Terms</title>
+  <title>READ BEFORE ACCESS — Confidentiality Portal</title>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Calibri','Segoe UI',Arial,sans-serif;
-      background:#0a0a0a;
-      color:#e8e8e8;
+      font-family: 'Segoe UI','Calibri',system-ui,-apple-system,sans-serif;
+      background:#0B1120;
+      color:#E5E7EB;
       min-height:100vh;
       display:flex;
       align-items:center;
@@ -18,236 +18,448 @@
       padding:40px 20px;
       transition:opacity 0.8s ease;
     }
-    .container{max-width:820px;width:100%;}
+    .container{max-width:960px;width:100%;}
 
-    .header{text-align:center;margin-bottom:48px;}
-    .warning-badge{
-      display:inline-block;background:#FF6200;color:#fff;font-size:11px;
-      font-weight:700;letter-spacing:3px;text-transform:uppercase;
-      padding:8px 24px;border-radius:2px;margin-bottom:28px;
+    .header{text-align:center;margin-bottom:32px;}
+    .badge{
+      display:inline-block;background:#0078D4;color:#fff;font-size:11px;
+      font-weight:600;letter-spacing:2px;text-transform:uppercase;
+      padding:6px 18px;border-radius:999px;margin-bottom:18px;
     }
     .header h1{
-      font-size:28px;font-weight:700;color:#fff;line-height:1.3;
-      margin-bottom:12px;letter-spacing:-0.5px;
+      font-size:26px;font-weight:700;color:#F9FAFB;line-height:1.3;
+      margin-bottom:8px;
     }
     .subtitle{
-      font-size:15px;color:#999;letter-spacing:1px;text-transform:uppercase;
+      font-size:13px;color:#9CA3AF;letter-spacing:1px;text-transform:uppercase;
     }
     .divider{
-      width:60px;height:3px;background:#FF6200;margin:28px auto;
+      width:72px;height:3px;background:linear-gradient(90deg,#0078D4,#886CE4,#00B7C3);
+      margin:24px auto;
+      border-radius:999px;
     }
 
     .card{
-      background:#141414;border:1px solid #2a2a2a;border-radius:4px;
-      padding:40px 48px;margin-bottom:24px;
+      background:#111827;border:1px solid #1F2937;border-radius:8px;
+      padding:28px 32px;margin-bottom:20px;
     }
     .card h2{
-      font-size:13px;font-weight:700;letter-spacing:2px;
-      text-transform:uppercase;color:#FF6200;margin-bottom:16px;
+      font-size:12px;font-weight:700;letter-spacing:2px;
+      text-transform:uppercase;color:#60A5FA;margin-bottom:12px;
     }
     .card p{
-      font-size:15px;line-height:1.8;color:#ccc;margin-bottom:12px;
+      font-size:14px;line-height:1.7;color:#D1D5DB;margin-bottom:10px;
     }
 
-    .prohibited-list{list-style:none;margin:12px 0;}
-    .prohibited-list li{
-      font-size:15px;line-height:1.8;color:#ccc;padding:6px 0 6px 28px;
-      position:relative;border-bottom:1px solid #1e1e1e;
+    .list{list-style:none;margin:10px 0;}
+    .list li{
+      font-size:14px;line-height:1.7;color:#D1D5DB;
+      padding:6px 0 6px 22px;position:relative;
     }
-    .prohibited-list li:last-child{border-bottom:none;}
-    .prohibited-list li::before{
-      content:'✕';position:absolute;left:0;color:#FF6200;
-      font-size:12px;font-weight:700;top:8px;
+    .list li::before{
+      content:'•';position:absolute;left:0;color:#60A5FA;font-size:14px;
     }
 
-    .alert-card{
-      background:#1a0a00;border:1px solid #FF6200;border-radius:4px;
-      padding:28px 40px;margin-bottom:24px;text-align:center;
+    .alert{
+      background:#1F2937;border:1px solid #F97316;border-radius:8px;
+      padding:20px 24px;margin-bottom:20px;text-align:center;
     }
-    .alert-card p{
-      font-size:15px;line-height:1.8;color:#ffb380;
-    }
+    .alert p{font-size:14px;line-height:1.7;color:#FED7AA;}
+    .alert strong{color:#F97316;}
 
     .footer{
-      text-align:center;margin-top:40px;padding-top:32px;
-      border-top:1px solid #1e1e1e;
+      text-align:center;margin-top:28px;padding-top:20px;
+      border-top:1px solid #1F2937;font-size:12px;color:#9CA3AF;
     }
-    .footer .author{
-      font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;
-    }
-    .footer .meta{
-      font-size:13px;color:#666;letter-spacing:1px;
-    }
-    .seal{
-      display:inline-block;border:2px solid #FF6200;color:#FF6200;
-      font-size:11px;font-weight:700;letter-spacing:2px;
-      text-transform:uppercase;padding:10px 28px;border-radius:2px;
-      margin-top:24px;
+    .footer .seal{
+      display:inline-block;margin-top:10px;padding:6px 16px;
+      border-radius:999px;border:1px solid #374151;color:#9CA3AF;
+      font-size:11px;letter-spacing:1px;text-transform:uppercase;
     }
 
-    .accept-box{text-align:center;margin-top:40px;}
-    .accept-box label{font-size:15px;cursor:pointer;}
-    .accept-btn{
-      margin-top:20px;padding:14px 32px;background:#333;color:#777;
-      border:1px solid #444;border-radius:4px;font-size:15px;
-      font-weight:700;letter-spacing:1px;text-transform:uppercase;
-      cursor:not-allowed;transition:0.3s;
-    }
-    .accept-btn.enabled{
-      background:#FF6200;color:#fff;border-color:#FF6200;cursor:pointer;
-    }
-    .decline-btn{
-      margin-top:10px;padding:10px 24px;background:#222;color:#999;
-      border:1px solid #333;border-radius:4px;font-size:14px;
-      cursor:pointer;transition:0.3s;
-    }
-    .decline-btn:hover{color:#FF6200;border-color:#FF6200;}
+    .accept-box{text-align:center;margin-top:24px;}
+    .accept-box label{font-size:14px;cursor:pointer;color:#D1D5DB;}
+    .accept-box input{margin-right:6px;}
 
+    .btn{
+      margin-top:16px;padding:10px 24px;border-radius:6px;
+      border:1px solid transparent;font-size:13px;font-weight:600;
+      letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;
+      transition:0.2s;
+    }
+    .btn-primary{
+      background:#1F2937;color:#9CA3AF;border-color:#374151;
+      cursor:not-allowed;
+    }
+    .btn-primary.enabled{
+      background:#0078D4;color:#F9FAFB;border-color:#0078D4;
+      cursor:pointer;
+    }
+    .btn-primary.enabled:hover{
+      background:#886CE4;border-color:#886CE4;
+    }
+    .btn-secondary{
+      background:#111827;color:#9CA3AF;border-color:#374151;
+    }
+    .btn-secondary:hover{
+      border-color:#F97316;color:#F97316;
+    }
+
+    /* Modal */
     .modal{
       display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,0.8);justify-content:center;align-items:center;
+      background:rgba(15,23,42,0.9);justify-content:center;align-items:center;
       z-index:999;
     }
     .modal-content{
-      background:#141414;border:1px solid #FF6200;border-radius:6px;
-      padding:40px;text-align:center;color:#fff;max-width:400px;
+      background:#111827;border:1px solid #374151;border-radius:10px;
+      padding:26px 28px;text-align:center;color:#F9FAFB;
+      max-width:420px;width:90%;
     }
-    .modal-content h3{color:#FF6200;margin-bottom:16px;}
-    .modal-content p{color:#ccc;margin-bottom:20px;}
-    .modal-buttons button{
-      margin:0 8px;padding:10px 22px;border-radius:4px;border:1px solid #444;
-      font-size:14px;cursor:pointer;
+    .modal-content h3{
+      font-size:18px;margin-bottom:10px;color:#60A5FA;
     }
-    .modal-buttons .confirm{
-      background:#FF6200;color:#fff;border-color:#FF6200;
+    .modal-content p{
+      font-size:14px;color:#D1D5DB;margin-bottom:18px;
     }
-    .modal-buttons .cancel{
-      background:#222;color:#ccc;
-    }
+    .modal-buttons{display:flex;justify-content:center;gap:10px;}
     .loading{
-      display:none;margin-top:20px;color:#FF6200;font-weight:700;
-      letter-spacing:1px;
+      display:none;margin-top:14px;color:#F97316;font-size:12px;
+      letter-spacing:1px;text-transform:uppercase;
+    }
+
+    /* Screens */
+    .screen{display:none;}
+    .screen.active{display:block;}
+
+    /* Menu */
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin-top:10px;
+    }
+    .menu-card{
+      background:#111827;border:1px solid #1F2937;border-radius:8px;
+      padding:18px 20px;cursor:pointer;transition:0.2s;
+    }
+    .menu-card:hover{
+      border-color:#0078D4;
+      box-shadow:0 0 0 1px rgba(0,120,212,0.4);
+    }
+    .menu-title{
+      font-size:14px;font-weight:600;color:#F9FAFB;margin-bottom:6px;
+    }
+    .menu-desc{
+      font-size:13px;color:#9CA3AF;
+    }
+
+    .overview-title{
+      font-size:18px;font-weight:600;color:#F9FAFB;margin-bottom:8px;
+    }
+    .overview-sub{
+      font-size:13px;color:#9CA3AF;margin-bottom:16px;
     }
   </style>
 
   <script>
-    function toggleAccept(){
-      const cb=document.getElementById("agree");
-      const btn=document.getElementById("acceptBtn");
-      btn.disabled=!cb.checked;
-      btn.classList.toggle("enabled",cb.checked);
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const screenGate = document.getElementById("screen-gate");
+      const screenMenu = document.getElementById("screen-menu");
+      const screenOverview = document.getElementById("screen-overview");
 
-    function proceed(){
-      if(document.getElementById("acceptBtn").disabled) return;
-      document.getElementById("modal").style.display="flex";
-      localStorage.setItem("ConfidentialityAccepted",
-        new Date().toLocaleString()
-      );
-    }
+      const checkbox = document.getElementById("agree");
+      const acceptBtn = document.getElementById("acceptBtn");
+      const declineBtn = document.getElementById("declineBtn");
 
-    function confirmProceed(){
-      const loading=document.getElementById("loading");
-      loading.style.display="block";
-      document.body.style.opacity="0.5";
-      setTimeout(()=>{
-        window.location.href="https://onedrive.live.com/?id=%2Fpersonal%2Fe2ed50738fbae307%2FDocuments%2FEEP-Framework-CONFIDENTIAL&viewid=2019f183-9acf-4e3d-8e19-18e5dea39e1e&view=0";
-      },2000);
-    }
+      const modal = document.getElementById("modal");
+      const confirmBtn = document.getElementById("confirmBtn");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const loading = document.getElementById("loading");
 
-    function cancelModal(){
-      document.getElementById("modal").style.display="none";
-    }
+      const overviewTitle = document.getElementById("overviewTitle");
+      const overviewSub = document.getElementById("overviewSub");
+      const overviewBody = document.getElementById("overviewBody");
+      const proceedBtn = document.getElementById("proceedBtn");
+      const backBtn = document.getElementById("backBtn");
 
-    function decline(){
-      alert("Access declined. This window will now close.");
-      window.close();
-    }
+      let currentTarget = null;
+
+      function showScreen(screen) {
+        [screenGate, screenMenu, screenOverview].forEach(s => s.classList.remove("active"));
+        screen.classList.add("active");
+      }
+
+      // Checkbox → enable/disable Accept button
+      checkbox.addEventListener("change", () => {
+        const enabled = checkbox.checked;
+        acceptBtn.disabled = !enabled;
+        acceptBtn.classList.toggle("enabled", enabled);
+      });
+
+      // Accept → open modal
+      acceptBtn.addEventListener("click", () => {
+        if (acceptBtn.disabled) return;
+        modal.style.display = "flex";
+      });
+
+      // Decline → close window
+      declineBtn.addEventListener("click", () => {
+        alert("Access declined. This window will now close.");
+        window.close();
+      });
+
+      // Modal cancel
+      cancelBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Modal confirm → log + go to menu
+      confirmBtn.addEventListener("click", () => {
+        loading.style.display = "block";
+        localStorage.setItem("ConfidentialityAccepted", new Date().toLocaleString());
+        setTimeout(() => {
+          modal.style.display = "none";
+          loading.style.display = "none";
+          showScreen(screenMenu);
+        }, 800);
+      });
+
+      // Menu selections
+      const targets = {
+        "eep": {
+          title: "EEP Framework",
+          sub: "Enterprise Enablement Program — Framework Overview",
+          body: "The EEP Framework provides a structured approach to modernizing delivery, governance, and measurement across engineering and security programs. This overview highlights the core components, lifecycle, and usage patterns.",
+          link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAhqUdqeLR5SLfBn8cJef5mAWo72Uw6TL0eo2_49v19_wI?e=UCNOWW"
+        },
+        "ceeds": {
+          title: "CEEDS",
+          sub: "Customer Experience & Engineering Delivery System",
+          body: "CEEDS focuses on aligning customer experience, engineering delivery, and measurable outcomes. This overview covers the core model, key artifacts, and how CEEDS integrates with broader modernization efforts.",
+          link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAjbSRdjJjJRpRgDsCkn3_AAdjZ3n0uxYlLyb0mqc7uZ-Q?e=AuyKwP"
+        },
+        "edev4": {
+          title: "EDEv4",
+          sub: "Engineering Delivery Evolution v4",
+          body: "EDEv4 defines the evolution path for engineering delivery capabilities, including maturity stages, practices, and supporting assets. This overview introduces the v4 model and how it is applied in real programs.",
+          link: "https://1drv.ms/f/c/e2ed50738fbae307/IgAzXhAlJe7ST7v1nETjKQcTAVM5NCZTrD6vp8gff5uyHeg?e=M1OCP5"
+        },
+        "dashboards": {
+          title: "Dashboards",
+          sub: "Delivery, EEP, and Command Center Dashboards",
+          body: "The dashboards provide visibility into engineering delivery, EEP progress, self‑assessment, and command center views. You can access individual dashboards for Engineer Delivery, EEP Command Center, EEP Self‑Assessment, and EEP & Security Modernization Command Center.",
+          link: null
+        }
+      };
+
+      function openOverview(key) {
+        currentTarget = key;
+        const t = targets[key];
+        overviewTitle.textContent = t.title;
+        overviewSub.textContent = t.sub;
+        overviewBody.textContent = t.body;
+
+        // For dashboards, we’ll open a small menu on proceed
+        if (key === "dashboards") {
+          proceedBtn.textContent = "Open Dashboard Selector";
+        } else {
+          proceedBtn.textContent = "Proceed";
+        }
+
+        showScreen(screenOverview);
+      }
+
+      document.getElementById("cardEEP").addEventListener("click", () => openOverview("eep"));
+      document.getElementById("cardCEEDS").addEventListener("click", () => openOverview("ceeds"));
+      document.getElementById("cardEDEv4").addEventListener("click", () => openOverview("edev4"));
+      document.getElementById("cardDashboards").addEventListener("click", () => openOverview("dashboards"));
+
+      // Back to menu
+      backBtn.addEventListener("click", () => {
+        showScreen(screenMenu);
+      });
+
+      // Proceed → redirect
+      proceedBtn.addEventListener("click", () => {
+        if (!currentTarget) return;
+
+        if (currentTarget === "dashboards") {
+          // Simple prompt selector for now
+          const choice = prompt(
+            "Select dashboard:\n\n1 = Engineer Delivery Dashboard\n2 = EEP Command Center (Unbranded)\n3 = EEP Self Assessment\n4 = EEP & Security Modernization — Command Center",
+            "1"
+          );
+          let url = null;
+          switch (choice) {
+            case "1":
+              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/engineer-delivery-dashboard.html";
+              break;
+            case "2":
+              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/eep-command-center-unbranded.html";
+              break;
+            case "3":
+              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/eep-self-assessment.html";
+              break;
+            case "4":
+              url = "https://github.com/amgarciajr/Training-and-Development/blob/d87fe0b875c87e0f270812e27de259d9af2db1c5/eep-command-center.html";
+              break;
+            default:
+              alert("No dashboard selected.");
+              return;
+          }
+          window.location.href = url;
+        } else {
+          const t = targets[currentTarget];
+          window.location.href = t.link;
+        }
+      });
+
+      // Start on gate screen
+      showScreen(screenGate);
+    });
   </script>
 </head>
 
 <body>
 <div class="container">
-  <div class="header">
-    <div class="warning-badge">⚠ Restricted Access</div>
-    <h1>READ BEFORE ACCESS<br>Confidentiality Terms</h1>
-    <div class="subtitle">Confidential Material — Access Restricted</div>
-    <div class="divider"></div>
-  </div>
 
-  <div class="alert-card">
-    <p>By accessing any file, folder, or content within this shared location, you acknowledge and agree to the following terms. If you do not agree, do not access or view the content.</p>
-  </div>
+  <!-- Screen 1: Confidentiality Gate -->
+  <section id="screen-gate" class="screen">
+    <div class="header">
+      <div class="badge">Restricted Access · Confidential</div>
+      <h1>READ BEFORE ACCESS</h1>
+      <div class="subtitle">Confidentiality & Access Terms</div>
+      <div class="divider"></div>
+    </div>
 
-  <div class="card">
-    <h2>Confidentiality</h2>
-    <p>All materials contained in this location are confidential and proprietary to <strong style="color:#fff">Mike Garcia</strong>. These materials include frameworks, methodologies, templates, dashboards, architecture models, and any derivative content.</p>
-  </div>
+    <div class="alert">
+      <p><strong>Important:</strong> By accessing any file, folder, dashboard, or content linked from this page, you acknowledge and agree to the confidentiality terms below. If you do not agree, do not proceed.</p>
+    </div>
 
-  <div class="card">
-    <h2>Permitted Use</h2>
-    <p>You are granted <strong style="color:#fff">view‑only access</strong> for the sole purpose of review. No other rights are granted or implied.</p>
-  </div>
+    <div class="card">
+      <h2>Confidentiality</h2>
+      <p>All materials accessible from this portal are confidential and proprietary to the content owner. This includes frameworks, methodologies, templates, dashboards, architecture models, and any derivative content.</p>
+    </div>
 
-  <div class="card">
-    <h2>Prohibited Actions</h2>
-    <p>Without explicit written permission from Mike Garcia, you may not:</p>
-    <ul class="prohibited-list">
-      <li>Copy, download, print, or export any content</li>
-      <li>Screenshot, record, or otherwise capture the content</li>
-      <li>Share, forward, or redistribute the link or materials</li>
-      <li>Use the content to create derivative works</li>
-      <li>Incorporate the content into internal or commercial deliverables</li>
-      <li>Use the content for competitive analysis or product development</li>
-    </ul>
-  </div>
+    <div class="card">
+      <h2>Permitted Use</h2>
+      <p>You are granted view‑only access for the sole purpose of review and evaluation. No other rights are granted or implied.</p>
+    </div>
 
-  <div class="card">
-    <h2>Intellectual Property</h2>
-    <p>All content remains the <strong style="color:#fff">exclusive intellectual property of Mike Garcia</strong>. No license or ownership rights are transferred through access.</p>
-  </div>
+    <div class="card">
+      <h2>Prohibited Actions</h2>
+      <p>Without explicit written permission from the content owner, you may not:</p>
+      <ul class="list">
+        <li>Copy, download, print, or export any content</li>
+        <li>Screenshot, record, or otherwise capture the content</li>
+        <li>Share, forward, or redistribute links or materials</li>
+        <li>Use the content to create derivative works</li>
+        <li>Incorporate the content into internal or commercial deliverables</li>
+        <li>Use the content for competitive analysis or product development</li>
+      </ul>
+    </div>
 
-  <div class="card">
-    <h2>Access Revocation</h2>
-    <p>Access may be revoked at any time without notice. Continued access constitutes acceptance of these terms.</p>
-  </div>
+    <div class="card">
+      <h2>Intellectual Property & Access</h2>
+      <p>All content remains the exclusive intellectual property of the framework owner. No license or ownership rights are transferred through access. Access may be revoked at any time without notice. Continued access constitutes acceptance of these terms.</p>
+    </div>
 
-  <div class="alert-card">
-    <p><strong style="color:#FF6200">If You Do Not Agree:</strong><br>
-    Do not access or view the content. Unauthorized use may result in legal action.</p>
-  </div>
+    <div class="alert">
+      <p><strong>If You Do Not Agree:</strong> Do not access or view the content. Unauthorized use may result in legal or contractual action.</p>
+    </div>
 
-  <div class="accept-box">
-    <label>
-      <input type="checkbox" id="agree" onclick="toggleAccept()">
-      I have read and agree to the Confidentiality Terms
-    </label>
-    <br>
-    <button id="acceptBtn" class="accept-btn" disabled onclick="proceed()">
-      Accept & Continue
-    </button>
-    <br>
-    <button class="decline-btn" onclick="decline()">
-      Decline & Close
-    </button>
-  </div>
+    <div class="accept-box">
+      <label>
+        <input type="checkbox" id="agree">
+        I have read and agree to the Confidentiality & Access Terms
+      </label>
+      <br>
+      <button id="acceptBtn" class="btn btn-primary" disabled>Accept & Continue</button>
+      <br>
+      <button id="declineBtn" class="btn btn-secondary">Decline & Close</button>
+    </div>
 
-  <div class="footer">
-    <div class="author">Mike Garcia</div>
-    <div class="meta">Framework Author · EEP & Security Modernization · June 2026</div>
-    <div class="seal">Confidential & Proprietary</div>
-  </div>
+    <div class="footer">
+      <div>Security‑Aligned Access · Microsoft‑Inspired Design</div>
+      <div class="seal">Confidential · Restricted Use</div>
+    </div>
+  </section>
+
+  <!-- Screen 2: Category Menu -->
+  <section id="screen-menu" class="screen">
+    <div class="header">
+      <div class="badge">Select Content</div>
+      <h1>What would you like to access?</h1>
+      <div class="subtitle">Choose a framework or dashboard category</div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="card">
+      <p>Select a category below to view an overview and proceed to the corresponding assets.</p>
+      <div class="menu-grid">
+        <div id="cardEEP" class="menu-card">
+          <div class="menu-title">EEP Framework</div>
+          <div class="menu-desc">Enterprise Enablement Program framework overview and assets.</div>
+        </div>
+        <div id="cardCEEDS" class="menu-card">
+          <div class="menu-title">CEEDS</div>
+          <div class="menu-desc">Customer Experience & Engineering Delivery System model.</div>
+        </div>
+        <div id="cardEDEv4" class="menu-card">
+          <div class="menu-title">EDEv4</div>
+          <div class="menu-desc">Engineering Delivery Evolution v4 maturity and practices.</div>
+        </div>
+        <div id="cardDashboards" class="menu-card">
+          <div class="menu-title">Dashboards</div>
+          <div class="menu-desc">Engineer Delivery, EEP, Self‑Assessment, and Command Center views.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>Aligned to Modern Engineering & Security Programs</div>
+      <div class="seal">Framework & Dashboards</div>
+    </div>
+  </section>
+
+  <!-- Screen 3: Overview -->
+  <section id="screen-overview" class="screen">
+    <div class="header">
+      <div class="badge">Overview</div>
+      <h1 id="overviewTitle">Selected Content</h1>
+      <div id="overviewSub" class="subtitle">Overview details</div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="card">
+      <p id="overviewBody"></p>
+    </div>
+
+    <div class="accept-box">
+      <button id="proceedBtn" class="btn btn-primary enabled">Proceed</button>
+      <br>
+      <button id="backBtn" class="btn btn-secondary">Back to Categories</button>
+    </div>
+
+    <div class="footer">
+      <div>Access subject to Confidentiality & Use Terms</div>
+      <div class="seal">Proceed with Awareness</div>
+    </div>
+  </section>
+
 </div>
 
+<!-- Modal -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <h3>Confirm Access</h3>
-    <p>By continuing, you acknowledge that you have read and agree to the Confidentiality Terms and understand that unauthorized use may result in legal action.</p>
+    <p>By continuing, you confirm that you have read and agree to the Confidentiality & Access Terms and understand that unauthorized use may result in legal or contractual action.</p>
     <div class="modal-buttons">
-      <button class="confirm" onclick="confirmProceed()">Continue to EEP Framework</button>
-      <button class="cancel" onclick="cancelModal()">Cancel</button>
+      <button id="confirmBtn" class="btn btn-primary enabled">Continue</button>
+      <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
     </div>
-    <div id="loading" class="loading">Redirecting to OneDrive…</div>
+    <div id="loading" class="loading">Preparing access…</div>
   </div>
 </div>
 </body>
