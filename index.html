@@ -5,29 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Confidential Access Portal</title>
 
-<!-- 
-===========================================================
-  GLOBAL THEME VARIABLES
-  - Light Mode (C3 Lavender Tint)
-  - Dark Mode
-  - High Contrast Mode
-===========================================================
--->
-<style>
+<!-- Aptos font -->
+<link href="https://fonts.googleapis.com/css2?family=Aptos:wght@400;500;600&display=swap" rel="stylesheet" />
 
+<style>
 /* ---------------------------------------------------------
    ROOT VARIABLES — DEFAULT THEME (LIGHT MODE, C3 LAVENDER)
 --------------------------------------------------------- */
 :root {
-    --bg: #FBF8FF;                 /* Lavender‑tinted light background */
-    --bg-panel: #FFFFFFEE;         /* Glassy white panel */
+    --bg: #F9F7FF;                 /* Softer lavender background */
+    --bg-panel: #FFFFFFF2;         /* Glassy white panel */
     --text: #1A1A1A;               /* Dark text */
     --text-muted: #555;
     --border: #DDD;
-    --accent: #8B5CF6;             /* Lavender accent */
-    --accent-glow: rgba(139,92,246,0.45);
-    --nav-bg: rgba(255,255,255,0.65);
-    --drawer-bg: rgba(255,255,255,0.85);
+    --accent: #9B6CF9;             /* Rich lavender accent */
+    --accent-glow: rgba(155,108,249,0.45);
+    --nav-bg: rgba(249,247,255,0.9);
+    --drawer-bg: rgba(255,255,255,0.9);
     --icon-stroke: #444;
 }
 
@@ -42,8 +36,8 @@
     --border: #1F2937;
     --accent: #886CE4;
     --accent-glow: rgba(136,108,228,0.45);
-    --nav-bg: rgba(17,25,40,0.55);
-    --drawer-bg: rgba(17,25,40,0.85);
+    --nav-bg: rgba(17,25,40,0.75);
+    --drawer-bg: rgba(17,25,40,0.9);
     --icon-stroke: #E5E7EB;
 }
 
@@ -68,7 +62,7 @@
 --------------------------------------------------------- */
 body {
     margin: 0;
-    font-family: "Segoe UI", sans-serif;
+    font-family: "Aptos", "Segoe UI", sans-serif;
     background: var(--bg);
     color: var(--text);
     padding-top: 70px; /* space for floating nav */
@@ -93,8 +87,10 @@ body {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 60px;
-    backdrop-filter: blur(12px);
-    background: var(--nav-bg);
+    backdrop-filter: blur(14px);
+    background: linear-gradient(90deg,
+        rgba(249,247,255,0.95) 0%,
+        rgba(245,240,255,0.95) 100%);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -111,6 +107,7 @@ body {
 .nav-links {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .nav-links a {
@@ -162,7 +159,7 @@ body {
     top: 60px;
     right: 0;
     background: var(--drawer-bg);
-    width: 200px;
+    width: 220px;
     padding: 20px;
     border-left: 1px solid var(--border);
     z-index: 998;
@@ -261,6 +258,95 @@ body {
 }
 
 /* ---------------------------------------------------------
+   LAYOUT & CARDS
+--------------------------------------------------------- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(155,108,249,0.12);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.header h1 {
+    margin: 10px 0 4px;
+    font-size: 24px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.divider {
+    margin-top: 12px;
+    height: 1px;
+    background: linear-gradient(90deg,
+        rgba(155,108,249,0.4),
+        rgba(155,108,249,0.0));
+}
+
+.card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.04);
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 8px;
+    margin-top: 16px;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.btn-primary.enabled {
+    opacity: 1;
+}
+
+.btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+/* ---------------------------------------------------------
    CATEGORY GRID (2×2)
 --------------------------------------------------------- */
 .menu-grid {
@@ -324,6 +410,28 @@ body {
 }
 .dashboard-panel.open { right: 0; }
 
+.dashboard-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.dashboard-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+.dashboard-card-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+.dashboard-card-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
 /* ---------------------------------------------------------
    ACCESSIBILITY DRAWER (LEFT SIDE)
 --------------------------------------------------------- */
@@ -366,6 +474,17 @@ body {
     border-radius: 50%;
 }
 
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+@media (max-width: 700px) {
+    .dashboard-panel {
+        width: 100%;
+    }
+    .accessibility-panel {
+        width: 100%;
+    }
+}
 </style>
 </head>
 <body>
