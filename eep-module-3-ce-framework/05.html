@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trust in Practice — Two Scenarios</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #CC4E00;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top accent bar */
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, rgba(255,98,0,0.2) 60%, transparent 100%);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.4rem 3rem 0;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span {
+            color: var(--primary-color);
+        }
+
+        .header-rule {
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            padding: 1.2rem 3rem 1.4rem;
+            gap: 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Vertical divider */
+        .vertical-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,98,0,0.4) 20%, rgba(255,98,0,0.4) 80%, transparent 100%);
+            flex-shrink: 0;
+            margin: 0 1.5rem;
+            position: relative;
+        }
+
+        .divider-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 28px;
+            height: 28px;
+            background: var(--bg-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 0.02em;
+        }
+
+        /* Columns */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .column-header {
+            padding: 0.85rem 1.25rem;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .col-a .column-header {
+            background: rgba(255, 98, 0, 0.12);
+            border-top: 3px solid var(--primary-color);
+            border-left: 1px solid rgba(255,98,0,0.25);
+            border-right: 1px solid rgba(255,98,0,0.25);
+        }
+
+        .col-b .column-header {
+            background: rgba(255,255,255,0.04);
+            border-top: 3px solid #555;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .header-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .col-a .header-icon {
+            background: rgba(255,98,0,0.2);
+            color: var(--primary-color);
+        }
+
+        .col-b .header-icon {
+            background: rgba(255,255,255,0.08);
+            color: #888;
+        }
+
+        .header-text {}
+
+        .header-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+
+        .col-a .header-label { color: var(--primary-color); }
+        .col-b .header-label { color: #888; }
+
+        .header-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.45);
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        /* Column body */
+        .column-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-left: 1px solid rgba(255,255,255,0.06);
+            border-right: 1px solid rgba(255,255,255,0.06);
+            padding: 1rem 1.25rem;
+            overflow: hidden;
+        }
+
+        .col-a .column-body {
+            border-left-color: rgba(255,98,0,0.15);
+            border-right-color: rgba(255,98,0,0.15);
+        }
+
+        /* Steps */
+        .steps-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.45rem;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+        }
+
+        .col-a .step-item {
+            border-left: 3px solid rgba(255,98,0,0.5);
+        }
+
+        .col-b .step-item {
+            border-left: 3px solid rgba(255,255,255,0.12);
+        }
+
+        .step-number {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        .col-a .step-number {
+            background: rgba(255,98,0,0.2);
+            color: var(--primary-color);
+        }
+
+        .col-b .step-number {
+            background: rgba(255,255,255,0.07);
+            color: #888;
+        }
+
+        .step-text {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.72);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .step-text strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* Outcome footer */
+        .outcome-footer {
+            flex-shrink: 0;
+            border-radius: 0 0 8px 8px;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .col-a .outcome-footer {
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-top: none;
+        }
+
+        .col-b .outcome-footer {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-top: none;
+        }
+
+        .outcome-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .col-a .outcome-icon {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .col-b .outcome-icon {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .outcome-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+
+        .col-a .outcome-label { color: #22c55e; }
+        .col-b .outcome-label { color: #ef4444; }
+
+        .outcome-value {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.42);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .col-a .outcome-value { color: #22c55e; }
+        .col-b .outcome-value { color: #ef4444; }
+
+        .outcome-sub {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.65);
+            color: var(--text-secondary);
+            margin-top: 0.1rem;
+        }
+
+        /* Insight banner */
+        .insight-banner {
+            flex-shrink: 0;
+            margin: 0 3rem 1.1rem;
+            background: rgba(255,98,0,0.08);
+            border: 1px solid rgba(255,98,0,0.2);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .insight-banner i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .insight-banner p {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.68);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .insight-banner p strong {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="top-accent"></div>
+<div class="slide-header">
+<h1>Trust in Practice — <span>Two Scenarios</span></h1>
+<div class="header-rule"></div>
+</div>
+<div class="slide-content">
+<!-- Scenario A -->
+<div class="column col-a">
+<div class="column-header">
+<div class="header-icon"><i class="fas fa-check-circle"></i></div>
+<div class="header-text">
+<div class="header-label">Scenario A</div>
+<div class="header-title">The Escalation That Built Trust</div>
+</div>
+</div>
+<div class="column-body">
+<div class="steps-group">
+<div class="step-item">
+<div class="step-number">1</div>
+<div class="step-text"><strong>Critical issue detected</strong> mid-project — integration failure identified early by the engagement team.</div>
+</div>
+<div class="step-item">
+<div class="step-number">2</div>
+<div class="step-text"><strong>Client notified immediately</strong> — no delay, no minimizing. Full transparency on scope and stakes.</div>
+</div>
+<div class="step-item">
+<div class="step-number">3</div>
+<div class="step-text"><strong>Outcome Owner named</strong> — clear accountability assigned with a defined resolution path communicated.</div>
+</div>
+<div class="step-item">
+<div class="step-number">4</div>
+<div class="step-text"><strong>Issue closed on committed timeline</strong> — follow-through demonstrated under real pressure.</div>
+</div>
+<div class="step-item">
+<div class="step-number">5</div>
+<div class="step-text">Engagement experienced a <strong>significant problem</strong> — yet the client witnessed exactly the behavior needed.</div>
+</div>
+</div>
+</div>
+<div class="outcome-footer">
+<div class="outcome-icon"><i class="fas fa-arrow-trend-up"></i></div>
+<div>
+<div class="outcome-label">Trust Outcome</div>
+<div class="outcome-value">↑ Trust Increased</div>
+<div class="outcome-sub">Transparency + accountability + follow-through</div>
+</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="vertical-divider">
+<div class="divider-dot">VS</div>
+</div>
+<!-- Scenario B -->
+<div class="column col-b">
+<div class="column-header">
+<div class="header-icon"><i class="fas fa-times-circle"></i></div>
+<div class="header-text">
+<div class="header-label">Scenario B</div>
+<div class="header-title">The Smooth Delivery That Didn't</div>
+</div>
+</div>
+<div class="column-body">
+<div class="steps-group">
+<div class="step-item">
+<div class="step-number">1</div>
+<div class="step-text"><strong>Delivered on time, on budget, to spec</strong> — technically flawless execution by every measurable standard.</div>
+</div>
+<div class="step-item">
+<div class="step-number">2</div>
+<div class="step-text"><strong>Client never oriented to purpose</strong> — what was being built and why was never clearly communicated.</div>
+</div>
+<div class="step-item">
+<div class="step-number">3</div>
+<div class="step-text"><strong>Milestone comms technically accurate</strong> but incomprehensible — no meaningful context provided throughout.</div>
+</div>
+<div class="step-item">
+<div class="step-number">4</div>
+<div class="step-text">At closure, <strong>client cannot articulate</strong> what they received or what value was delivered.</div>
+</div>
+<div class="step-item">
+<div class="step-number">5</div>
+<div class="step-text">Engagement was <strong>technically successful</strong> — the trust relationship was never built.</div>
+</div>
+</div>
+</div>
+<div class="outcome-footer">
+<div class="outcome-icon"><i class="fas fa-ban"></i></div>
+<div>
+<div class="outcome-label">Trust Outcome</div>
+<div class="outcome-value">✗ Trust Not Built</div>
+<div class="outcome-sub">No reference given · No renewal conversation starts</div>
+</div>
+</div>
+</div>
+</div>
+<div class="insight-banner">
+<i class="fas fa-lightbulb"></i>
+<p><strong>CE Framework Principle:</strong> The goal is not a problem-free engagement — it is an engagement where the team's behavior under pressure builds the trust that creates references and renewals.</p>
+</div>
+</div>
+</body>
+</html>

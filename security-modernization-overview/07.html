@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Immediate Escalation Triggers</title>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent2: #1D4ED8;
+            --danger-color: #EF4444;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle background decoration */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.04);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 98, 0, 0.04);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        .slide-header {
+            padding: 1.1rem 2.5rem 0.4rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .danger-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 4px;
+            padding: 0.2rem 0.65rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #EF4444;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .slide-header h1 span {
+            color: var(--primary-color);
+        }
+
+        .header-accent-bar {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, #EF4444 0%, #FF6200 40%, transparent 100%);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .header-subtitle {
+            font-size: 0.82rem;
+            color: #EF4444;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-top: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Content */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 2.5rem 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .summary-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 0.55rem;
+            width: 100%;
+            align-content: center;
+        }
+
+        .summary-point {
+            text-align: left;
+            padding: 0.75rem 0.85rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-left: 3px solid var(--danger-color);
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .summary-point:hover {
+            background: rgba(239, 68, 68, 0.07);
+        }
+
+        .trigger-number {
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: rgba(239, 68, 68, 0.6);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-icon {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .summary-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .summary-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 1.35;
+        }
+
+        .summary-desc .threshold {
+            color: #EF4444;
+            font-weight: 600;
+        }
+
+        .summary-desc .warn {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="slide-header">
+<div class="header-top">
+<div class="danger-badge">
+<i class="fas fa-triangle-exclamation"></i>
+                    Field Guide — Section 3.3
+                </div>
+</div>
+<h1>Immediate <span>Escalation Triggers</span></h1>
+<div class="header-accent-bar"></div>
+<div class="header-subtitle">
+<i class="fas fa-bolt"></i>
+                Escalate to the CISO the same day you find these — not next week, not in the report.
+            </div>
+</div>
+<div class="slide-content">
+<div class="summary-container">
+<!-- Row 1 -->
+<div class="summary-point">
+<div class="trigger-number">01</div>
+<div class="summary-icon"><i class="fas fa-user-shield"></i></div>
+<div class="summary-title">Permanent Global Admin</div>
+<div class="summary-desc"><span class="threshold">2+ is a risk. 5+ is a crisis.</span> Permanent GA assignments must be eliminated and replaced with PIM-activated roles.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">02</div>
+<div class="summary-icon"><i class="fas fa-key"></i></div>
+<div class="summary-title">No Emergency Access Accounts</div>
+<div class="summary-desc">No break-glass accounts exist, or accounts <span class="threshold">not tested in 90+ days</span> — leaving zero recovery path during lockout.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">03</div>
+<div class="summary-icon"><i class="fas fa-plug-circle-xmark"></i></div>
+<div class="summary-title">Legacy Auth Actively in Use</div>
+<div class="summary-desc"><span class="threshold">SMTP Auth, IMAP, POP3, Basic Auth</span> still active — these protocols bypass MFA entirely and are primary attack vectors.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">04</div>
+<div class="summary-icon"><i class="fas fa-shield-halved"></i></div>
+<div class="summary-title">CA Policy — No Legacy Auth Block</div>
+<div class="summary-desc">Conditional Access policy set exists but <span class="warn">no rule blocking legacy auth</span> — the single most common gap found in the field.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">05</div>
+<div class="summary-icon"><i class="fas fa-mobile-screen-button"></i></div>
+<div class="summary-title">MFA Registration Below 60%</div>
+<div class="summary-desc">Any user population with <span class="threshold">MFA coverage under 60%</span> represents an unacceptable credential compromise surface.</div>
+</div>
+<!-- Row 2 -->
+<div class="summary-point">
+<div class="trigger-number">06</div>
+<div class="summary-icon"><i class="fas fa-tag"></i></div>
+<div class="summary-title">Labels Optional, No Enforcement</div>
+<div class="summary-desc">Sensitivity labels published but <span class="warn">entirely optional</span> — no enforcement means no protection. Labels without policy are theater.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">07</div>
+<div class="summary-icon"><i class="fas fa-ban"></i></div>
+<div class="summary-title">No DLP in Enforcement Mode</div>
+<div class="summary-desc">DLP policies exist only in <span class="threshold">simulation mode</span> — data exfiltration is unblocked. Simulation is not protection.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">08</div>
+<div class="summary-icon"><i class="fas fa-file-circle-exclamation"></i></div>
+<div class="summary-title">No IR Playbook for Credentials</div>
+<div class="summary-desc">No incident response playbook exists for <span class="threshold">credential compromise</span> — the most likely breach scenario has no documented response.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">09</div>
+<div class="summary-icon"><i class="fas fa-user-clock"></i></div>
+<div class="summary-title">Guest Accounts — No Expiration</div>
+<div class="summary-desc">Guest identities with <span class="warn">no expiration policy</span> accumulate indefinitely — unmanaged external access is a persistent exposure.</div>
+</div>
+<div class="summary-point">
+<div class="trigger-number">10</div>
+<div class="summary-icon"><i class="fas fa-robot"></i></div>
+<div class="summary-title">Service Principals — Owner: None</div>
+<div class="summary-desc">Service principals with <span class="threshold">no assigned owner</span> are unmanaged, unreviewed, and often over-privileged — a silent attack surface.</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

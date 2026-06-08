@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resistance Patterns &amp; Facilitation Scripts</title>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent2: #CC4E00;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top accent bar */
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent2) 60%, transparent 100%);
+            z-index: 10;
+        }
+
+        /* Subtle background decoration */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-circle-1 {
+            width: 320px;
+            height: 320px;
+            right: -80px;
+            bottom: -80px;
+            background: radial-gradient(circle, rgba(255,98,0,0.07) 0%, transparent 70%);
+        }
+        .bg-circle-2 {
+            width: 200px;
+            height: 200px;
+            left: -60px;
+            top: 80px;
+            background: radial-gradient(circle, rgba(255,98,0,0.05) 0%, transparent 70%);
+        }
+
+        .slide-header {
+            padding: 1.4rem 3rem 0.6rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid rgba(255,98,0,0.2);
+        }
+
+        .header-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+            opacity: 0.85;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.05;
+        }
+
+        .slide-header h1 span {
+            color: var(--primary-color);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .card-item {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 0.9rem 1rem;
+            border-radius: 0.6rem;
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--primary-color);
+            gap: 0.85rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at top right, rgba(255,98,0,0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .icon-circle {
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 50%;
+            background: rgba(255,98,0,0.15);
+            border: 1.5px solid rgba(255,98,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .icon-circle i {
+            font-size: 1.05rem;
+            color: var(--primary-color);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
+        }
+
+        .pattern-number {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            opacity: 0.75;
+        }
+
+        .card-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .card-behavior {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.35;
+            opacity: 0.88;
+        }
+
+        .card-redirect {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            font-style: italic;
+            line-height: 1.3;
+            margin-top: 0.15rem;
+            padding-top: 0.3rem;
+            border-top: 1px solid rgba(255,98,0,0.2);
+        }
+
+        .card-redirect::before {
+            content: '↳ ';
+            font-style: normal;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="top-accent"></div>
+<div class="bg-circle bg-circle-1"></div>
+<div class="bg-circle bg-circle-2"></div>
+<div class="slide-header">
+<div class="header-label">EEP Training Delivery Guide · Section 4</div>
+<h1>Resistance Patterns &amp; <span>Facilitation Scripts</span></h1>
+</div>
+<div class="slide-content">
+<div class="card-grid">
+<!-- Pattern 1 -->
+<div class="card-item">
+<div class="icon-circle">
+<i class="fas fa-check-double"></i>
+</div>
+<div class="card-body">
+<div class="pattern-number">Pattern 01</div>
+<div class="card-title">Standard Acceptance with Caveat</div>
+<div class="card-behavior">"I get the standard, but our account is different." Participant accepts the framework in principle while carving out their own exception.</div>
+<div class="card-redirect">"What specifically makes this account different from the standard? Let's test that assumption against the model."</div>
+</div>
+</div>
+<!-- Pattern 2 -->
+<div class="card-item">
+<div class="icon-circle">
+<i class="fas fa-user-tie"></i>
+</div>
+<div class="card-body">
+<div class="pattern-number">Pattern 02</div>
+<div class="card-title">Status Drift in Signal Review</div>
+<div class="card-behavior">Senior participant reframes signal data through their own account experience, shifting the review from signals to status narrative.</div>
+<div class="card-redirect">"That's status language. What specific client behavior did you observe this week — what did they do or say?"</div>
+</div>
+</div>
+<!-- Pattern 3 -->
+<div class="card-item">
+<div class="icon-circle">
+<i class="fas fa-id-badge"></i>
+</div>
+<div class="card-body">
+<div class="pattern-number">Pattern 03</div>
+<div class="card-title">Outcome Owner as Label</div>
+<div class="card-behavior">Role authority is used to override the standard — "I'm the outcome owner, so I decide how this works on my account."</div>
+<div class="card-redirect">"Ownership defines accountability, not the standard itself. The standard applies to how we deliver, not who decides."</div>
+</div>
+</div>
+<!-- Pattern 4 -->
+<div class="card-item">
+<div class="icon-circle">
+<i class="fas fa-user-slash"></i>
+</div>
+<div class="card-body">
+<div class="pattern-number">Pattern 04</div>
+<div class="card-title">Blame in CEES Sessions</div>
+<div class="card-behavior">Attribution to a specific person's failure derails the session — the team focuses on who caused the issue rather than what the signal reveals.</div>
+<div class="card-redirect">"We're not here to assign fault. What does this signal tell us about the system, and what do we adjust?"</div>
+</div>
+</div>
+<!-- Pattern 5 -->
+<div class="card-item">
+<div class="icon-circle">
+<i class="fas fa-volume-mute"></i>
+</div>
+<div class="card-body">
+<div class="pattern-number">Pattern 05</div>
+<div class="card-title">Quiet Drift</div>
+<div class="card-behavior">No stated resistance, but the program atrophies in substance — sessions become shorter, shallower, and eventually stop producing real outputs.</div>
+<div class="card-redirect">"Let's check against the WGLL standard. What was the last concrete adjustment this team made based on a CEES session?"</div>
+</div>
+</div>
+<!-- Pattern 6 -->
+<div class="card-item">
+<div class="icon-circle">
+<i class="fas fa-ban"></i>
+</div>
+<div class="card-body">
+<div class="pattern-number">Pattern 06</div>
+<div class="card-title">Not My Scope</div>
+<div class="card-behavior">Scope exclusion removes team members from the standard — "That function isn't part of my workstream, so the standard doesn't apply to me."</div>
+<div class="card-redirect">"If they interact with the client or influence delivery outcomes, they're in scope. Scope is defined by client impact."</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

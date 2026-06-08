@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Business Case</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .slide-header {
+            padding: 1.6rem 3rem 0;
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .header-source {
+            font-size: 0.75rem;
+            color: #6B7280;
+            font-style: italic;
+            padding-bottom: 0.2rem;
+        }
+
+        /* Divider */
+        .header-divider {
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), transparent);
+            margin: 0.75rem 3rem 0;
+            flex-shrink: 0;
+        }
+
+        /* Main content area */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem 3rem 1.5rem;
+            overflow: hidden;
+            gap: 1rem;
+        }
+
+        /* Headline stat row */
+        .headline-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-shrink: 0;
+            background: rgba(255, 98, 0, 0.08);
+            border: 1px solid rgba(255, 98, 0, 0.25);
+            border-radius: 10px;
+            padding: 0.85rem 1.75rem;
+        }
+
+        .headline-stat {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .headline-divider {
+            width: 2px;
+            height: 48px;
+            background: rgba(255, 98, 0, 0.35);
+            flex-shrink: 0;
+        }
+
+        .headline-text {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .headline-text strong {
+            color: var(--text-color);
+        }
+
+        /* Driver cards row */
+        .driver-cards {
+            display: flex;
+            gap: 1.25rem;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .driver-card {
+            flex: 1;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top: 3px solid var(--primary-color);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            overflow: hidden;
+        }
+
+        .card-number {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .card-icon-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255, 98, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-icon i {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .card-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .card-stat {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .card-stat-label {
+            font-size: 0.78rem;
+            color: #9CA3AF;
+            margin-top: 0.15rem;
+            line-height: 1.3;
+        }
+
+        .card-body {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: auto;
+        }
+
+        .tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            background: rgba(29, 78, 216, 0.2);
+            color: #93C5FD;
+            border: 1px solid rgba(29, 78, 216, 0.3);
+            white-space: nowrap;
+        }
+
+        .tag-orange {
+            background: rgba(255, 98, 0, 0.15);
+            color: #FDBA74;
+            border-color: rgba(255, 98, 0, 0.3);
+        }
+
+        /* Bottom insight bar */
+        .insight-bar {
+            flex-shrink: 0;
+            background: rgba(29, 78, 216, 0.12);
+            border: 1px solid rgba(29, 78, 216, 0.3);
+            border-radius: 8px;
+            padding: 0.65rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .insight-bar i {
+            color: #60A5FA;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .insight-bar p {
+            font-size: 0.85rem;
+            color: #93C5FD;
+            line-height: 1.4;
+        }
+
+        .insight-bar p strong {
+            color: #BFDBFE;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="slide-header">
+<h1>The Business Case</h1>
+<span class="header-source">Source: IBM Cost of a Data Breach Report 2024</span>
+</div>
+<div class="header-divider"></div>
+<!-- Content -->
+<div class="slide-content">
+<!-- Headline stat row -->
+<div class="headline-row">
+<div class="headline-stat">$4.88M</div>
+<div class="headline-divider"></div>
+<div class="headline-text">
+<strong>Industry average cost of a single data breach</strong> — and over <strong>80% of incidents</strong> trace back to compromised credentials.
+                    Identity-first controls target the root cause, not the symptom.
+                </div>
+</div>
+<!-- Three driver cards -->
+<div class="driver-cards">
+<!-- Card 01 -->
+<div class="driver-card">
+<div class="card-number">Driver 01</div>
+<div class="card-icon-row">
+<div class="card-icon">
+<i class="fas fa-shield-alt"></i>
+</div>
+<div class="card-title">Reduced Credential<br/>Compromise Exposure</div>
+</div>
+<div>
+<div class="card-stat">80%+</div>
+<div class="card-stat-label">of breaches involve compromised credentials</div>
+</div>
+<div class="card-body">
+                        Identity-first controls eliminate the highest-leverage attack vector. MFA, Conditional Access, and PIM directly reduce the probability and blast radius of credential-based incidents.
+                    </div>
+<div class="card-tags">
+<span class="tag tag-orange">MFA Enforcement</span>
+<span class="tag tag-orange">Conditional Access</span>
+<span class="tag tag-orange">PIM</span>
+</div>
+</div>
+<!-- Card 02 -->
+<div class="driver-card">
+<div class="card-number">Driver 02</div>
+<div class="card-icon-row">
+<div class="card-icon">
+<i class="fas fa-clipboard-check"></i>
+</div>
+<div class="card-title">Regulatory Alignment<br/>Delivered</div>
+</div>
+<div>
+<div class="card-stat">5</div>
+<div class="card-stat-label">major frameworks — audit-ready documentation included</div>
+</div>
+<div class="card-body">
+                        Control mapping delivered for all major compliance frameworks. Audit-ready documentation is included — reducing compliance overhead and accelerating certification timelines.
+                    </div>
+<div class="card-tags">
+<span class="tag">HIPAA</span>
+<span class="tag">GDPR</span>
+<span class="tag">CMMC</span>
+<span class="tag">SOC 2</span>
+<span class="tag">PCI-DSS</span>
+</div>
+</div>
+<!-- Card 03 -->
+<div class="driver-card">
+<div class="card-number">Driver 03</div>
+<div class="card-icon-row">
+<div class="card-icon">
+<i class="fas fa-robot"></i>
+</div>
+<div class="card-title">Secure AI Adoption<br/>Enabled</div>
+</div>
+<div>
+<div class="card-stat">Copilot</div>
+<div class="card-stat-label">-ready environment before AI deployment begins</div>
+</div>
+<div class="card-body">
+                        Sensitivity labeling, DLP policies, and governance structures are in place before Copilot or any AI workload is deployed — preventing data exposure at the point of adoption.
+                    </div>
+<div class="card-tags">
+<span class="tag tag-orange">Sensitivity Labels</span>
+<span class="tag tag-orange">DLP</span>
+<span class="tag tag-orange">Governance</span>
+</div>
+</div>
+</div>
+<!-- Bottom insight bar -->
+<div class="insight-bar">
+<i class="fas fa-lightbulb"></i>
+<p><strong>Framework Principle:</strong> Unstructured security modernization costs more and delivers less. This framework sequences work by <strong>risk reduction per dollar invested</strong> — maximizing measurable impact in the first 90 days while building a durable foundation for long-term maturity.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

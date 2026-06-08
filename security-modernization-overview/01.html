@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --ink-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--body-font), sans-serif;
+            background-color: var(--bg-color);
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-color);
+        }
+
+        /* Background layers */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .bg-overlay-1 {
+            background-color: #0a0f1a;
+            opacity: 0.7;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
+        }
+
+        .bg-overlay-2 {
+            background-color: #1D4ED8;
+            opacity: 0.12;
+            clip-path: polygon(58% 0, 100% 0, 100% 100%, 42% 100%);
+        }
+
+        .bg-glow-1 {
+            position: absolute;
+            top: -80px;
+            left: -80px;
+            width: 500px;
+            height: 500px;
+            background-color: #FF6200;
+            border-radius: 50%;
+            opacity: 0.07;
+            filter: blur(90px);
+            z-index: 2;
+        }
+
+        .bg-glow-2 {
+            position: absolute;
+            bottom: -100px;
+            right: 200px;
+            width: 400px;
+            height: 400px;
+            background-color: #1D4ED8;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(80px);
+            z-index: 2;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 3;
+        }
+
+        /* Security code snippet decoration */
+        .code-snippet {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.07);
+            font-size: 1.05rem;
+            text-align: left;
+            pointer-events: none;
+            z-index: 5;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+        }
+
+        /* Diagonal accent shape */
+        .diagonal-accent {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 420px;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 98, 0, 0.04) 50%, rgba(29, 78, 216, 0.08) 100%);
+            clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 4;
+        }
+
+        /* Orange vertical accent bar */
+        .vertical-accent {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color) 0%, #1D4ED8 100%);
+            z-index: 10;
+        }
+
+        /* Main content */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 0 5rem 0 5.5rem;
+            color: #ffffff;
+            max-width: 760px;
+        }
+
+        .framework-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 98, 0, 0.15);
+            border: 1px solid rgba(255, 98, 0, 0.4);
+            border-radius: 4px;
+            padding: 0.35rem 1rem;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            margin-bottom: 1.8rem;
+        }
+
+        .framework-label i {
+            font-size: 0.8rem;
+        }
+
+        .accent-line {
+            width: 80px;
+            height: 5px;
+            background: var(--primary-color);
+            margin-bottom: 1.6rem;
+            border-radius: 2px;
+        }
+
+        h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            font-weight: 800;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+
+        h1 .highlight {
+            color: var(--primary-color);
+        }
+
+        .tagline {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.65);
+            font-weight: 400;
+            color: var(--ink-secondary);
+            letter-spacing: 0.08em;
+            margin-bottom: 2.2rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            line-height: 1.5;
+        }
+
+        .tagline span {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .meta-grid {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-card {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 0.55rem 1.1rem;
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.9rem;
+            color: var(--ink-secondary);
+            backdrop-filter: blur(8px);
+        }
+
+        .meta-card i {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+        }
+
+        .meta-card strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Classification badge */
+        .classification {
+            position: absolute;
+            bottom: 28px;
+            right: 48px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .classification i {
+            color: rgba(255, 98, 0, 0.5);
+            font-size: 0.75rem;
+        }
+
+        /* Bottom accent bar */
+        .footer-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            z-index: 20;
+            display: flex;
+        }
+
+        .footer-seg-1 {
+            flex: 3;
+            background: var(--primary-color);
+        }
+
+        .footer-seg-2 {
+            flex: 1;
+            background: #1D4ED8;
+        }
+
+        .footer-seg-3 {
+            flex: 5;
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* Shield icon decoration */
+        .shield-decoration {
+            position: absolute;
+            right: 340px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 220px;
+            color: rgba(255, 98, 0, 0.04);
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        /* Top-right version stamp */
+        .version-stamp {
+            position: absolute;
+            top: 32px;
+            right: 48px;
+            z-index: 20;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background layers -->
+<div class="bg-layer bg-overlay-1"></div>
+<div class="bg-layer bg-overlay-2"></div>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+<div class="bg-grid"></div>
+<div class="diagonal-accent"></div>
+<div class="vertical-accent"></div>
+<!-- Shield decoration -->
+<i class="fas fa-shield-alt shield-decoration"></i>
+<!-- Security code snippet -->
+<div class="code-snippet">
+<p>// identity.policy.enforce()</p>
+<p>if (identity.verified) {</p>
+<p>  access.grant(zeroTrust);</p>
+<p>  mfa.require(FIDO2);</p>
+<p>  privilege.scope(minimal);</p>
+<p>} else {</p>
+<p>  access.deny();</p>
+<p>  alert.trigger(SOC);</p>
+<p>}</p>
+<p>// breach.probability -= 0.80;</p>
+</div>
+<!-- Version stamp -->
+<div class="version-stamp">
+<div>Version 1.0</div>
+<div>June 2026</div>
+</div>
+<!-- Main content -->
+<div class="content-wrapper">
+<div class="framework-label">
+<i class="fas fa-lock"></i>
+                Implementation Framework
+            </div>
+<div class="accent-line"></div>
+<h1>Security<br/><span class="highlight">Modernization</span></h1>
+<div class="tagline">
+<span>Identity-First.</span>  Zero Trust.  Enterprise-Grade.
+            </div>
+<div class="meta-grid">
+<div class="meta-card">
+<i class="fas fa-user-shield"></i>
+<span>Developed by <strong>Mike Garcia</strong></span>
+</div>
+<div class="meta-card">
+<i class="fas fa-code-branch"></i>
+<span><strong>Version 1.0</strong></span>
+</div>
+<div class="meta-card">
+<i class="fas fa-calendar-alt"></i>
+<span><strong>June 2026</strong></span>
+</div>
+<div class="meta-card">
+<i class="fas fa-building"></i>
+<span>Real-world enterprise delivery patterns</span>
+</div>
+</div>
+</div>
+<!-- Classification -->
+<div class="classification">
+<i class="fas fa-lock"></i>
+            Internal / Delivery Confidential
+        </div>
+<!-- Footer bar -->
+<div class="footer-bar">
+<div class="footer-seg-1"></div>
+<div class="footer-seg-2"></div>
+<div class="footer-seg-3"></div>
+</div>
+</div>
+</body>
+</html>

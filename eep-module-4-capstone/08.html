@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 4 Summary — The Complete EEP System</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #CC4E00;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent2) 60%, transparent 100%);
+            z-index: 10;
+        }
+
+        .slide-header {
+            flex: 0 0 auto;
+            padding: 1.5rem 3.2rem 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.08;
+        }
+
+        .header-badge {
+            background: var(--accent2);
+            color: white;
+            border-radius: 999px;
+            padding: 0.35rem 1.1rem;
+            font-size: calc(var(--body-base-size) * 0.55);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .quote-metrics-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 0 5rem 1.5rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-panel {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 940px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 2.5rem;
+        }
+
+        .quote-mark {
+            position: absolute;
+            font-family: Georgia, serif;
+            font-size: 7rem;
+            line-height: 1;
+            color: var(--primary-color);
+            opacity: 0.14;
+            pointer-events: none;
+        }
+
+        .quote-mark.open {
+            top: -1.8rem;
+            left: 0;
+        }
+
+        .quote-mark.close {
+            bottom: -2rem;
+            right: 0;
+        }
+
+        .quote-text {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.72);
+            font-style: italic;
+            font-weight: 600;
+            color: var(--text-color);
+            line-height: 1.22;
+            max-width: 860px;
+            margin-bottom: 0.8rem;
+        }
+
+        .quote-text .highlight {
+            color: var(--primary-color);
+        }
+
+        .quote-attribution {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.72);
+            color: var(--text-secondary);
+            letter-spacing: 0.04em;
+        }
+
+        .metrics-grid {
+            flex: 0 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 1060px;
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top: 4px solid var(--metric-accent, var(--primary-color));
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 1.1rem 0.9rem;
+            text-align: center;
+            min-height: 155px;
+            max-height: 185px;
+        }
+
+        .metric-icon {
+            color: var(--metric-accent, var(--primary-color));
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 0.1rem;
+        }
+
+        .metric-value {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.58);
+            line-height: 1;
+            font-weight: 800;
+            color: var(--metric-accent, var(--primary-color));
+        }
+
+        .metric-label {
+            font-size: calc(var(--body-base-size) * 0.64);
+            color: var(--text-color);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .metric-subtext {
+            font-size: calc(var(--body-base-size) * 0.58);
+            color: var(--text-secondary);
+            line-height: 1.3;
+            margin-top: 0.1rem;
+        }
+
+        .context-row {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: calc(var(--body-base-size) * 0.62);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        .context-row .dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.5;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="slide-header">
+<h1>Module 4 Summary — The Complete EEP System</h1>
+<div class="header-badge">Conclusion · Module 4 of 4</div>
+</div>
+<div class="quote-metrics-content">
+<section class="quote-panel">
+<div class="quote-mark open">“</div>
+<p class="quote-text">
+                    Mastery is not a certification level — it is a <span class="highlight">behavioral state</span>.
+                    The program certifies what practitioners do in the field,
+                    not what they know in the room.
+                </p>
+<div class="quote-attribution">Mike Garcia  ·  EEP Director Narrative  ·  Version 1.0, June 2026</div>
+<div class="quote-mark close">”</div>
+</section>
+<div class="metrics-grid">
+<div class="metric-card" style="--metric-accent: #FF6200;">
+<i class="fas fa-layer-group metric-icon"></i>
+<div class="metric-value">4</div>
+<div class="metric-label">Modules</div>
+<div class="metric-subtext">One integrated system — four components, one program</div>
+</div>
+<div class="metric-card" style="--metric-accent: #CC4E00;">
+<i class="fas fa-sitemap metric-icon"></i>
+<div class="metric-value">3</div>
+<div class="metric-label">Frameworks</div>
+<div class="metric-subtext">EDEv4 · CEEDS · CE Framework</div>
+</div>
+<div class="metric-card" style="--metric-accent: #E87030;">
+<i class="fas fa-user-check metric-icon"></i>
+<div class="metric-value">Field</div>
+<div class="metric-label">Behavior</div>
+<div class="metric-subtext">The certification standard — what practitioners do, not what they know</div>
+</div>
+<div class="metric-card" style="--metric-accent: #FF8C42;">
+<i class="fas fa-pen-nib metric-icon"></i>
+<div class="metric-value">Garcia</div>
+<div class="metric-label">Mike Garcia</div>
+<div class="metric-subtext">Author &amp; Architect — original frameworks, June 2026</div>
+</div>
+</div>
+<div class="context-row">
+<span>EEP Program Charter</span>
+<span class="dot"></span>
+<span>Version 1.0</span>
+<span class="dot"></span>
+<span>June 2026</span>
+<span class="dot"></span>
+<span>Built on original frameworks by Mike Garcia</span>
+</div>
+</div>
+</div>
+</body>
+</html>

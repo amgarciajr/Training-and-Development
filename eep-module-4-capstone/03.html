@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Integrating All Four Components</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #CC4E00;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.5rem 3rem 0;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span {
+            color: var(--primary-color);
+        }
+
+        .header-tag {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            opacity: 0.85;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 3rem 1rem;
+            overflow: hidden;
+            gap: 0.75rem;
+        }
+
+        .cards-row {
+            display: flex;
+            gap: 0;
+            align-items: stretch;
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* Arrow connector */
+        .arrow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .arrow-connector i {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            opacity: 0.6;
+        }
+
+        /* Evolution cards */
+        .evolution-card {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border-top: 4px solid var(--primary-color);
+            min-height: 0;
+        }
+
+        .card-edev4 { border-top-color: #FF6200; }
+        .card-ceeds { border-top-color: #CC4E00; }
+        .card-ce-framework {
+            border-top-color: #FF8C42;
+            box-shadow: 0 0 24px rgba(255, 98, 0, 0.18);
+            background: #2E2218;
+        }
+        .card-gov-app { border-top-color: #E0E0E0; }
+
+        .era-badge {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+        }
+
+        .gen-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .card-edev4 .gen-label { color: #FF6200; }
+        .card-ceeds .gen-label { color: #CC4E00; }
+        .card-ce-framework .gen-label { color: #FF8C42; }
+        .card-gov-app .gen-label { color: #CCCCCC; }
+
+        .era-period {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.6rem;
+            padding: 0.18rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .card-icon-row {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .tech-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 1.15rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-edev4 .tech-icon { color: #FF6200; border: 1px solid rgba(255,98,0,0.3); }
+        .card-ceeds .tech-icon { color: #CC4E00; border: 1px solid rgba(204,78,0,0.3); }
+        .card-ce-framework .tech-icon { color: #FF8C42; border: 1px solid rgba(255,140,66,0.4); }
+        .card-gov-app .tech-icon { color: #CCCCCC; border: 1px solid rgba(204,204,204,0.25); }
+
+        .tech-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .tech-subtitle {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
+            padding: 0.5rem 0.65rem;
+            border-left: 3px solid var(--primary-color);
+            margin-bottom: 0.4rem;
+        }
+
+        .card-edev4 .metric-box { border-left-color: #FF6200; }
+        .card-ceeds .metric-box { border-left-color: #CC4E00; }
+        .card-ce-framework .metric-box { border-left-color: #FF8C42; }
+        .card-gov-app .metric-box { border-left-color: #CCCCCC; }
+
+        .metric-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.2rem;
+        }
+
+        .metric-value {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .feature-list {
+            margin-top: auto;
+            padding-top: 0.6rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+            line-height: 1.35;
+        }
+
+        .feature-item i {
+            margin-right: 0.4rem;
+            margin-top: 0.15rem;
+            font-size: 0.55rem;
+            flex-shrink: 0;
+        }
+
+        .card-edev4 .feature-item i { color: #FF6200; }
+        .card-ceeds .feature-item i { color: #CC4E00; }
+        .card-ce-framework .feature-item i { color: #FF8C42; }
+        .card-gov-app .feature-item i { color: #CCCCCC; }
+
+        /* Center card highlight badge */
+        .anchor-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255, 140, 66, 0.15);
+            border: 1px solid rgba(255, 140, 66, 0.4);
+            color: #FF8C42;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Bottom insight bar */
+        .insight-bar {
+            background: rgba(255, 98, 0, 0.1);
+            border: 1px solid rgba(255, 98, 0, 0.25);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 0.55rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .insight-bar i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .insight-bar p {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .insight-bar p strong {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="slide-header">
+<h1>Integrating All <span>Four Components</span></h1>
+<div class="header-tag">EEP System Architecture</div>
+</div>
+<div class="slide-content">
+<div class="cards-row">
+<!-- Card 1: EDEv4 -->
+<div class="evolution-card card-edev4">
+<div class="era-badge">
+<span class="gen-label">Component 1</span>
+<span class="era-period">Engagement Level</span>
+</div>
+<div class="card-icon-row">
+<div class="tech-icon"><i class="fas fa-handshake"></i></div>
+<div class="tech-title">EDEv4</div>
+<div class="tech-subtitle">Engagement Delivery Excellence</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Governs</div>
+<div class="metric-value">What happens at the engagement level</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Scope</div>
+<div class="metric-value">Client-facing execution standard</div>
+</div>
+<div class="feature-list">
+<div class="feature-item"><i class="fas fa-circle"></i><span>Signal language and ownership model</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Three Tests applied per interaction</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Outcome Owner accountability</span></div>
+</div>
+</div>
+<div class="arrow-connector"><i class="fas fa-chevron-right"></i></div>
+<!-- Card 2: CEEDS -->
+<div class="evolution-card card-ceeds">
+<div class="era-badge">
+<span class="gen-label">Component 2</span>
+<span class="era-period">Team Level</span>
+</div>
+<div class="card-icon-row">
+<div class="tech-icon"><i class="fas fa-users-cog"></i></div>
+<div class="tech-title">CEEDS</div>
+<div class="tech-subtitle">Client Engagement Excellence Delivery System</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Governs</div>
+<div class="metric-value">How the team operates day-to-day</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Scope</div>
+<div class="metric-value">Team-level operating standard</div>
+</div>
+<div class="feature-list">
+<div class="feature-item"><i class="fas fa-circle"></i><span>Daily delivery rhythm and cadence</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Team coordination and escalation</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Consistent behavioral baseline</span></div>
+</div>
+</div>
+<div class="arrow-connector"><i class="fas fa-chevron-right"></i></div>
+<!-- Card 3: CE Framework (center anchor) -->
+<div class="evolution-card card-ce-framework">
+<div class="era-badge">
+<span class="gen-label">Component 3</span>
+<span class="anchor-badge"><i class="fas fa-star"></i> Trust Anchor</span>
+</div>
+<div class="card-icon-row">
+<div class="tech-icon"><i class="fas fa-shield-alt"></i></div>
+<div class="tech-title">CE Framework</div>
+<div class="tech-subtitle">Client Engagement Trust Model</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Provides</div>
+<div class="metric-value">Trust model all components are designed to produce</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Scope</div>
+<div class="metric-value">Strategic partnership architecture</div>
+</div>
+<div class="feature-list">
+<div class="feature-item"><i class="fas fa-circle"></i><span>Defines what trust looks like at scale</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Unifies EDEv4 and CEEDS outputs</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Measurable client relationship depth</span></div>
+</div>
+</div>
+<div class="arrow-connector"><i class="fas fa-chevron-right"></i></div>
+<!-- Card 4: Governance App -->
+<div class="evolution-card card-gov-app">
+<div class="era-badge">
+<span class="gen-label">Component 4</span>
+<span class="era-period">Pre-Engagement</span>
+</div>
+<div class="card-icon-row">
+<div class="tech-icon"><i class="fas fa-chart-bar"></i></div>
+<div class="tech-title">Governance App</div>
+<div class="tech-subtitle">Assessment &amp; Intelligence Tool</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Provides</div>
+<div class="metric-value">Pre-engagement intelligence baseline</div>
+</div>
+<div class="metric-box">
+<div class="metric-label">Scope</div>
+<div class="metric-value">Enables all three to start informed</div>
+</div>
+<div class="feature-list">
+<div class="feature-item"><i class="fas fa-circle"></i><span>Risk and readiness assessment</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Engagement health scoring</span></div>
+<div class="feature-item"><i class="fas fa-circle"></i><span>Portfolio-level variance visibility</span></div>
+</div>
+</div>
+</div>
+<!-- Bottom Insight Bar -->
+<div class="insight-bar">
+<i class="fas fa-exclamation-triangle"></i>
+<p><strong>System Integrity:</strong> Remove any one of the four components and the system has a gap — it may not be visible on a single engagement, but it will become visible in the <strong>variance across a portfolio</strong>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

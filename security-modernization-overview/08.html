@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Framework Summary — Identity-First Zero Trust</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top accent bar */
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, #FF8C42 60%, transparent 100%);
+            z-index: 10;
+        }
+
+        /* Subtle background grid pattern */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,98,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,98,0,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-header {
+            flex: 0 0 auto;
+            padding: 1.4rem 3.2rem 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.08;
+        }
+
+        .header-badge {
+            background: var(--accent2);
+            color: white;
+            border-radius: 999px;
+            padding: 0.35rem 1rem;
+            font-size: calc(var(--body-base-size) * 0.55);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .quote-metrics-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.1rem;
+            padding: 0 5rem 1.5rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-panel {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 940px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0.5rem 2rem;
+        }
+
+        .quote-mark {
+            position: absolute;
+            font-family: Georgia, serif;
+            font-size: 6rem;
+            line-height: 1;
+            color: var(--primary-color);
+            opacity: 0.14;
+            pointer-events: none;
+        }
+
+        .quote-mark.open { top: -1.2rem; left: 0; }
+        .quote-mark.close { bottom: -1.2rem; right: 0; }
+
+        .quote-text {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.72);
+            font-style: italic;
+            font-weight: 600;
+            color: var(--text-color);
+            line-height: 1.22;
+            max-width: 860px;
+            margin-bottom: 0.75rem;
+        }
+
+        .quote-text .highlight {
+            color: var(--primary-color);
+        }
+
+        .quote-attribution {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.72);
+            color: var(--text-secondary);
+            letter-spacing: 0.04em;
+        }
+
+        .metrics-grid {
+            flex: 0 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 1060px;
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-top: 4px solid var(--metric-accent, var(--primary-color));
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 1.1rem 0.9rem;
+            text-align: center;
+            min-height: 155px;
+            max-height: 185px;
+        }
+
+        .metric-icon {
+            color: var(--metric-accent, var(--primary-color));
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 0.1rem;
+        }
+
+        .metric-value {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.6);
+            line-height: 1;
+            font-weight: 800;
+            color: var(--metric-accent, var(--primary-color));
+        }
+
+        .metric-label {
+            font-size: calc(var(--body-base-size) * 0.65);
+            color: var(--text-color);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .metric-subtext {
+            font-size: calc(var(--body-base-size) * 0.6);
+            color: var(--text-secondary);
+            line-height: 1.3;
+            margin-top: 0.1rem;
+        }
+
+        .context-row {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: calc(var(--body-base-size) * 0.65);
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            opacity: 0.75;
+        }
+
+        .context-dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.6;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="top-accent"></div>
+<div class="slide-header">
+<h1>Framework Summary — Identity-First Zero Trust</h1>
+<div class="header-badge">Conclusion</div>
+</div>
+<div class="quote-metrics-content">
+<section class="quote-panel">
+<div class="quote-mark open">“</div>
+<p class="quote-text">
+                    Identity-first sequencing ensures <span class="highlight">every layer reinforces the one beneath it</span> — risk is reduced from day one, not deferred.
+                </p>
+<div class="quote-attribution">Security Modernization Implementation Framework  ·  Mike Garcia  ·  Version 1.0</div>
+<div class="quote-mark close">”</div>
+</section>
+<div class="metrics-grid">
+<div class="metric-card" style="--metric-accent: #FF6200;">
+<i class="fas fa-calendar-check metric-icon"></i>
+<div class="metric-value">90 Days</div>
+<div class="metric-label">Measurable Impact</div>
+<div class="metric-subtext">Maximum risk reduction per dollar invested in the first quarter</div>
+</div>
+<div class="metric-card" style="--metric-accent: #1D4ED8;">
+<i class="fas fa-layer-group metric-icon"></i>
+<div class="metric-value">Identity First</div>
+<div class="metric-label">Zero Trust Sequence</div>
+<div class="metric-subtext">Identity → Data Protection → Governance → AI Enablement</div>
+</div>
+<div class="metric-card" style="--metric-accent: #10B981;">
+<i class="fas fa-shield-alt metric-icon"></i>
+<div class="metric-value">Breach Exposure</div>
+<div class="metric-label">Reduced</div>
+<div class="metric-subtext">Targets the root cause of 80%+ of credential-based incidents</div>
+</div>
+<div class="metric-card" style="--metric-accent: #8B5CF6;">
+<i class="fas fa-robot metric-icon"></i>
+<div class="metric-value">AI-Ready</div>
+<div class="metric-label">Governance in Place</div>
+<div class="metric-subtext">Copilot-ready environment with labeling, DLP &amp; governance before AI deployment</div>
+</div>
+</div>
+<div class="context-row">
+<span>Developed by Mike Garcia</span>
+<span class="context-dot"></span>
+<span>Based on real-world enterprise delivery patterns</span>
+<span class="context-dot"></span>
+<span>Version 1.0</span>
+<span class="context-dot"></span>
+<span>June 2026</span>
+</div>
+</div>
+</div>
+</body>
+</html>

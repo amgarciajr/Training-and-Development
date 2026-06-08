@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --bg-color: #111827;
+            --primary-color: #FF6200;
+            --text-color: #FFFFFF;
+            --heading-font: 'Calibri', sans-serif;
+            --body-font: 'Calibri', sans-serif;
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --bg-secondary: #1F2937;
+            --ink-secondary: #D1D5DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: #1a1a1a;
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-color);
+        }
+
+        /* Background layers */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .bg-overlay-1 {
+            background-color: #0d1520;
+            opacity: 0.85;
+            clip-path: polygon(0 0, 100% 0, 100% 78%, 0% 100%);
+        }
+
+        .bg-overlay-2 {
+            background-color: #0a0f1a;
+            opacity: 0.6;
+            clip-path: polygon(58% 0, 100% 0, 100% 100%, 38% 100%);
+        }
+
+        .bg-glow {
+            position: absolute;
+            top: -80px;
+            left: -80px;
+            width: 500px;
+            height: 500px;
+            background-color: #FF6200;
+            border-radius: 50%;
+            opacity: 0.06;
+            filter: blur(90px);
+            z-index: 2;
+        }
+
+        .bg-glow-2 {
+            position: absolute;
+            bottom: -100px;
+            right: 200px;
+            width: 400px;
+            height: 400px;
+            background-color: #1D4ED8;
+            border-radius: 50%;
+            opacity: 0.07;
+            filter: blur(80px);
+            z-index: 2;
+        }
+
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 3;
+        }
+
+        /* Security domain snippet overlay */
+        .domain-snippet {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.07);
+            font-size: 1.05rem;
+            text-align: left;
+            pointer-events: none;
+            z-index: 5;
+            line-height: 2.0;
+            letter-spacing: 0.03em;
+        }
+
+        /* Main content */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 0 5rem;
+            color: #ffffff;
+            max-width: 760px;
+        }
+
+        .accent-line {
+            width: 80px;
+            height: 5px;
+            background-color: var(--accent1);
+            margin-bottom: 2rem;
+            border-radius: 2px;
+        }
+
+        .cover-eyebrow {
+            font-family: var(--heading-font);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            margin-bottom: 1.1rem;
+        }
+
+        h1.cover-title {
+            font-family: var(--heading-font);
+            font-size: var(--heading-base-size);
+            font-weight: 800;
+            line-height: 1.08;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+        }
+
+        h1.cover-title .outline-word {
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.6);
+        }
+
+        .subtitle-bar {
+            font-family: var(--heading-font);
+            font-size: calc(var(--heading-base-size) * 0.63);
+            font-weight: 400;
+            color: var(--ink-secondary);
+            border-left: 4px solid var(--accent1);
+            padding-left: 1.1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.4;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            background-color: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.55rem 1.1rem;
+            border-radius: 0.4rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #D1D5DB;
+            letter-spacing: 0.04em;
+            backdrop-filter: blur(8px);
+        }
+
+        .meta-item i {
+            color: var(--accent1);
+            font-size: 0.9rem;
+        }
+
+        /* Classification badge */
+        .classification-badge {
+            position: absolute;
+            top: 36px;
+            right: 48px;
+            z-index: 20;
+            font-family: var(--heading-font);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            border: 1px solid rgba(255,255,255,0.18);
+            padding: 0.35rem 0.9rem;
+            border-radius: 0.3rem;
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* Bottom accent bar */
+        .footer-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            z-index: 20;
+            display: flex;
+        }
+
+        .footer-seg-1 {
+            flex: 3;
+            background-color: var(--accent1);
+        }
+
+        .footer-seg-2 {
+            flex: 1;
+            background-color: var(--accent2);
+        }
+
+        .footer-seg-3 {
+            flex: 5;
+            background-color: rgba(255,255,255,0.08);
+        }
+
+        /* Vertical decorative label */
+        .vertical-label {
+            position: absolute;
+            bottom: 40px;
+            left: 5rem;
+            font-family: var(--heading-font);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            z-index: 10;
+        }
+
+        /* Right-side decorative vertical line */
+        .right-accent-line {
+            position: absolute;
+            right: 420px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,98,0,0.25) 40%, rgba(255,98,0,0.25) 60%, transparent 100%);
+            z-index: 4;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background layers -->
+<div class="bg-layer bg-overlay-1"></div>
+<div class="bg-layer bg-overlay-2"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow-2"></div>
+<div class="bg-grid"></div>
+<div class="right-accent-line"></div>
+<!-- Security domain snippet overlay -->
+<div class="domain-snippet">
+<p>[ DOMAIN 01 ] Identity &amp; Access Management</p>
+<p>[ DOMAIN 02 ] Conditional Access</p>
+<p>[ DOMAIN 03 ] MFA &amp; Authentication</p>
+<p>[ DOMAIN 04 ] Data Protection (Purview)</p>
+<p>[ DOMAIN 05 ] Governance &amp; Compliance</p>
+<p>[ DOMAIN 06 ] Resilience &amp; SOC</p>
+<p>─────────────────────────────</p>
+<p>MATURITY SCALE: 1 → 5</p>
+<p>FRAMEWORK: Zero Trust / Identity-First</p>
+<p>STATUS: Assessment In Progress</p>
+</div>
+<!-- Classification badge -->
+<div class="classification-badge">
+<i class="fas fa-lock" style="margin-right:0.4rem; font-size:0.7rem;"></i>
+            Delivery Confidential
+        </div>
+<!-- Main content -->
+<div class="content-wrapper">
+<div class="accent-line"></div>
+<div class="cover-eyebrow">
+<i class="fas fa-shield-alt" style="margin-right:0.5rem;"></i>
+                Client-Facing Assessment Findings
+            </div>
+<h1 class="cover-title">
+                Security<br/>
+<span class="outline-word">Modernization</span><br/>
+                Assessment
+            </h1>
+<div class="subtitle-bar">
+                Five-Domain Maturity Assessment &amp; Findings
+            </div>
+<div class="meta-info">
+<div class="meta-item">
+<i class="fas fa-user-tie"></i>
+<span>Mike Garcia</span>
+</div>
+<div class="meta-item">
+<i class="fas fa-calendar-alt"></i>
+<span>June 2026 · v1.0</span>
+</div>
+<div class="meta-item">
+<i class="fas fa-building"></i>
+<span>Enterprise Delivery</span>
+</div>
+</div>
+</div>
+<!-- Footer attribution -->
+<div class="vertical-label">Security Modernization Implementation Framework</div>
+<!-- Footer accent bar -->
+<div class="footer-bar">
+<div class="footer-seg-1"></div>
+<div class="footer-seg-2"></div>
+<div class="footer-seg-3"></div>
+</div>
+</div>
+</body>
+</html>

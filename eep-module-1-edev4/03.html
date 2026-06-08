@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Four Layers — Architecture Overview</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-color: #1C1C1C;
+    --bg-secondary: #2A2A2A;
+    --primary-color: #FF6200;
+    --accent2: #CC4E00;
+    --accent3: #F5F5F5;
+    --text-primary: #FFFFFF;
+    --text-secondary: #CCCCCC;
+    --heading-font: 'Calibri', sans-serif;
+    --body-font: 'Calibri', sans-serif;
+    --heading-base-size: 2.2rem;
+    --body-base-size: 1rem;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 1280px;
+    height: 720px;
+    background-color: var(--bg-color);
+    font-family: var(--body-font);
+  }
+
+  .slide-container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-primary);
+  }
+
+  /* Subtle background texture */
+  .bg-grid {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+      linear-gradient(rgba(255,98,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,98,0,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Decorative corner accent */
+  .corner-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle at top right, rgba(255,98,0,0.08) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Header */
+  .header {
+    padding: 32px 64px 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255,98,0,0.2);
+    flex-shrink: 0;
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    font-family: var(--body-font);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--primary-color);
+    margin-bottom: 6px;
+  }
+
+  .slide-title {
+    font-family: var(--heading-font);
+    font-size: var(--heading-base-size);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+
+  .header-badge {
+    font-family: var(--body-font);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-align: right;
+  }
+
+  /* Content area */
+  .content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 64px 32px;
+    position: relative;
+    z-index: 10;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  /* Timeline container */
+  .timeline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 0 16px;
+    flex: 0 0 auto;
+  }
+
+  /* Connecting line */
+  .timeline-line {
+    position: absolute;
+    top: 38px;
+    left: 60px;
+    right: 60px;
+    height: 3px;
+    background-color: rgba(255,255,255,0.08);
+    z-index: 0;
+  }
+
+  .timeline-line-progress {
+    position: absolute;
+    top: 38px;
+    left: 60px;
+    right: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent2) 100%);
+    z-index: 0;
+    box-shadow: 0 0 12px rgba(255,98,0,0.45);
+  }
+
+  /* Causal arrow markers */
+  .causal-arrow {
+    position: absolute;
+    top: 29px;
+    width: 0;
+    height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 11px solid var(--primary-color);
+    z-index: 2;
+    opacity: 0.7;
+  }
+
+  /* Timeline items */
+  .timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 22%;
+    z-index: 1;
+    position: relative;
+  }
+
+  /* Node icon circle */
+  .node-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background-color: #242424;
+    border: 2.5px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 18px;
+    box-shadow: 0 0 18px rgba(255,98,0,0.25), inset 0 0 12px rgba(255,98,0,0.05);
+    flex-shrink: 0;
+  }
+
+  .node-icon.final {
+    border-color: #FFB347;
+    color: #FFB347;
+    box-shadow: 0 0 22px rgba(255,179,71,0.3), inset 0 0 12px rgba(255,179,71,0.05);
+  }
+
+  /* Layer label */
+  .layer-label {
+    font-family: var(--body-font);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .layer-label.final {
+    color: #FFB347;
+  }
+
+  /* Layer name */
+  .layer-name {
+    font-family: var(--heading-font);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* Description card */
+  .layer-desc {
+    font-family: var(--body-font);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.45;
+    background-color: rgba(255,255,255,0.04);
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.07);
+    width: 100%;
+  }
+
+  /* Bottom summary card */
+  .summary-card {
+    background-color: rgba(255,98,0,0.07);
+    border: 1px solid rgba(255,98,0,0.25);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-shrink: 0;
+  }
+
+  .summary-icon {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+
+  .summary-label {
+    font-family: var(--body-font);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+  }
+
+  .summary-text {
+    font-family: var(--heading-font);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  .summary-sub {
+    font-family: var(--body-font);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 3px;
+    font-style: italic;
+  }
+
+  .source-tag {
+    font-family: var(--body-font);
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.25);
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: auto;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background layers -->
+<div class="bg-grid"></div>
+<div class="corner-accent"></div>
+<!-- Header -->
+<div class="header">
+<div class="header-left">
+<div class="eyebrow">EDEv4 Framework · Section 3.1</div>
+<h1 class="slide-title">The Four Layers — Architecture Overview</h1>
+</div>
+<div class="header-badge">
+      EEP Module 1<br/>Foundations of Engagement Excellence
+    </div>
+</div>
+<!-- Content -->
+<div class="content-area">
+<!-- Timeline -->
+<div class="timeline-container">
+<div class="timeline-line"></div>
+<div class="timeline-line-progress"></div>
+<!-- Causal arrows between nodes -->
+<div class="causal-arrow" style="left: calc(22% + 22px);"></div>
+<div class="causal-arrow" style="left: calc(44% + 22px);"></div>
+<div class="causal-arrow" style="left: calc(66% + 22px);"></div>
+<!-- Layer 1 -->
+<div class="timeline-item">
+<div class="node-icon">
+<i class="fas fa-satellite-dish"></i>
+</div>
+<div class="layer-label">Layer 1</div>
+<div class="layer-name">Signal Intelligence</div>
+<div class="layer-desc">
+          Detect early indicators of client sentiment, risk, and relationship health before they escalate.
+        </div>
+</div>
+<!-- Layer 2 -->
+<div class="timeline-item">
+<div class="node-icon">
+<i class="fas fa-user-shield"></i>
+</div>
+<div class="layer-label">Layer 2</div>
+<div class="layer-name">Ownership Clarity</div>
+<div class="layer-desc">
+          Establish who is accountable for each client relationship before delivery motions begin.
+        </div>
+</div>
+<!-- Layer 3 -->
+<div class="timeline-item">
+<div class="node-icon">
+<i class="fas fa-comments"></i>
+</div>
+<div class="layer-label">Layer 3</div>
+<div class="layer-name">Communication Discipline</div>
+<div class="layer-desc">
+          Apply the Three Tests to every client communication to ensure clarity, alignment, and trust.
+        </div>
+</div>
+<!-- Layer 4 -->
+<div class="timeline-item">
+<div class="node-icon final">
+<i class="fas fa-check-double"></i>
+</div>
+<div class="layer-label final">Layer 4</div>
+<div class="layer-name">Outcome Validation</div>
+<div class="layer-desc">
+          Client articulates the value received before formal engagement close — not assumed, confirmed.
+        </div>
+</div>
+</div>
+<!-- Bottom summary card -->
+<div class="summary-card">
+<div class="summary-icon">
+<i class="fas fa-layer-group"></i>
+</div>
+<div>
+<div class="summary-label">Architectural Principle</div>
+<div class="summary-text">The sequencing is causal, not merely organizational — each layer depends on the one before it.</div>
+<div class="summary-sub">You cannot enforce Communication Discipline without first establishing Ownership Clarity. You cannot validate Outcomes without first communicating with discipline.</div>
+</div>
+<div class="source-tag">EEP Director Narrative<br/>Section 3.1</div>
+</div>
+</div>
+</div>
+</body>
+</html>

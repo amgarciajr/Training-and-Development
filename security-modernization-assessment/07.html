@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Protection &amp; Governance — Detailed Findings</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent2) 50%, transparent 100%);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.4rem 2.5rem 0.6rem;
+            flex-shrink: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span.accent {
+            color: var(--primary-color);
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.25rem;
+        }
+
+        .header-meta p {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .header-meta .divider {
+            width: 1px;
+            height: 14px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            padding: 1.2rem 2.5rem 1.4rem;
+            gap: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Column layout */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.07);
+            overflow: hidden;
+        }
+
+        .column-header {
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            flex-shrink: 0;
+        }
+
+        .col-left .column-header {
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .col-right .column-header {
+            border-top: 3px solid var(--accent2);
+        }
+
+        .col-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .col-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .col-left .col-icon {
+            background: rgba(255, 98, 0, 0.15);
+            color: var(--primary-color);
+        }
+
+        .col-right .col-icon {
+            background: rgba(29, 78, 216, 0.2);
+            color: #60A5FA;
+        }
+
+        .col-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .score-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .col-left .score-badge {
+            background: rgba(255, 98, 0, 0.15);
+            color: var(--primary-color);
+            border: 1px solid rgba(255, 98, 0, 0.3);
+        }
+
+        .col-right .score-badge {
+            background: rgba(29, 78, 216, 0.2);
+            color: #60A5FA;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .column-content {
+            padding: 0.85rem 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.55rem;
+        }
+
+        .finding-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.6rem 0.85rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 7px;
+            border-left: 3px solid transparent;
+        }
+
+        .col-left .finding-item {
+            border-left-color: rgba(255, 98, 0, 0.5);
+        }
+
+        .col-right .finding-item {
+            border-left-color: rgba(29, 78, 216, 0.6);
+        }
+
+        .finding-item .fi-icon {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            margin-top: 0.05rem;
+        }
+
+        .col-left .fi-icon {
+            color: var(--primary-color);
+        }
+
+        .col-right .fi-icon {
+            color: #60A5FA;
+        }
+
+        .fi-text {
+            flex: 1;
+        }
+
+        .fi-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+            margin-bottom: 0.15rem;
+        }
+
+        .fi-detail {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        .fi-status {
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            align-self: flex-start;
+            margin-top: 0.05rem;
+        }
+
+        .status-gap {
+            background: rgba(239, 68, 68, 0.15);
+            color: #F87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-partial {
+            background: rgba(245, 158, 11, 0.15);
+            color: #FCD34D;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .status-ok {
+            background: rgba(34, 197, 94, 0.12);
+            color: #4ADE80;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        /* Vertical divider */
+        .v-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12), transparent);
+            flex-shrink: 0;
+            align-self: stretch;
+        }
+
+        /* Bottom insight bar */
+        .insight-bar {
+            margin: 0 2.5rem 1.1rem;
+            padding: 0.65rem 1.1rem;
+            background: rgba(255, 98, 0, 0.08);
+            border: 1px solid rgba(255, 98, 0, 0.2);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .insight-bar i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .insight-bar p {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .insight-bar p strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="slide-header">
+<h1>Data Protection &amp; Governance — <span class="accent">Detailed Findings</span></h1>
+<div class="header-meta">
+<p>Purview · Identity Governance</p>
+<div class="divider"></div>
+<p>Sections 6 &amp; 7 — Field Guide Assessment</p>
+<div class="divider"></div>
+<p>Delivery Confidential</p>
+</div>
+</div>
+<!-- Main Content -->
+<div class="slide-content">
+<!-- Left Column: Data Protection -->
+<div class="column col-left">
+<div class="column-header">
+<div class="col-header-left">
+<div class="col-icon"><i class="fas fa-shield-alt"></i></div>
+<span class="col-title">Data Protection (Purview)</span>
+</div>
+<div class="score-badge">
+<i class="fas fa-chart-bar"></i>
+                        Score [X] / 5
+                    </div>
+</div>
+<div class="column-content">
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-tags"></i></div>
+<div class="fi-text">
+<div class="fi-label">Sensitivity Label Taxonomy</div>
+<div class="fi-detail">Labels exist but mix of published, draft, and optional — no enforced baseline classification applied.</div>
+</div>
+<span class="fi-status status-partial">Partial</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-network-wired"></i></div>
+<div class="fi-text">
+<div class="fi-label">DLP Policy Coverage by Workload</div>
+<div class="fi-detail">Exchange and SharePoint partially covered; Teams and Endpoint DLP not yet deployed.</div>
+</div>
+<span class="fi-status status-gap">Gap</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-toggle-off"></i></div>
+<div class="fi-text">
+<div class="fi-label">DLP Enforcement Mode</div>
+<div class="fi-detail">Policies running in simulation/test mode only — no active enforcement blocking data exfiltration.</div>
+</div>
+<span class="fi-status status-gap">Gap</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-user-secret"></i></div>
+<div class="fi-text">
+<div class="fi-label">Insider Risk Management</div>
+<div class="fi-detail">IRM policies not configured; leaver and data theft scenarios unmonitored.</div>
+</div>
+<span class="fi-status status-gap">Gap</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-plug"></i></div>
+<div class="fi-text">
+<div class="fi-label">HR Connector Status</div>
+<div class="fi-detail">HR Connector not configured — leaver policy triggers unavailable; critical for IRM effectiveness.</div>
+</div>
+<span class="fi-status status-gap">Not Configured</span>
+</div>
+</div>
+</div>
+<div class="v-divider"></div>
+<!-- Right Column: Governance -->
+<div class="column col-right">
+<div class="column-header">
+<div class="col-header-left">
+<div class="col-icon"><i class="fas fa-balance-scale"></i></div>
+<span class="col-title">Governance &amp; Compliance</span>
+</div>
+<div class="score-badge">
+<i class="fas fa-chart-bar"></i>
+                        Score [X] / 5
+                    </div>
+</div>
+<div class="column-content">
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-clipboard-check"></i></div>
+<div class="fi-text">
+<div class="fi-label">Access Review Configuration</div>
+<div class="fi-detail">Access Reviews configured for some groups; completion rates below 70% — stale access persists.</div>
+</div>
+<span class="fi-status status-partial">Partial</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-user-friends"></i></div>
+<div class="fi-text">
+<div class="fi-label">Guest Governance Framework</div>
+<div class="fi-detail">No formal guest lifecycle policy; external identities accumulate without periodic review or expiry.</div>
+</div>
+<span class="fi-status status-gap">Gap</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-sitemap"></i></div>
+<div class="fi-text">
+<div class="fi-label">Entitlement Management Catalog</div>
+<div class="fi-detail">Access packages not deployed; resource access provisioned manually without policy-driven workflows.</div>
+</div>
+<span class="fi-status status-gap">Not Deployed</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-award"></i></div>
+<div class="fi-text">
+<div class="fi-label">Compliance Manager Score</div>
+<div class="fi-detail">Score below target threshold; NIST/CIS control mapping incomplete with significant unassigned actions.</div>
+</div>
+<span class="fi-status status-partial">Below Target</span>
+</div>
+<div class="finding-item">
+<div class="fi-icon"><i class="fas fa-map"></i></div>
+<div class="fi-text">
+<div class="fi-label">NIST / CIS Control Mapping</div>
+<div class="fi-detail">Mapping initiated but not complete; improvement actions not assigned to owners or tracked to closure.</div>
+</div>
+<span class="fi-status status-partial">In Progress</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Insight Bar -->
+<div class="insight-bar">
+<i class="fas fa-exclamation-triangle"></i>
+<p><strong>Priority Action:</strong> HR Connector configuration is the single highest-leverage item — it unlocks Insider Risk leaver policies and closes the most critical data exfiltration gap. DLP must move from simulation to enforcement mode before Copilot readiness can be assessed.</p>
+</div>
+</div>
+</body>
+</html>
