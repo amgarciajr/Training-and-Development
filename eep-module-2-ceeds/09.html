@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2 Summary &amp; Next Steps</title>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent2: #CC4E00;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            width: 1280px;
+            height: 720px;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top accent bar */
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 35%;
+            height: 4px;
+            background: var(--primary-color);
+            z-index: 10;
+        }
+
+        /* Subtle background decoration */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .bg-circle-1 {
+            width: 320px;
+            height: 320px;
+            right: -80px;
+            bottom: -80px;
+            background: radial-gradient(circle, rgba(255,98,0,0.07) 0%, transparent 70%);
+        }
+
+        /* Header */
+        .slide-header {
+            padding: 2rem 3rem 0.5rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .module-label {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span {
+            color: var(--primary-color);
+        }
+
+        /* Content area */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 3rem 1rem;
+            position: relative;
+            z-index: 5;
+            justify-content: center;
+        }
+
+        /* Cards area */
+        .cards-area {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .summary-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: auto;
+            gap: 0.9rem;
+            width: 100%;
+            align-content: center;
+            align-items: start;
+        }
+
+        .summary-point {
+            text-align: left;
+            padding: 1.1rem 1.25rem;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 1rem;
+            border-radius: 0.6rem;
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-point::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(to left, rgba(255,98,0,0.04), transparent);
+            pointer-events: none;
+        }
+
+        .summary-icon-wrap {
+            flex-shrink: 0;
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 0.4rem;
+            background: rgba(255,98,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .summary-icon-wrap i {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+        }
+
+        .summary-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .summary-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.05rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .summary-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        /* Next module banner */
+        .next-banner {
+            flex-shrink: 0;
+            margin-top: 0.85rem;
+            padding: 0.85rem 1.5rem;
+            background: rgba(255,98,0,0.1);
+            border: 1px solid rgba(255,98,0,0.3);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .next-label {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .next-divider {
+            width: 1px;
+            height: 28px;
+            background: rgba(255,98,0,0.4);
+            flex-shrink: 0;
+        }
+
+        .next-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .next-module-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .next-module-sub {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .next-arrow {
+            margin-left: auto;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Decorative top accent bar -->
+<div class="top-accent"></div>
+<!-- Background decoration -->
+<div class="bg-circle bg-circle-1"></div>
+<!-- Header -->
+<div class="slide-header">
+<div class="module-label">EEP · Module 2 — CEEDS</div>
+<h1>Module 2 Summary <span>&amp;</span> Next Steps</h1>
+</div>
+<!-- Content -->
+<div class="slide-content">
+<div class="cards-area">
+<div class="summary-container">
+<!-- Card 1: Four Pillars -->
+<div class="summary-point">
+<div class="summary-icon-wrap">
+<i class="fas fa-layer-group"></i>
+</div>
+<div class="summary-text">
+<div class="summary-title">Four Pillars</div>
+<div class="summary-desc">Explicit trade-offs the team commits to — not aspirational values. Each pillar defines a concrete behavioral standard the team holds itself to across every engagement.</div>
+</div>
+</div>
+<!-- Card 2: Five Operating Motions -->
+<div class="summary-point">
+<div class="summary-icon-wrap">
+<i class="fas fa-rotate"></i>
+</div>
+<div class="summary-text">
+<div class="summary-title">Five Operating Motions</div>
+<div class="summary-desc">Recurring practice that translates pillar commitments into delivery. These are not one-time events — they are the repeating cadence that keeps the program alive in the team.</div>
+</div>
+</div>
+<!-- Card 3: CEES Sessions -->
+<div class="summary-point">
+<div class="summary-icon-wrap">
+<i class="fas fa-users-rectangle"></i>
+</div>
+<div class="summary-text">
+<div class="summary-title">CEES Sessions</div>
+<div class="summary-desc">Bi-weekly, 45-minute team learning sessions using real scenarios — the primary mechanism for building judgment, calibrating standards, and reinforcing signal language.</div>
+</div>
+</div>
+<!-- Card 4: Signal Language -->
+<div class="summary-point">
+<div class="summary-icon-wrap">
+<i class="fas fa-signal"></i>
+</div>
+<div class="summary-text">
+<div class="summary-title">Signal Language</div>
+<div class="summary-desc">The vocabulary of the program — observable client behaviors, not status updates. "The client seems happy" is status. "The client asked three clarifying questions" is a signal.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Next Module Banner -->
+<div class="next-banner">
+<div class="next-label">Up Next</div>
+<div class="next-divider"></div>
+<div class="next-content">
+<div class="next-module-title">Module 3 — The CE Framework Applied</div>
+<div class="next-module-sub">The Client Trust Architecture: moving from delivery excellence to strategic partnership</div>
+</div>
+<i class="fas fa-arrow-right next-arrow"></i>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conditional Access &amp; MFA — Detailed Findings</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent2) 50%, transparent 100%);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.25rem 2.5rem 0;
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span.ca-accent {
+            color: var(--primary-color);
+        }
+
+        .slide-header h1 span.mfa-accent {
+            color: var(--accent2);
+        }
+
+        .header-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 98, 0, 0.1);
+            border: 1px solid rgba(255, 98, 0, 0.3);
+            border-radius: 6px;
+            padding: 0.35rem 0.85rem;
+            font-size: calc(var(--body-base-size) * 0.6);
+            color: var(--primary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            flex-shrink: 0;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            padding: 1rem 2.5rem 1.25rem;
+            gap: 1.5rem;
+            overflow: hidden;
+        }
+
+        /* ── COLUMNS ── */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            overflow: hidden;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.25rem;
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.38);
+            font-weight: 700;
+            border-bottom: 3px solid var(--primary-color);
+            background: rgba(255, 98, 0, 0.06);
+        }
+
+        .column-header .header-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            background: rgba(255, 98, 0, 0.15);
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .column-header .score-pill {
+            margin-left: auto;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 20px;
+            padding: 0.15rem 0.65rem;
+            font-size: calc(var(--body-base-size) * 0.6);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        /* MFA column overrides */
+        .column.mfa-col .column-header {
+            border-bottom-color: var(--accent2);
+            background: rgba(29, 78, 216, 0.06);
+        }
+
+        .column.mfa-col .column-header .header-icon {
+            background: rgba(29, 78, 216, 0.15);
+            color: var(--accent2);
+        }
+
+        .column.mfa-col .column-header .score-pill {
+            background: var(--accent2);
+        }
+
+        .column-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0.75rem 1.25rem;
+            gap: 0.45rem;
+        }
+
+        /* List items */
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.55rem 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 7px;
+            border-left: 3px solid var(--primary-color);
+            font-size: calc(var(--body-base-size) * 0.72);
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+
+        .list-item .item-icon {
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            margin-top: 0.18rem;
+            flex-shrink: 0;
+        }
+
+        .list-item .item-text strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .mfa-col .list-item {
+            border-left-color: var(--accent2);
+        }
+
+        .mfa-col .list-item .item-icon {
+            color: var(--accent2);
+        }
+
+        /* Non-negotiable section */
+        .nonneg-section {
+            margin-top: 0.5rem;
+            padding: 0.6rem 0.75rem;
+            background: rgba(255, 98, 0, 0.07);
+            border-radius: 7px;
+            border: 1px solid rgba(255, 98, 0, 0.2);
+        }
+
+        .nonneg-title {
+            font-size: calc(var(--body-base-size) * 0.6);
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nonneg-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.3rem;
+        }
+
+        .nonneg-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: calc(var(--body-base-size) * 0.62);
+            color: var(--text-secondary);
+        }
+
+        .nonneg-item i {
+            color: #22C55E;
+            font-size: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        /* Bottom stat callout */
+        .stat-callout {
+            margin: 0 1.25rem 0.85rem;
+            padding: 0.55rem 1rem;
+            background: rgba(255, 98, 0, 0.1);
+            border: 1px solid rgba(255, 98, 0, 0.25);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .mfa-col .stat-callout {
+            background: rgba(29, 78, 216, 0.1);
+            border-color: rgba(29, 78, 216, 0.25);
+        }
+
+        .stat-callout .stat-icon {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .mfa-col .stat-callout .stat-icon {
+            color: var(--accent2);
+        }
+
+        .stat-callout .stat-label {
+            font-size: calc(var(--body-base-size) * 0.62);
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        .stat-callout .stat-label strong {
+            color: var(--text-color);
+            font-weight: 700;
+        }
+
+        /* Divider shield */
+        .divider-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 2.5rem;
+            position: relative;
+        }
+
+        .divider-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12), transparent);
+            transform: translateX(-50%);
+        }
+
+        .shield-badge {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            z-index: 2;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="slide-header">
+<h1>
+<span class="ca-accent">Conditional Access</span>
+<span style="color:var(--text-secondary); font-weight:300;"> &amp; </span>
+<span class="mfa-accent">MFA</span>
+<span style="font-size: calc(var(--heading-base-size) * 0.55); font-weight:400; color:var(--text-secondary);"> — Detailed Findings</span>
+</h1>
+<div class="header-badge">
+<i class="fas fa-shield-alt"></i>
+                Sections 4 &amp; 5 · Field Guide
+            </div>
+</div>
+<div class="slide-content">
+<!-- CA COLUMN -->
+<div class="column ca-col">
+<div class="column-header">
+<div class="header-icon"><i class="fas fa-filter"></i></div>
+<span>Conditional Access</span>
+<div class="score-pill">Score: X / 5</div>
+</div>
+<div class="column-body">
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Policy Set Completeness:</strong> Gaps identified against baseline policy set; report-only mode active on several policies</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Legacy Auth Block:</strong> Most common gap — legacy authentication not fully blocked across all user populations</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Named Locations:</strong> Configuration incomplete; trusted IPs and country-based restrictions require review</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Naming Convention &amp; Exceptions:</strong> Inconsistent policy naming; exception documentation absent or outdated</span>
+</div>
+<div class="nonneg-section">
+<div class="nonneg-title">
+<i class="fas fa-lock"></i> Four Non-Negotiable CA Policies
+                        </div>
+<div class="nonneg-grid">
+<div class="nonneg-item">
+<i class="fas fa-check-circle"></i>
+<span>Require MFA for all admins</span>
+</div>
+<div class="nonneg-item">
+<i class="fas fa-check-circle"></i>
+<span>Block legacy auth — all users</span>
+</div>
+<div class="nonneg-item">
+<i class="fas fa-check-circle"></i>
+<span>Require MFA for Azure mgmt</span>
+</div>
+<div class="nonneg-item">
+<i class="fas fa-check-circle"></i>
+<span>Emergency access alert active</span>
+</div>
+</div>
+</div>
+</div>
+<div class="stat-callout">
+<i class="fas fa-exclamation-triangle stat-icon"></i>
+<span class="stat-label"><strong>Key Risk:</strong> Legacy authentication block is the most common gap — sign-in logs show active legacy auth usage requiring immediate enforcement action</span>
+</div>
+</div>
+<!-- DIVIDER -->
+<div class="divider-wrap">
+<div class="divider-line"></div>
+<div class="shield-badge"><i class="fas fa-shield-alt"></i></div>
+</div>
+<!-- MFA COLUMN -->
+<div class="column mfa-col">
+<div class="column-header">
+<div class="header-icon"><i class="fas fa-mobile-alt"></i></div>
+<span>MFA &amp; Authentication</span>
+<div class="score-pill">Score: X / 5</div>
+</div>
+<div class="column-body">
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Registration by Population:</strong> Admin MFA registration at [X]%; end-user registration at [X]% — gaps in guest and contractor populations</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Authentication Methods:</strong> SMS/voice OTP still prevalent; Authenticator app adoption at [X]%; FIDO2/passkey usage minimal</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Number Matching:</strong> Status — [Enabled / Not Enabled]; critical control to mitigate MFA fatigue attack vectors</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>MFA Fatigue Risk:</strong> Push notification without number matching creates active fatigue risk; additional context required in prompts</span>
+</div>
+<div class="list-item">
+<i class="fas fa-circle item-icon"></i>
+<span class="item-text"><strong>Phishing-Resistant Auth:</strong> No phishing-resistant methods (FIDO2, WHfB) deployed at scale; roadmap item for Days 61–90</span>
+</div>
+</div>
+<div class="stat-callout">
+<i class="fas fa-user-shield stat-icon"></i>
+<span class="stat-label"><strong>Key Metric:</strong> Overall MFA registration at [X]% — target is 100% for all users before Conditional Access enforcement mode is enabled</span>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

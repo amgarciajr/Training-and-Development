@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The CE Framework — What It Is</title>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #CC4E00;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), 'Segoe UI', sans-serif;
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle left accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+            z-index: 10;
+        }
+
+        .slide-header {
+            flex: 0 0 auto;
+            padding: 1.6rem 3.2rem 1rem 3.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), 'Segoe UI', sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+        }
+
+        .header-meta {
+            font-size: calc(var(--body-base-size) * 0.58);
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding-bottom: 0.2rem;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.1rem 3.6rem 1.3rem 3.6rem;
+            overflow: hidden;
+            justify-content: center;
+        }
+
+        .text-body-group {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            overflow: hidden;
+        }
+
+        .intro-text {
+            flex: 0 0 auto;
+            max-width: 1080px;
+            font-size: calc(var(--body-base-size) * 0.82);
+            line-height: 1.5;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(255, 98, 0, 0.4);
+        }
+
+        .text-columns {
+            flex: 0 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 2.4rem;
+            row-gap: 0;
+            overflow: hidden;
+            align-content: center;
+        }
+
+        .text-section {
+            break-inside: avoid;
+            padding: 0.85rem 0 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .text-section:nth-child(1),
+        .text-section:nth-child(2) {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .section-kicker {
+            font-family: var(--body-font), 'Segoe UI', sans-serif;
+            font-size: calc(var(--body-base-size) * 0.56);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.22rem;
+        }
+
+        .text-section h2 {
+            font-family: var(--heading-font), 'Segoe UI', sans-serif;
+            font-size: calc(var(--body-base-size) * 1.05);
+            line-height: 1.2;
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .text-section p {
+            font-family: var(--body-font), 'Segoe UI', sans-serif;
+            font-size: calc(var(--body-base-size) * 0.76);
+            line-height: 1.45;
+            color: var(--text-secondary);
+        }
+
+        .key-finding {
+            flex: 0 0 auto;
+            padding: 0.7rem 1.1rem;
+            background: rgba(255, 98, 0, 0.08);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 4px 4px 0;
+            font-size: calc(var(--body-base-size) * 0.73);
+            line-height: 1.4;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .key-finding .finding-label {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: calc(var(--body-base-size) * 0.58);
+            display: block;
+            margin-bottom: 0.18rem;
+        }
+
+        /* Column divider */
+        .text-columns::after {
+            content: none;
+        }
+
+        .col-divider {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .columns-wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="slide-header">
+<h1>The CE Framework — What It Is</h1>
+<div class="header-meta">EEP · Module 3 · Section 3.3</div>
+</div>
+<div class="slide-content">
+<div class="text-body-group">
+<p class="intro-text">
+                    The CE Framework is the theoretical and architectural foundation of the EEP — a working model of client trust, not a philosophy document. It is the diagnostic and signal-reading architecture that all other program components are designed to produce.
+                </p>
+<div class="columns-wrapper">
+<div class="text-columns">
+<section class="text-section">
+<div class="section-kicker">01 / Core Nature</div>
+<h2>Working Model — Not a Philosophy</h2>
+<p>The framework explains precisely which behaviors build client trust and which erode it. It is an operational tool designed for active use during engagements, not a set of aspirational principles or values statements.</p>
+</section>
+<section class="text-section">
+<div class="section-kicker">02 / Critical Principle</div>
+<h2>Sequencing Matters as Much as Activity</h2>
+<p>The order in which trust-building activities occur is as important as the activities themselves. Performing the right behaviors in the wrong sequence produces the wrong outcome — the framework makes this sequencing explicit and actionable.</p>
+</section>
+<section class="text-section">
+<div class="section-kicker">03 / Functional Role</div>
+<h2>Diagnostic and Signal-Reading Architecture</h2>
+<p>The CE Framework serves as the EEP's diagnostic engine — enabling practitioners to read engagement signals, identify trust gaps, and course-correct before client relationships deteriorate. Every EEP component traces back to this model.</p>
+</section>
+<section class="text-section">
+<div class="section-kicker">04 / Structural Model</div>
+<h2>Three-Layer Trust Architecture</h2>
+<p>Client trust is organized into three sequential layers: <strong style="color: #FF6200;">Credibility</strong> — the client believes we know what we are doing; <strong style="color: #FF6200;">Reliability</strong> — the client can predict how we will behave; <strong style="color: #FF6200;">Referenceability</strong> — the client actively advocates for working with us.</p>
+</section>
+</div>
+</div>
+<p class="key-finding">
+<span class="finding-label">Key Insight</span>
+                    The CE Framework is the structural backbone of the EEP — every component, behavior standard, and certification criterion traces back to this model. Understanding it is not optional; it is the prerequisite for everything else in the program.
+                </p>
+</div>
+</div>
+</div>
+</body>
+</html>

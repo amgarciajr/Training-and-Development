@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CEEDS in Practice — Scenario Exercise</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --bg-tertiary: #333333;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #CC4E00;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --text-muted: #999999;
+            --warning-color: #F59E0B;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent2), transparent);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.4rem 3rem 0;
+            flex-shrink: 0;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .header-meta-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .header-meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.6;
+        }
+
+        /* Scenario Banner */
+        .scenario-banner {
+            margin: 0.8rem 3rem 0;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 98, 0, 0.25);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 0.75rem 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .scenario-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .scenario-text {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        .scenario-quote {
+            color: var(--text-color);
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        /* Main content area */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            padding: 0.9rem 3rem 0.8rem;
+            gap: 1.5rem;
+            overflow: hidden;
+        }
+
+        /* Columns */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .column-wrong {
+            border-top: 3px solid var(--warning-color);
+            background: rgba(245, 158, 11, 0.04);
+        }
+
+        .column-correct {
+            border-top: 3px solid var(--primary-color);
+            background: rgba(255, 98, 0, 0.05);
+            box-shadow: 0 0 20px rgba(255, 98, 0, 0.08);
+        }
+
+        .column-header {
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .column-wrong .column-header {
+            background: rgba(245, 158, 11, 0.08);
+        }
+
+        .column-correct .column-header {
+            background: rgba(255, 98, 0, 0.1);
+        }
+
+        .option-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .column-wrong .option-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning-color);
+            border: 1.5px solid var(--warning-color);
+        }
+
+        .column-correct .option-badge {
+            background: rgba(255, 98, 0, 0.2);
+            color: var(--primary-color);
+            border: 1.5px solid var(--primary-color);
+        }
+
+        .column-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            flex: 1;
+        }
+
+        .column-wrong .column-title { color: var(--warning-color); }
+        .column-correct .column-title { color: var(--primary-color); }
+
+        .verdict-icon {
+            font-size: 1rem;
+        }
+
+        .column-wrong .verdict-icon { color: var(--warning-color); opacity: 0.7; }
+        .column-correct .verdict-icon { color: var(--primary-color); }
+
+        .column-body {
+            flex: 1;
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.55rem;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.6rem 0.85rem;
+            border-radius: 7px;
+            border-left: 3px solid transparent;
+        }
+
+        .column-wrong .list-item {
+            background: rgba(245, 158, 11, 0.06);
+            border-left-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .column-correct .list-item {
+            background: rgba(255, 98, 0, 0.07);
+            border-left-color: rgba(255, 98, 0, 0.4);
+        }
+
+        .list-item-icon {
+            font-size: 0.75rem;
+            margin-top: 0.22rem;
+            flex-shrink: 0;
+        }
+
+        .column-wrong .list-item-icon { color: var(--warning-color); opacity: 0.8; }
+        .column-correct .list-item-icon { color: var(--primary-color); }
+
+        .list-item-text {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        .list-item-text strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* VS divider */
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 2.5rem;
+            gap: 0.5rem;
+        }
+
+        .vs-line {
+            flex: 1;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12), transparent);
+        }
+
+        .vs-badge {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1.5px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Bottom insight bar */
+        .insight-bar {
+            margin: 0 3rem 0.9rem;
+            background: linear-gradient(90deg, rgba(255, 98, 0, 0.15), rgba(255, 98, 0, 0.05));
+            border: 1px solid rgba(255, 98, 0, 0.3);
+            border-radius: 8px;
+            padding: 0.65rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .insight-icon {
+            color: var(--primary-color);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .insight-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .insight-pair {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .insight-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .insight-label.wrong { color: var(--warning-color); }
+        .insight-label.correct { color: var(--primary-color); }
+
+        .insight-text {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .insight-text em {
+            color: var(--text-color);
+            font-style: italic;
+        }
+
+        .insight-separator {
+            width: 1px;
+            height: 1.5rem;
+            background: rgba(255,255,255,0.12);
+            flex-shrink: 0;
+        }
+
+        /* Redirect script callout in correct column */
+        .redirect-script {
+            background: rgba(255, 98, 0, 0.1);
+            border: 1px solid rgba(255, 98, 0, 0.25);
+            border-radius: 6px;
+            padding: 0.55rem 0.85rem;
+            margin-top: 0.2rem;
+        }
+
+        .redirect-script-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .redirect-script-text {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-color);
+            font-style: italic;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="slide-header">
+<h1>CEEDS in Practice — Scenario Exercise</h1>
+<div class="header-meta">
+<span class="header-meta-label">CEES Scenario 4</span>
+<div class="header-meta-dot"></div>
+<span class="header-meta-label">The Signal Review</span>
+<div class="header-meta-dot"></div>
+<span class="header-meta-label">Training Delivery Guide · Section 5</span>
+</div>
+</div>
+<!-- Scenario Banner -->
+<div class="scenario-banner">
+<div class="scenario-label"><i class="fas fa-comments" style="margin-right:0.4rem;"></i>Scenario Prompt</div>
+<div class="scenario-text">
+                During a Weekly Signal Review, a team member says: <span class="scenario-quote">"The client seems happy — no complaints this week, the calls have been going well, and they seemed positive in the last meeting."</span>
+                  How do you respond as the Engagement Lead facilitating the review?
+            </div>
+</div>
+<!-- Main Columns -->
+<div class="slide-content">
+<!-- Option A: Wrong -->
+<div class="column column-wrong">
+<div class="column-header">
+<div class="option-badge">A</div>
+<div class="column-title">Accept &amp; Move On</div>
+<i class="fas fa-times-circle verdict-icon"></i>
+</div>
+<div class="column-body">
+<div class="list-item">
+<i class="fas fa-circle list-item-icon"></i>
+<div class="list-item-text"><strong>Accept the update</strong> — positive sentiment is treated as a valid signal</div>
+</div>
+<div class="list-item">
+<i class="fas fa-circle list-item-icon"></i>
+<div class="list-item-text"><strong>No follow-up questions</strong> — move on to the next agenda item</div>
+</div>
+<div class="list-item">
+<i class="fas fa-circle list-item-icon"></i>
+<div class="list-item-text"><strong>Status language accepted</strong> — "seems happy" logged as engagement health indicator</div>
+</div>
+<div class="list-item">
+<i class="fas fa-circle list-item-icon"></i>
+<div class="list-item-text"><strong>Missed learning opportunity</strong> — team never develops signal observation skills</div>
+</div>
+</div>
+</div>
+<!-- VS Divider -->
+<div class="vs-divider">
+<div class="vs-line"></div>
+<div class="vs-badge">VS</div>
+<div class="vs-line"></div>
+</div>
+<!-- Option B: Correct -->
+<div class="column column-correct">
+<div class="column-header">
+<div class="option-badge">B</div>
+<div class="column-title">Redirect to Signals — CORRECT</div>
+<i class="fas fa-check-circle verdict-icon"></i>
+</div>
+<div class="column-body">
+<div class="list-item">
+<i class="fas fa-arrow-right list-item-icon"></i>
+<div class="list-item-text"><strong>Name the pattern:</strong> <em>"That's status language — not a signal."</em></div>
+</div>
+<div class="list-item">
+<i class="fas fa-arrow-right list-item-icon"></i>
+<div class="list-item-text"><strong>Redirect to three-stream model:</strong> friction, clarity, and follow-through</div>
+</div>
+<div class="list-item">
+<i class="fas fa-arrow-right list-item-icon"></i>
+<div class="list-item-text"><strong>Ask the signal question:</strong> <em>"What did the client do or say that you're reading as positive?"</em></div>
+</div>
+<div class="list-item">
+<i class="fas fa-arrow-right list-item-icon"></i>
+<div class="list-item-text"><strong>Observable behavior only:</strong> specific client actions = signals; general impressions = status</div>
+</div>
+<div class="redirect-script">
+<div class="redirect-script-label"><i class="fas fa-quote-left" style="margin-right:0.3rem;"></i>Facilitator Script</div>
+<div class="redirect-script-text">"What specific signals did you observe this week across the three streams — friction, clarity, and follow-through?"</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Insight Bar -->
+<div class="insight-bar">
+<i class="fas fa-lightbulb insight-icon"></i>
+<div class="insight-content">
+<div class="insight-pair">
+<span class="insight-label wrong">Status Language</span>
+<span class="insight-text"><em>"The client seems happy"</em> — impression, not evidence</span>
+</div>
+<div class="insight-separator"></div>
+<div class="insight-pair">
+<span class="insight-label correct">Signal Language</span>
+<span class="insight-text"><em>"What did the client do or say?"</em> — specific, observable, actionable</span>
+</div>
+<div class="insight-separator"></div>
+<div class="insight-pair">
+<span class="insight-label correct">Key Rule</span>
+<span class="insight-text">If you can't point to a behavior, it's not a signal — it's a feeling</span>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

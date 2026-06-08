@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maturity Scoring Framework</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-header {
+            padding: 1.5rem 3rem 0.5rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 98, 0, 0.2);
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .header-badge {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: rgba(255, 98, 0, 0.1);
+            border: 1px solid rgba(255, 98, 0, 0.3);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            gap: 0.75rem;
+            padding: 1rem 2rem 1rem;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .level-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: none;
+        }
+
+        .level-card.level-1 { border-left: 4px solid #EF4444; }
+        .level-card.level-2 { border-left: 4px solid #F97316; }
+        .level-card.level-3 { border-left: 4px solid #EAB308; border: 2px solid rgba(255, 98, 0, 0.5); border-left: 4px solid #EAB308; }
+        .level-card.level-4 { border-left: 4px solid #22C55E; }
+        .level-card.level-5 { border-left: 4px solid #10B981; }
+
+        .level-card.level-3 {
+            background: rgba(31, 41, 55, 0.95);
+            box-shadow: 0 0 16px rgba(255, 98, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 0.75rem 0.9rem 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .score-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .score-badge {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .badge-1 { background: #EF4444; }
+        .badge-2 { background: #F97316; }
+        .badge-3 { background: #EAB308; color: #111; }
+        .badge-4 { background: #22C55E; }
+        .badge-5 { background: #10B981; }
+
+        .level-name {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.1;
+        }
+
+        .level-icon {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        .icon-1 { color: #EF4444; }
+        .icon-2 { color: #F97316; }
+        .icon-3 { color: #EAB308; }
+        .icon-4 { color: #22C55E; }
+        .icon-5 { color: #10B981; }
+
+        .card-body {
+            padding: 0 0.9rem 0.75rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .descriptor {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.35;
+        }
+
+        .descriptor i {
+            font-size: 0.6rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+
+        .desc-1 i { color: #EF4444; }
+        .desc-2 i { color: #F97316; }
+        .desc-3 i { color: #EAB308; }
+        .desc-4 i { color: #22C55E; }
+        .desc-5 i { color: #10B981; }
+
+        .threshold-banner {
+            margin: 0 0.9rem 0.6rem;
+            padding: 0.4rem 0.6rem;
+            background: rgba(255, 98, 0, 0.12);
+            border: 1px solid rgba(255, 98, 0, 0.35);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            flex-shrink: 0;
+        }
+
+        .progress-track {
+            padding: 0.5rem 2rem 0.6rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .progress-segment {
+            flex: 1;
+            height: 5px;
+            position: relative;
+        }
+
+        .progress-segment:first-child { border-radius: 3px 0 0 3px; }
+        .progress-segment:last-child { border-radius: 0 3px 3px 0; }
+
+        .seg-1 { background: #EF4444; }
+        .seg-2 { background: #F97316; }
+        .seg-3 { background: #EAB308; }
+        .seg-4 { background: #22C55E; }
+        .seg-5 { background: #10B981; }
+
+        .progress-label {
+            position: absolute;
+            bottom: -1.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .footer-bar {
+            padding: 0.4rem 2rem 0.5rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-note {
+            font-size: 0.72rem;
+            color: rgba(209, 213, 219, 0.5);
+            font-style: italic;
+        }
+
+        .footer-source {
+            font-size: 0.68rem;
+            color: rgba(209, 213, 219, 0.4);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="slide-header">
+<h1>Maturity Scoring Framework</h1>
+<span class="header-badge"><i class="fas fa-shield-alt" style="margin-right:0.4rem; color: var(--primary-color);"></i>Field Guide § 3.4 — Maturity Scoring Quick Reference</span>
+</div>
+<!-- Progress Track -->
+<div class="progress-track" style="padding-bottom: 1.4rem;">
+<div class="progress-segment seg-1" style="position:relative;">
+<span class="progress-label">Initial</span>
+</div>
+<div class="progress-segment seg-2" style="position:relative;">
+<span class="progress-label">Developing</span>
+</div>
+<div class="progress-segment seg-3" style="position:relative;">
+<span class="progress-label" style="color: var(--primary-color); font-weight:700;">Defined ★</span>
+</div>
+<div class="progress-segment seg-4" style="position:relative;">
+<span class="progress-label">Managed</span>
+</div>
+<div class="progress-segment seg-5" style="position:relative;">
+<span class="progress-label">Optimized</span>
+</div>
+</div>
+<!-- Five Level Cards -->
+<div class="slide-content">
+<!-- Score 1: Initial -->
+<div class="level-card level-1">
+<div class="card-header">
+<div class="score-row">
+<div class="score-badge badge-1">1</div>
+<div>
+<div class="level-name">Initial</div>
+</div>
+<i class="fas fa-exclamation-triangle level-icon icon-1" style="margin-left:auto;"></i>
+</div>
+</div>
+<div class="card-body">
+<div class="descriptor desc-1">
+<i class="fas fa-circle"></i>
+<span>No formal process in place; controls are absent or unknown</span>
+</div>
+<div class="descriptor desc-1">
+<i class="fas fa-circle"></i>
+<span>Remediation is reactive only — no proactive posture</span>
+</div>
+<div class="descriptor desc-1">
+<i class="fas fa-circle"></i>
+<span>High likelihood of active exploitation risk present</span>
+</div>
+</div>
+</div>
+<!-- Score 2: Developing -->
+<div class="level-card level-2">
+<div class="card-header">
+<div class="score-row">
+<div class="score-badge badge-2">2</div>
+<div>
+<div class="level-name">Developing</div>
+</div>
+<i class="fas fa-tools level-icon icon-2" style="margin-left:auto;"></i>
+</div>
+</div>
+<div class="card-body">
+<div class="descriptor desc-2">
+<i class="fas fa-circle"></i>
+<span>Some controls exist but not enforced consistently</span>
+</div>
+<div class="descriptor desc-2">
+<i class="fas fa-circle"></i>
+<span>Significant gaps remain; policy exists on paper only</span>
+</div>
+<div class="descriptor desc-2">
+<i class="fas fa-circle"></i>
+<span>Inconsistent application across teams and workloads</span>
+</div>
+</div>
+</div>
+<!-- Score 3: Defined — BASELINE TARGET -->
+<div class="level-card level-3">
+<div class="card-header">
+<div class="score-row">
+<div class="score-badge badge-3">3</div>
+<div>
+<div class="level-name" style="color: #EAB308;">Defined</div>
+</div>
+<i class="fas fa-check-circle level-icon icon-3" style="margin-left:auto;"></i>
+</div>
+</div>
+<div class="threshold-banner">
+<i class="fas fa-flag" style="margin-right:0.3rem;"></i>Baseline Target — No Active Exploitation Risk
+                </div>
+<div class="card-body">
+<div class="descriptor desc-3">
+<i class="fas fa-circle"></i>
+<span>Core controls in place and enforced; documentation exists</span>
+</div>
+<div class="descriptor desc-3">
+<i class="fas fa-circle"></i>
+<span>Gaps are known, tracked, and actively managed</span>
+</div>
+<div class="descriptor desc-3">
+<i class="fas fa-circle"></i>
+<span>No active exploitation risk from baseline control gaps</span>
+</div>
+</div>
+</div>
+<!-- Score 4: Managed -->
+<div class="level-card level-4">
+<div class="card-header">
+<div class="score-row">
+<div class="score-badge badge-4">4</div>
+<div>
+<div class="level-name">Managed</div>
+</div>
+<i class="fas fa-chart-bar level-icon icon-4" style="margin-left:auto;"></i>
+</div>
+</div>
+<div class="card-body">
+<div class="descriptor desc-4">
+<i class="fas fa-circle"></i>
+<span>Controls monitored, measured, and metrics available</span>
+</div>
+<div class="descriptor desc-4">
+<i class="fas fa-circle"></i>
+<span>Exceptions tracked and time-limited with clear ownership</span>
+</div>
+<div class="descriptor desc-4">
+<i class="fas fa-circle"></i>
+<span>Process is repeatable, owned, and consistently applied</span>
+</div>
+</div>
+</div>
+<!-- Score 5: Optimized -->
+<div class="level-card level-5">
+<div class="card-header">
+<div class="score-row">
+<div class="score-badge badge-5">5</div>
+<div>
+<div class="level-name">Optimized</div>
+</div>
+<i class="fas fa-rocket level-icon icon-5" style="margin-left:auto;"></i>
+</div>
+</div>
+<div class="card-body">
+<div class="descriptor desc-5">
+<i class="fas fa-circle"></i>
+<span>Controls automated and self-healing where possible</span>
+</div>
+<div class="descriptor desc-5">
+<i class="fas fa-circle"></i>
+<span>Continuous review cadence; metrics drive improvement</span>
+</div>
+<div class="descriptor desc-5">
+<i class="fas fa-circle"></i>
+<span>Threat-informed posture with proactive adaptation</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer-bar">
+<span class="footer-note">Scores represent a baseline — not a grade. The question is: "Where are we starting from?"</span>
+<span class="footer-source">Security Modernization Field Guide § 3.4 · Delivery Confidential</span>
+</div>
+</div>
+</body>
+</html>

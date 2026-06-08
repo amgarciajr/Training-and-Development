@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Identity &amp; Access — Detailed Findings</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #111827;
+            --bg-secondary: #1F2937;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #1D4ED8;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #D1D5DB;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 4px;
+            background: var(--primary-color);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.4rem 2.5rem 0;
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span {
+            color: var(--primary-color);
+        }
+
+        .score-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--bg-secondary);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 0.5rem 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 0 16px rgba(255, 98, 0, 0.25);
+        }
+
+        .score-label {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-secondary);
+            margin-bottom: 0.1rem;
+        }
+
+        .score-value {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .score-level {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            padding: 1rem 2.5rem 1.2rem;
+            gap: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Column base */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            overflow: hidden;
+        }
+
+        .column-header {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--heading-base-size) * 0.42);
+            padding: 0.75rem 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .col-left .column-header {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            background: rgba(255, 98, 0, 0.06);
+        }
+
+        .col-right .column-header {
+            color: #60A5FA;
+            border-bottom: 3px solid var(--accent2);
+            background: rgba(29, 78, 216, 0.08);
+        }
+
+        .column-content {
+            padding: 0.85rem 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Finding items */
+        .finding-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.55rem 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 7px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .finding-item i {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-top: 0.18rem;
+            flex-shrink: 0;
+        }
+
+        .finding-item span {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.72);
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+
+        .finding-item .finding-label {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 0.3rem;
+        }
+
+        /* Escalation item */
+        .escalation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.55rem 0.75rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 7px;
+            border-left: 3px solid #EF4444;
+        }
+
+        .escalation-item i {
+            color: #EF4444;
+            font-size: 0.85rem;
+            margin-top: 0.18rem;
+            flex-shrink: 0;
+        }
+
+        .escalation-item span {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.72);
+            color: #FCA5A5;
+            line-height: 1.4;
+        }
+
+        /* Action phase items */
+        .phase-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.55rem 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 7px;
+            border-left: 3px solid var(--accent2);
+        }
+
+        .phase-block.phase-1 { border-left-color: #EF4444; }
+        .phase-block.phase-2 { border-left-color: #F59E0B; }
+        .phase-block.phase-3 { border-left-color: #10B981; }
+
+        .phase-tag {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.45rem;
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            white-space: nowrap;
+        }
+
+        .phase-1 .phase-tag { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; }
+        .phase-2 .phase-tag { background: rgba(245, 158, 11, 0.2); color: #FCD34D; }
+        .phase-3 .phase-tag { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; }
+
+        .phase-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .phase-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.68);
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .phase-actions {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.63);
+            color: var(--text-secondary);
+            line-height: 1.35;
+        }
+
+        /* Section divider label */
+        .section-divider {
+            font-family: var(--body-font), sans-serif;
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-secondary);
+            padding: 0.2rem 0 0.1rem;
+            opacity: 0.7;
+        }
+
+        /* Vertical divider */
+        .vertical-divider {
+            position: absolute;
+            left: 50%;
+            top: 12%;
+            bottom: 12%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255,98,0,0.3), transparent);
+            transform: translateX(-50%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Domain subtitle */
+        .slide-subtitle {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.6);
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<div class="slide-header">
+<div>
+<h1>Identity &amp; Access — <span>Detailed Findings</span></h1>
+<p class="slide-subtitle">Domain Assessment · Identity &amp; Access Management</p>
+</div>
+<div class="score-badge">
+<span class="score-label">IAM Domain Score</span>
+<span class="score-value">X / 5</span>
+<span class="score-level">Level Label</span>
+</div>
+</div>
+<div class="slide-content">
+<div class="vertical-divider"></div>
+<!-- LEFT COLUMN: Current State & Key Findings -->
+<div class="column col-left">
+<div class="column-header">
+<i class="fas fa-search"></i>
+                    Current State &amp; Key Findings
+                </div>
+<div class="column-content">
+<div class="finding-item">
+<i class="fas fa-user-shield"></i>
+<span><span class="finding-label">Global Admin:</span> Permanent GA assignments present — no time-limited or PIM-activated roles in use.</span>
+</div>
+<div class="finding-item">
+<i class="fas fa-lock"></i>
+<span><span class="finding-label">PIM Status:</span> Privileged Identity Management not configured or partially deployed across admin roles.</span>
+</div>
+<div class="finding-item">
+<i class="fas fa-clipboard-check"></i>
+<span><span class="finding-label">Access Reviews:</span> No recurring Access Review cadence established; stale entitlements undetected.</span>
+</div>
+<div class="finding-item">
+<i class="fas fa-users-cog"></i>
+<span><span class="finding-label">Guest Governance:</span> Guest accounts lack lifecycle policy; no expiration or sponsor assignment enforced.</span>
+</div>
+<div class="finding-item">
+<i class="fas fa-robot"></i>
+<span><span class="finding-label">Service Principals:</span> Service principal audit incomplete — credential rotation and ownership undocumented.</span>
+</div>
+<div class="section-divider">Immediate Escalation</div>
+<div class="escalation-item">
+<i class="fas fa-exclamation-triangle"></i>
+<span>Emergency access accounts not tested recently — break-glass procedure unverified and at risk.</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Recommended Actions by Phase -->
+<div class="column col-right">
+<div class="column-header">
+<i class="fas fa-tasks"></i>
+                    Recommended Actions by Phase
+                </div>
+<div class="column-content">
+<div class="phase-block phase-1">
+<span class="phase-tag">Days 1–30</span>
+<div class="phase-content">
+<span class="phase-title">Stabilize — Priority 1</span>
+<span class="phase-actions">Verify &amp; test emergency access accounts · Reduce permanent GA assignments · Enable PIM for all privileged roles · Document break-glass procedure</span>
+</div>
+</div>
+<div class="phase-block phase-2">
+<span class="phase-tag">Days 31–60</span>
+<div class="phase-content">
+<span class="phase-title">Enforce — Priority 2</span>
+<span class="phase-actions">Configure recurring Access Reviews (quarterly minimum) · Deploy Entitlement Management catalogs · Establish guest lifecycle policy with expiration &amp; sponsor assignment</span>
+</div>
+</div>
+<div class="phase-block phase-3">
+<span class="phase-tag">Days 61–90</span>
+<div class="phase-content">
+<span class="phase-title">Mature — Priority 3</span>
+<span class="phase-actions">Automate joiner-mover-leaver lifecycle via HR Connector · Complete service principal audit with ownership &amp; rotation schedule · Achieve full PIM coverage across all privileged roles</span>
+</div>
+</div>
+<div class="section-divider">Key Assessment Questions</div>
+<div class="finding-item" style="border-left-color: #60A5FA;">
+<i class="fas fa-question-circle" style="color:#60A5FA;"></i>
+<span style="color:var(--text-secondary); font-size: calc(var(--body-base-size) * 0.63);">Who has permanent Global Admin right now? · What does your JML process look like? · When were emergency access accounts last tested?</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

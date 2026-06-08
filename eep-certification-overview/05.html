@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Level 2 &amp; 3 — Advanced Requirements</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --heading-base-size: 3.0rem;
+            --body-base-size: 1.4rem;
+            --bg-color: #1C1C1C;
+            --bg-secondary: #2A2A2A;
+            --primary-color: #FF6200;
+            --accent1: #FF6200;
+            --accent2: #E8A020;
+            --accent3: #F5F5F5;
+            --text-color: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --heading-font: 'Calibri';
+            --body-font: 'Calibri';
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font), 'Segoe UI', sans-serif;
+            font-size: var(--body-base-size);
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top accent bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent2) 50%, transparent 100%);
+            z-index: 10;
+        }
+
+        .slide-header {
+            padding: 1.5rem 3rem 0;
+            flex-shrink: 0;
+        }
+
+        .slide-header h1 {
+            font-family: var(--heading-font), 'Segoe UI', sans-serif;
+            font-size: var(--heading-base-size);
+            color: var(--text-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .slide-header h1 span.accent {
+            color: var(--primary-color);
+        }
+
+        .slide-subtitle {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.7);
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            padding: 1.25rem 3rem 1.5rem;
+            gap: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Columns */
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.07);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .column-l2 {
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .column-l3 {
+            border-top: 3px solid var(--accent2);
+        }
+
+        .column-header {
+            padding: 1rem 1.5rem 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            flex-shrink: 0;
+        }
+
+        .column-l2 .column-header {
+            background: rgba(255, 98, 0, 0.08);
+        }
+
+        .column-l3 .column-header {
+            background: rgba(232, 160, 32, 0.08);
+        }
+
+        .level-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 50%;
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.75);
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .column-l2 .level-badge {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .column-l3 .level-badge {
+            background: var(--accent2);
+            color: #1C1C1C;
+        }
+
+        .header-text {}
+
+        .header-title {
+            font-family: var(--heading-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.95);
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.15;
+        }
+
+        .column-l2 .header-role {
+            color: var(--primary-color);
+        }
+
+        .column-l3 .header-role {
+            color: var(--accent2);
+        }
+
+        .header-role {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.65);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.1rem;
+        }
+
+        .column-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            gap: 0;
+        }
+
+        .req-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 7px;
+            margin-bottom: 0.45rem;
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid transparent;
+            transition: background 0.2s;
+        }
+
+        .column-l2 .req-item {
+            border-left-color: rgba(255, 98, 0, 0.45);
+        }
+
+        .column-l3 .req-item {
+            border-left-color: rgba(232, 160, 32, 0.45);
+        }
+
+        .req-icon {
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            margin-top: 0.05rem;
+        }
+
+        .column-l2 .req-icon {
+            background: rgba(255, 98, 0, 0.15);
+            color: var(--primary-color);
+        }
+
+        .column-l3 .req-icon {
+            background: rgba(232, 160, 32, 0.15);
+            color: var(--accent2);
+        }
+
+        .req-text {
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.72);
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+
+        .req-text strong {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.1rem;
+        }
+
+        .column-l2 .req-text strong {
+            color: var(--primary-color);
+        }
+
+        .column-l3 .req-text strong {
+            color: var(--accent2);
+        }
+
+        .req-detail {
+            color: var(--text-secondary);
+            font-size: calc(var(--body-base-size) * 0.63);
+        }
+
+        /* Center PATH badge */
+        .path-connector {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .path-badge {
+            background: var(--bg-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            width: 3.2rem;
+            height: 3.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 0 16px rgba(255, 98, 0, 0.3);
+        }
+
+        .path-badge i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .path-label {
+            font-family: var(--heading-font), sans-serif;
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 0.15rem;
+        }
+
+        /* Slide number */
+        .slide-number {
+            position: absolute;
+            bottom: 1rem;
+            right: 2rem;
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.55);
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 0.08em;
+        }
+
+        /* EEP label */
+        .eep-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 3rem;
+            font-family: var(--body-font), sans-serif;
+            font-size: calc(var(--body-base-size) * 0.55);
+            color: rgba(255,255,255,0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="slide-header">
+<h1>Level <span class="accent">2 &amp; 3</span> — Advanced Requirements</h1>
+<p class="slide-subtitle">EEP Certification Path · Sections 1.2.2 &amp; 1.2.3</p>
+</div>
+<!-- Content -->
+<div class="slide-content">
+<!-- PATH connector badge (centered between columns) -->
+<div class="path-connector">
+<div class="path-badge">
+<i class="fas fa-arrow-up"></i>
+</div>
+<span class="path-label">PATH</span>
+</div>
+<!-- Level 2 Column -->
+<div class="column column-l2">
+<div class="column-header">
+<div class="level-badge">L2</div>
+<div class="header-text">
+<div class="header-title">EEP Lead</div>
+<div class="header-role">Level 2 Certification</div>
+</div>
+</div>
+<div class="column-body">
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-certificate"></i></div>
+<div class="req-text">
+<strong>Active L1 Certification</strong>
+<span class="req-detail">Current EEP Practitioner status required as prerequisite</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-calendar-alt"></i></div>
+<div class="req-text">
+<strong>6 Months Delivery Under Standard</strong>
+<span class="req-detail">Verified via documented Outcome Owner assignments and signal log entries</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-book-open"></i></div>
+<div class="req-text">
+<strong>3 Playbook Lesson Contributions</strong>
+<span class="req-detail">Each with scenario, contrast analysis, and reusable insight</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-users"></i></div>
+<div class="req-text">
+<strong>Facilitate One Full CEES Cycle Independently</strong>
+<span class="req-detail">4 sessions, 8 weeks — observed by a certified L3 Trainer</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-clipboard-check"></i></div>
+<div class="req-text">
+<strong>Pass Level 2 Scenario Assessment</strong>
+<span class="req-detail">Minimum passing score: 80%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Level 3 Column -->
+<div class="column column-l3">
+<div class="column-header">
+<div class="level-badge">L3</div>
+<div class="header-text">
+<div class="header-title">EEP Trainer</div>
+<div class="header-role">Level 3 Certification</div>
+</div>
+</div>
+<div class="column-body">
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-certificate"></i></div>
+<div class="req-text">
+<strong>Active L2 Certification</strong>
+<span class="req-detail">Current EEP Lead status required as prerequisite</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+<div class="req-text">
+<strong>Complete Trainer-of-Trainers Module</strong>
+<span class="req-detail">Full ToT Module completion with all components verified</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-eye"></i></div>
+<div class="req-text">
+<strong>Deliver One Observed Full CEES Session</strong>
+<span class="req-detail">Minimum passing score: 80% on observed delivery</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-pen-alt"></i></div>
+<div class="req-text">
+<strong>Submit One Complete Scenario Write-Up</strong>
+<span class="req-detail">Approved for inclusion in the EEP Playbook</span>
+</div>
+</div>
+<div class="req-item">
+<div class="req-icon"><i class="fas fa-comments"></i></div>
+<div class="req-text">
+<strong>Pass Level 3 Panel Debrief</strong>
+<span class="req-detail">15 minutes — program philosophy, edge cases &amp; stewardship</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="eep-label">Engagement Excellence Program · EEP</div>
+<div class="slide-number">05 / 08</div>
+</div>
+</body>
+</html>

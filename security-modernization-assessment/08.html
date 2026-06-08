@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prioritized Recommendations &amp; Next Steps</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="/fonts/Calibri/index.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-color: #111827;
+    --bg-secondary: #1F2937;
+    --primary-color: #FF6200;
+    --accent1: #FF6200;
+    --accent2: #1D4ED8;
+    --accent3: #F5F5F5;
+    --text-color: #FFFFFF;
+    --text-secondary: #D1D5DB;
+    --heading-font: 'Calibri', sans-serif;
+    --body-font: 'Calibri', sans-serif;
+    --heading-base-size: 2.2rem;
+    --body-base-size: 1rem;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 1280px;
+    height: 720px;
+    background-color: var(--bg-color);
+    font-family: var(--body-font);
+    color: var(--text-color);
+  }
+  .slide-container {
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: var(--bg-color);
+    overflow: hidden;
+  }
+
+  /* Subtle background accent */
+  .bg-accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: 1;
+  }
+  .bg-dot-pattern {
+    position: absolute;
+    top: 0; right: 0;
+    width: 320px;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(255,98,0,0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Header */
+  .header {
+    padding: 22px 56px 14px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+  .header-left {}
+  .title-eyebrow {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .slide-title {
+    font-family: var(--heading-font);
+    font-size: var(--heading-base-size);
+    font-weight: 700;
+    color: var(--text-color);
+    line-height: 1.1;
+  }
+  .header-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,98,0,0.12);
+    border: 1px solid rgba(255,98,0,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+  }
+  .header-badge i {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+  }
+  .header-badge span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    display: flex;
+    padding: 18px 56px 18px 56px;
+    gap: 40px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  /* Left Panel */
+  .left-panel {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+  .left-panel-heading {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 10px;
+  }
+  .phase-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .phase-item:last-child { margin-bottom: 0; }
+  .phase-number {
+    font-family: var(--heading-font);
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(255,98,0,0.18);
+    line-height: 0.85;
+    min-width: 38px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .phase-content {
+    flex: 1;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 12px;
+  }
+  .phase-item:last-child .phase-content { border-bottom: none; padding-bottom: 0; }
+  .phase-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 3px;
+  }
+  .phase-title span {
+    color: var(--primary-color);
+    font-weight: 700;
+  }
+  .phase-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  /* Right Panel */
+  .right-panel {
+    flex: 0.9;
+    background-color: rgba(31,41,55,0.5);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .right-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    border-radius: 12px 12px 0 0;
+  }
+  .roadmap-heading {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Roadmap Steps */
+  .roadmap-step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .roadmap-step:last-child { margin-bottom: 0; }
+  .roadmap-step::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 13px;
+    width: 2px;
+    height: calc(100% + 2px);
+    background: rgba(255,255,255,0.08);
+    z-index: 0;
+  }
+  .roadmap-step:last-child::before { display: none; }
+
+  .step-marker {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+  }
+  .step-marker.close-marker {
+    border-color: #10B981;
+    color: #10B981;
+  }
+
+  .step-body { flex: 1; }
+  .step-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .step-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-color);
+  }
+  .step-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge-stabilize {
+    background: rgba(255,98,0,0.15);
+    color: #FF6200;
+    border: 1px solid rgba(255,98,0,0.3);
+  }
+  .badge-enforce {
+    background: rgba(29,78,216,0.15);
+    color: #60A5FA;
+    border: 1px solid rgba(29,78,216,0.35);
+  }
+  .badge-mature {
+    background: rgba(139,92,246,0.15);
+    color: #A78BFA;
+    border: 1px solid rgba(139,92,246,0.3);
+  }
+  .badge-close {
+    background: rgba(16,185,129,0.15);
+    color: #10B981;
+    border: 1px solid rgba(16,185,129,0.3);
+  }
+  .step-action-box {
+    background: rgba(15,23,42,0.55);
+    border-radius: 7px;
+    padding: 7px 11px;
+    border-left: 3px solid var(--primary-color);
+  }
+  .step-action-box.enforce-box { border-left-color: #60A5FA; }
+  .step-action-box.mature-box { border-left-color: #A78BFA; }
+  .step-action-box.close-box { border-left-color: #10B981; }
+  .step-action-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .step-action-text strong { color: var(--text-color); }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background decorations -->
+<div class="bg-accent-bar"></div>
+<div class="bg-dot-pattern"></div>
+<!-- Header -->
+<div class="header">
+<div class="header-left">
+<div class="title-eyebrow"><i class="fas fa-road" style="font-size:0.65rem;"></i> 90-Day Roadmap</div>
+<h1 class="slide-title">Prioritized Recommendations &amp; Next Steps</h1>
+</div>
+<div class="header-badge">
+<i class="fas fa-shield-alt"></i>
+<span>Security Modernization</span>
+</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- Left Panel: Key Points -->
+<div class="left-panel">
+<div class="left-panel-heading">
+<i class="fas fa-list-check" style="font-size:0.7rem;"></i> Roadmap Priorities
+      </div>
+<!-- Phase 1 -->
+<div class="phase-item">
+<div class="phase-number">01</div>
+<div class="phase-content">
+<div class="phase-title"><span>Days 1–30:</span> Stabilize</div>
+<div class="phase-desc">Emergency access accounts verified, admin MFA enforced, legacy auth blocked, CA policies in report-only mode, sensitivity label taxonomy defined.</div>
+</div>
+</div>
+<!-- Phase 2 -->
+<div class="phase-item">
+<div class="phase-number">02</div>
+<div class="phase-content">
+<div class="phase-title"><span>Days 31–60:</span> Enforce</div>
+<div class="phase-desc">Full MFA rollout completed, CA policies moved to enforcement, DLP activated on Exchange and SharePoint, Access Reviews configured, Defender XDR baseline deployed.</div>
+</div>
+</div>
+<!-- Phase 3 -->
+<div class="phase-item">
+<div class="phase-number">03</div>
+<div class="phase-content">
+<div class="phase-title"><span>Days 61–90:</span> Mature</div>
+<div class="phase-desc">Phishing-resistant authentication deployed, endpoint DLP enabled, full PIM coverage achieved, Insider Risk Management configured, Copilot readiness assessed.</div>
+</div>
+</div>
+<!-- Phase 4 -->
+<div class="phase-item">
+<div class="phase-number">04</div>
+<div class="phase-content">
+<div class="phase-title"><span>Engagement Close:</span> Handoff</div>
+<div class="phase-desc">Operational handoff checklist completed, runbooks written and tested, monitoring and alerting configured, governance cadence scheduled with client team.</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Phased Roadmap -->
+<div class="right-panel">
+<div class="roadmap-heading">
+<i class="fas fa-map-signs"></i> Implementation Roadmap
+      </div>
+<!-- Step 1: Stabilize -->
+<div class="roadmap-step">
+<div class="step-marker">1</div>
+<div class="step-body">
+<div class="step-header-row">
+<div class="step-name">Stabilize</div>
+<span class="step-badge badge-stabilize">Days 1–30</span>
+</div>
+<div class="step-action-box">
+<div class="step-action-text"><strong>Priority:</strong> Emergency access, admin MFA, legacy auth block, CA report-only, label taxonomy.</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Enforce -->
+<div class="roadmap-step">
+<div class="step-marker">2</div>
+<div class="step-body">
+<div class="step-header-row">
+<div class="step-name">Enforce</div>
+<span class="step-badge badge-enforce">Days 31–60</span>
+</div>
+<div class="step-action-box enforce-box">
+<div class="step-action-text"><strong>Priority:</strong> Full MFA rollout, CA enforcement, DLP on Exchange &amp; SharePoint, Access Reviews, Defender XDR baseline.</div>
+</div>
+</div>
+</div>
+<!-- Step 3: Mature -->
+<div class="roadmap-step">
+<div class="step-marker">3</div>
+<div class="step-body">
+<div class="step-header-row">
+<div class="step-name">Mature</div>
+<span class="step-badge badge-mature">Days 61–90</span>
+</div>
+<div class="step-action-box mature-box">
+<div class="step-action-text"><strong>Priority:</strong> Phishing-resistant auth, endpoint DLP, full PIM, Insider Risk Management, Copilot readiness.</div>
+</div>
+</div>
+</div>
+<!-- Step 4: Engagement Close -->
+<div class="roadmap-step">
+<div class="step-marker close-marker">✓</div>
+<div class="step-body">
+<div class="step-header-row">
+<div class="step-name">Engagement Close</div>
+<span class="step-badge badge-close">Handoff</span>
+</div>
+<div class="step-action-box close-box">
+<div class="step-action-text"><strong>Deliverables:</strong> Operational handoff checklist, runbooks tested, monitoring configured, governance cadence scheduled.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
