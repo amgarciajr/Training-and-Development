@@ -5,44 +5,33 @@
   <title>Dashboards · EEP & Delivery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Aptos / System stack -->
   <style>
     :root {
       --bg: #05060a;
-      --bg-elevated: #0b0d14;
-      --bg-card: #101320;
-      --bg-chip: #181c2a;
+      --panel: rgba(255,255,255,0.03);
+      --panel-border: rgba(255,255,255,0.08);
+      --tile-bg: rgba(255,255,255,0.04);
+      --tile-border: rgba(255,255,255,0.08);
+      --tile-hover: rgba(255,255,255,0.08);
       --accent: #4cc2ff;
-      --accent-soft: rgba(76, 194, 255, 0.18);
-      --accent-strong: #00a4ef;
+      --accent-soft: rgba(76,194,255,0.25);
       --text: #f5f7ff;
       --text-soft: #c3c7d9;
-      --text-muted: #8b90a5;
-      --border-subtle: #262a3a;
-      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.65);
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-pill: 999px;
-      --transition-fast: 160ms ease-out;
-      --transition-med: 220ms ease-out;
-      --max-width: 1120px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      --radius: 18px;
+      --radius-lg: 24px;
+      --shadow: 0 18px 40px rgba(0,0,0,0.55);
+      --transition: 180ms ease-out;
+      --max-width: 1100px;
     }
 
     body {
+      margin: 0;
+      padding: 32px 16px 48px;
+      background: radial-gradient(circle at top left, #111528 0%, #05060a 45%, #020308 100%);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #111528 0, #05060a 42%, #020308 100%);
       color: var(--text);
-      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 16px 40px;
+      justify-content: center;
     }
 
     main {
@@ -50,446 +39,146 @@
       max-width: var(--max-width);
     }
 
-    .site-shell {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.6));
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: var(--shadow-soft);
-      padding: 28px 28px 32px;
-      backdrop-filter: blur(22px);
+    .hero {
+      margin-bottom: 32px;
     }
 
-    header.hero {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .hero-label-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .hero-chip {
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-chip);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .hero-chip-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px var(--accent-soft);
-    }
-
-    .hero-title {
-      font-size: 26px;
+    .hero h1 {
+      font-size: 28px;
       font-weight: 650;
-      letter-spacing: 0.02em;
+      margin-bottom: 8px;
     }
 
-    .hero-subtitle {
-      font-size: 14px;
+    .hero p {
+      font-size: 15px;
       color: var(--text-soft);
-      max-width: 640px;
-      line-height: 1.5;
+      max-width: 680px;
+      line-height: 1.55;
     }
 
-    .hero-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 4px;
+    .section {
+      margin-bottom: 40px;
     }
 
-    .meta-pill {
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 12px;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .meta-pill strong {
+    .section h2 {
+      font-size: 15px;
       font-weight: 600;
-      color: var(--text-soft);
-    }
-
-    .sections-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 22px;
-    }
-
-    @media (min-width: 880px) {
-      .sections-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      }
-    }
-
-    .section-card {
-      background: var(--bg-elevated);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      padding: 18px 18px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .section-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, var(--accent-soft), transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transition-med);
-      pointer-events: none;
-    }
-
-    .section-header {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 14px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-title-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--text-soft);
+      margin-bottom: 16px;
     }
 
-    .section-tag {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: var(--text-muted);
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
     }
 
-    .section-description {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .dashboards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .dashboard-card {
-      border-radius: var(--radius-md);
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 12px 12px 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    .tile {
+      background: var(--tile-bg);
+      border: 1px solid var(--tile-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 20px 22px;
       cursor: pointer;
-    }
-
-    .dashboard-header-row {
+      transition: var(--transition);
+      box-shadow: 0 0 0 transparent;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .dashboard-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
+    .tile:hover {
+      background: var(--tile-hover);
+      border-color: var(--accent-soft);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
     }
 
-    .dashboard-chip {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .dashboard-description {
-      font-size: 12px;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-
-    .dashboard-footer-row {
+    .tile-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .dashboard-link {
-      font-size: 12px;
-      color: var(--accent-strong);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dashboard-link-icon {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 1px solid var(--accent-strong);
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 9px;
+      font-size: 20px;
+      color: var(--accent);
     }
 
-    .dashboard-meta {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-align: right;
+    .tile-title {
+      font-size: 17px;
+      font-weight: 600;
     }
 
-    .dashboard-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-      border-color: var(--accent-soft);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), var(--bg-card));
-    }
-
-    .section-card:hover::before {
-      opacity: 1;
-    }
-
-    footer.site-footer {
-      width: 100%;
-      max-width: var(--max-width);
-      margin-top: 18px;
-      font-size: 11px;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      opacity: 0.8;
-    }
-
-    .footer-right {
-      text-align: right;
-    }
-
-    .footer-link {
-      color: var(--accent-strong);
-      text-decoration: none;
+    .tile-desc {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.45;
     }
   </style>
 </head>
+
 <body>
   <main>
-    <div class="site-shell">
-      <header class="hero">
-        <div class="hero-label-row">
-          <div class="hero-chip">
-            <span class="hero-chip-dot"></span>
-            Dashboards · EEP & Delivery
-          </div>
+    <header class="hero">
+      <h1>Dashboards</h1>
+      <p>Select a dashboard to launch. Leadership dashboards provide program‑level visibility, while engineer dashboards support daily delivery and competency development.</p>
+    </header>
+
+    <!-- Leadership Section -->
+    <section class="section">
+      <h2>Leadership Dashboards</h2>
+      <div class="tile-grid">
+
+        <!-- EEP Command Center -->
+        <div class="tile" onclick="location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center.html'">
+          <div class="tile-icon">📊</div>
+          <div class="tile-title">EEP Command Center</div>
+          <div class="tile-desc">Executive‑grade visibility into delivery, trust, modernization, and program structure.</div>
         </div>
-        <h1 class="hero-title">Leadership & Engineer Dashboards</h1>
-        <p class="hero-subtitle">
-          A curated set of dashboards that operationalize the Engagement Excellence Program (EEP) for both leadership and engineers.
-          Use this page as the single entry point into the Command Center, delivery workspace, and self‑assessment tools.
-        </p>
-        <div class="hero-meta-row">
-          <div class="meta-pill">
-            <strong>Leadership:</strong> Command Center views for trust, modernization, and program oversight.
-          </div>
-          <div class="meta-pill">
-            <strong>Engineer:</strong> Daily delivery workspace and competency self‑assessment.
-          </div>
+
+        <!-- Unbranded -->
+        <div class="tile" onclick="location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center-unbranded.html'">
+          <div class="tile-icon">🌐</div>
+          <div class="tile-title">EEP Command Center (Unbranded)</div>
+          <div class="tile-desc">A clean, neutral version for partners, customers, and external briefings.</div>
         </div>
-      </header>
 
-      <section class="sections-grid">
-        <!-- Leadership Dashboards -->
-        <section class="section-card">
-          <div class="section-header">
-            <div class="section-title-row">
-              <h2 class="section-title">Leadership Dashboards</h2>
-              <span class="section-tag">Executives · Managers · Program Owners</span>
-            </div>
-            <p class="section-description">
-              Strategic views of the Engagement Excellence Program and modernization architecture. These dashboards are designed
-              for leaders who need narrative visibility into delivery, trust, and program evolution.
-            </p>
-          </div>
+        <!-- Preview -->
+        <div class="tile" onclick="location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center-preview.html'">
+          <div class="tile-icon">🧭</div>
+          <div class="tile-title">EEP Command Center (Preview)</div>
+          <div class="tile-desc">A forward‑looking preview of upcoming EEP capabilities and enhancements.</div>
+        </div>
 
-          <div class="dashboards-list">
-            <!-- EEP Command Center -->
-            <article class="dashboard-card" onclick="window.location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center.html'">
-              <div class="dashboard-header-row">
-                <h3 class="dashboard-title">EEP Command Center</h3>
-                <span class="dashboard-chip">Primary Leadership View</span>
-              </div>
-              <p class="dashboard-description">
-                The executive‑grade view of the Engagement Excellence Program—delivery, trust, and modernization in one system.
-                This dashboard unifies EDEv4, CEEDS, the CE Framework, and the Governance App into a single strategic lens for
-                understanding how teams build client trust at scale.
-              </p>
-              <div class="dashboard-footer-row">
-                <a class="dashboard-link" href="https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center.html">
-                  <span class="dashboard-link-icon">↗</span>
-                  Open Command Center
-                </a>
-                <span class="dashboard-meta">Audience: Leadership · Program Owners</span>
-              </div>
-            </article>
+      </div>
+    </section>
 
-            <!-- EEP Command Center (Unbranded) -->
-            <article class="dashboard-card" onclick="window.location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center-unbranded.html'">
-              <div class="dashboard-header-row">
-                <h3 class="dashboard-title">EEP Command Center (Unbranded)</h3>
-                <span class="dashboard-chip">External / Partner View</span>
-              </div>
-              <p class="dashboard-description">
-                A clean, neutral version of the Command Center for external audiences and cross‑organization sharing. Ideal for
-                partner enablement, customer workshops, and executive briefings, it presents the EEP operating model as a
-                universal delivery system focused on trust, clarity, and disciplined communication.
-              </p>
-              <div class="dashboard-footer-row">
-                <a class="dashboard-link" href="https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center-unbranded.html">
-                  <span class="dashboard-link-icon">↗</span>
-                  Open Unbranded View
-                </a>
-                <span class="dashboard-meta">Audience: Leadership · Partners · Customers</span>
-              </div>
-            </article>
+    <!-- Engineer Section -->
+    <section class="section">
+      <h2>Engineer Dashboards</h2>
+      <div class="tile-grid">
 
-            <!-- EEP Command Center (Preview) -->
-            <article class="dashboard-card" onclick="window.location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center-preview.html'">
-              <div class="dashboard-header-row">
-                <h3 class="dashboard-title">EEP Command Center (Preview)</h3>
-                <span class="dashboard-chip">In‑Development · Preview</span>
-              </div>
-              <p class="dashboard-description">
-                A forward‑looking preview of upcoming EEP capabilities, content, and structural enhancements. Designed for early
-                reviewers, program contributors, and leaders validating the next iteration of the EEP experience before general
-                release.
-              </p>
-              <div class="dashboard-footer-row">
-                <a class="dashboard-link" href="https://amgarciajr.github.io/Training-and-Development/dashboards/eep-command-center-preview.html">
-                  <span class="dashboard-link-icon">↗</span>
-                  Open Preview Edition
-                </a>
-                <span class="dashboard-meta">Audience: Leadership · Contributors</span>
-              </div>
-            </article>
-          </div>
-        </section>
+        <!-- Engineer Delivery Dashboard -->
+        <div class="tile" onclick="location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/engineer-delivery-dashboard.html'">
+          <div class="tile-icon">🛠️</div>
+          <div class="tile-title">Engineer Delivery Dashboard</div>
+          <div class="tile-desc">Your daily delivery workspace for engagements, signals, and priority actions.</div>
+        </div>
 
-        <!-- Engineer Dashboards -->
-        <section class="section-card">
-          <div class="section-header">
-            <div class="section-title-row">
-              <h2 class="section-title">Engineer Dashboards</h2>
-              <span class="section-tag">Frontline Engineers · Delivery Teams</span>
-            </div>
-            <p class="section-description">
-              Operational workspaces and tools for engineers. These dashboards turn the EEP model into daily execution and
-              personal development, focusing on signal health, ownership clarity, and competency growth.
-            </p>
-          </div>
+        <!-- Self Assessment -->
+        <div class="tile" onclick="location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-self-assessment.html'">
+          <div class="tile-icon">📈</div>
+          <div class="tile-title">EEP Self‑Assessment Tool</div>
+          <div class="tile-desc">Score yourself across the six EEP dimensions and track competency growth.</div>
+        </div>
 
-          <div class="dashboards-list">
-            <!-- Engineer Delivery Dashboard -->
-            <article class="dashboard-card" onclick="window.location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/engineer-delivery-dashboard.html'">
-              <div class="dashboard-header-row">
-                <h3 class="dashboard-title">Engineer Delivery Dashboard</h3>
-                <span class="dashboard-chip">Daily Delivery Workspace</span>
-              </div>
-              <p class="dashboard-description">
-                Your daily delivery command center—built to operationalize the Engagement Excellence Program. This dashboard
-                gives engineers a unified view of active engagements, priority actions, compliance posture, and signal health.
-                It transforms the EDEv4 operating model into a living workspace for trustworthy delivery, day after day.
-              </p>
-              <div class="dashboard-footer-row">
-                <a class="dashboard-link" href="https://amgarciajr.github.io/Training-and-Development/dashboards/engineer-delivery-dashboard.html">
-                  <span class="dashboard-link-icon">↗</span>
-                  Open Delivery Dashboard
-                </a>
-                <span class="dashboard-meta">Audience: Engineers · Delivery Leads</span>
-              </div>
-            </article>
+      </div>
+    </section>
 
-            <!-- EEP Self-Assessment Tool -->
-            <article class="dashboard-card" onclick="window.location.href='https://amgarciajr.github.io/Training-and-Development/dashboards/eep-self-assessment.html'">
-              <div class="dashboard-header-row">
-                <h3 class="dashboard-title">EEP Self‑Assessment Tool</h3>
-                <span class="dashboard-chip">Competency · Skills Rubric</span>
-              </div>
-              <p class="dashboard-description">
-                A live competency assessment that turns the EEP Skills Rubric into a personalized development engine. Engineers
-                score themselves across the six EEP dimensions—Signal Intelligence, Ownership Clarity, Communication Discipline,
-                Outcome Validation, Trust Architecture, and Program Stewardship—using real‑time visuals and evidence‑based
-                guidance to build a monthly improvement cycle.
-              </p>
-              <div class="dashboard-footer-row">
-                <a class="dashboard-link" href="https://amgarciajr.github.io/Training-and-Development/dashboards/eep-self-assessment.html">
-                  <span class="dashboard-link-icon">↗</span>
-                  Open Self‑Assessment
-                </a>
-                <span class="dashboard-meta">Audience: Engineers · Coaches</span>
-              </div>
-            </article>
-          </div>
-        </section>
-      </section>
-    </div>
   </main>
-
-  <footer class="site-footer">
-    <div>
-      Dashboards are part of the Engagement Excellence Program (EEP) training and development workspace.
-    </div>
-    <div class="footer-right">
-      <a class="footer-link" href="https://amgarciajr.github.io/Training-and-Development/selection.html">
-        Back to Select Your Path
-      </a>
-    </div>
-  </footer>
 </body>
 </html>
