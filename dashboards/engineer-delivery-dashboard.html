@@ -1,45 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Engineer Delivery Dashboard</title>
 <style>
-:root{--orange:#FF6200;--orange-dark:#CC4E00;--orange-light:#FFF3EC;--charcoal:#1C1C1C;--bg2:#2A2A2A;--white:#FFFFFF;--light:#F5F5F5;--border:#E0E0E0;--mid:#9E9E9E;--dark:#444444;--green:#2E7D32;--green-light:#E8F5E9;--amber:#F57C00;--amber-light:#FFF8E1;--red:#C62828;--red-light:#FFEBEE;--blue:#1565C0;--blue-light:#E3F2FD;--sidebar:260px;}
+:root{
+  --navy-900:#050d1a;--navy-800:#0a1628;--navy-700:#0f1f38;--navy-600:#162847;--navy-500:#1e3560;
+  --blue-400:#2563eb;--blue-300:#3b82f6;--blue-200:#60a5fa;--blue-100:#93c5fd;
+  --orange:#f97316;--orange-dark:#ea580c;--orange-light:rgba(249,115,22,0.15);
+  --white:#ffffff;--light:#1e2d45;--light-gray:#1e2d45;
+  --border:rgba(59,130,246,0.18);--mid:#64748b;--mid-gray:#64748b;--dark:#94a3b8;
+  --green:#22c55e;--green-light:rgba(34,197,94,0.15);
+  --amber:#f59e0b;--amber-light:rgba(245,158,11,0.15);
+  --red:#ef4444;--red-light:rgba(239,68,68,0.15);
+  --blue:#2563eb;--blue-light:rgba(37,99,235,0.15);
+  --charcoal:#0a1628;--bg2:#0f1f38;
+  --card-bg:rgba(15,31,56,0.9);--card-border:rgba(59,130,246,0.18);
+  --sidebar:260px;--sidebar-w:260px;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Calibri','Segoe UI',Arial,sans-serif;background:var(--light);color:var(--charcoal);display:flex;min-height:100vh;font-size:15px}
-#sidebar{width:var(--sidebar);background:var(--charcoal);color:#fff;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+body{font-family:'Calibri','Segoe UI',Arial,sans-serif;background:var(--navy-900,#050d1a);color:#e2e8f0;display:flex;min-height:100vh;font-size:15px}
+#sidebar{width:var(--sidebar);background:rgba(10,22,40,0.95);color:#fff;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
 .sidebar-logo{padding:18px 16px 12px;border-bottom:2px solid var(--orange)}
 .sidebar-logo h1{font-size:14px;font-weight:700;line-height:1.3;color:#fff}
-.sidebar-logo p{font-size:10px;color:var(--mid);margin-top:3px}
+.sidebar-logo p{font-size:10px;color:#64748b;margin-top:3px}
 .nav-section{padding:8px 0 4px}
-.nav-section-label{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mid);padding:5px 16px 3px;text-transform:uppercase}
+.nav-section-label{font-size:9px;font-weight:700;letter-spacing:2px;color:#64748b;padding:5px 16px 3px;text-transform:uppercase}
 .nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;font-size:13px;color:#ccc;border-left:3px solid transparent;transition:all .15s;text-decoration:none}
 .nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
 .nav-item.active{background:rgba(255,98,0,.15);color:var(--orange);border-left-color:var(--orange);font-weight:600}
 .nav-item .icon{font-size:14px;width:16px;text-align:center;flex-shrink:0}
-.sidebar-footer{margin-top:auto;padding:12px 16px;border-top:1px solid #333;font-size:10px;color:var(--mid);line-height:1.5}
+.sidebar-footer{margin-top:auto;padding:12px 16px;border-top:1px solid #333;font-size:10px;color:#64748b;line-height:1.5}
 #main{margin-left:var(--sidebar);flex:1;min-height:100vh}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar{background:rgba(15,31,56,0.88);border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .topbar-title{font-size:17px;font-weight:700}
-.topbar-sub{font-size:11px;color:var(--mid);margin-top:2px}
+.topbar-sub{font-size:11px;color:#64748b;margin-top:2px}
 .topbar-badge{background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:none;cursor:pointer;font-family:inherit}
 .page{display:none;padding:24px 28px 48px}
 .page.active{display:block}
-.card{background:#fff;border-radius:8px;border:1px solid var(--border);padding:20px;margin-bottom:18px}
+.card{background:rgba(15,31,56,0.88);border-radius:8px;border:1px solid rgba(59,130,246,0.18);padding:20px;margin-bottom:18px}
 .card-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .card-title .icon{color:var(--orange);font-size:16px}
-.card-sub{font-size:11px;color:var(--mid);margin-bottom:14px}
+.card-sub{font-size:11px;color:#64748b;margin-bottom:14px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.stat-tile{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;border-top:3px solid var(--orange)}
+.stat-tile{background:rgba(15,31,56,0.88);border:1px solid rgba(59,130,246,0.18);border-radius:8px;padding:18px;text-align:center;border-top:3px solid var(--orange)}
 .stat-tile .num{font-size:28px;font-weight:700;color:var(--orange)}
-.stat-tile .label{font-size:11px;color:var(--mid);margin-top:4px}
-.stat-tile .desc{font-size:12px;font-weight:600;color:var(--charcoal);margin-top:5px}
+.stat-tile .label{font-size:11px;color:#64748b;margin-top:4px}
+.stat-tile .desc{font-size:12px;font-weight:600;color:#e2e8f0;margin-top:5px}
 .section-header{border-left:4px solid var(--orange);padding-left:12px;margin-bottom:18px}
 .section-header h2{font-size:18px;font-weight:700}
-.section-header p{font-size:12px;color:var(--mid);margin-top:3px}
+.section-header p{font-size:12px;color:#64748b;margin-top:3px}
 .badge{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700}
 .badge-orange{background:var(--orange-light);color:var(--orange-dark)}
 .badge-green{background:var(--green-light);color:var(--green)}
@@ -55,23 +69,23 @@ body{font-family:'Calibri','Segoe UI',Arial,sans-serif;background:var(--light);c
 .callout-amber{background:var(--amber-light);border-color:var(--amber)}
 .callout strong{font-weight:700}
 .tab-bar{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:18px;flex-wrap:wrap}
-.tab-btn{padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--mid);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;font-family:inherit}
-.tab-btn:hover{color:var(--charcoal)}
+.tab-btn{padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;color:#64748b;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;font-family:inherit}
+.tab-btn:hover{color:#e2e8f0}
 .tab-btn.active{color:var(--orange);border-bottom-color:var(--orange)}
 .tab-content{display:none}
 .tab-content.active{display:block}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:var(--charcoal);color:#fff;padding:9px 12px;text-align:left;font-size:11px;letter-spacing:.5px;font-weight:700}
-td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
-tr:nth-child(even) td{background:var(--light)}
+th{background:rgba(10,22,40,0.95);color:#fff;padding:9px 12px;text-align:left;font-size:11px;letter-spacing:.5px;font-weight:700}
+td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top}
+tr:nth-child(even) td{background:var(--navy-900,#050d1a)}
 tr:hover td{background:#FFF3EC}
 .progress-bar-wrap{background:var(--border);border-radius:10px;height:7px;overflow:hidden;margin:6px 0}
 .progress-bar-fill{height:100%;background:var(--orange);border-radius:10px;transition:width .3s}
-.check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px;line-height:1.5}
 .check-item:last-child{border-bottom:none}
 .check-box{width:20px;height:20px;border:2px solid var(--border);border-radius:4px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s;user-select:none}
 .check-box.checked{background:var(--green);border-color:var(--green);color:#fff}
-.signal-stream{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.signal-stream{border:1px solid rgba(59,130,246,0.18);border-radius:8px;overflow:hidden;margin-bottom:14px}
 .signal-stream-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
 .signal-stream-title{font-size:14px;font-weight:700}
 .signal-flag{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:inherit}
@@ -80,52 +94,52 @@ tr:hover td{background:#FFF3EC}
 .flag-red{background:var(--red-light);color:var(--red)}
 .signal-stream-body{padding:0 16px 14px;display:none}
 .signal-stream-body.open{display:block}
-.scenario-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px}
-.scenario-header{background:var(--charcoal);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.scenario-card{border:1px solid rgba(59,130,246,0.18);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.scenario-header{background:rgba(10,22,40,0.95);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
 .scenario-header h3{font-size:13px;font-weight:700}
 .scenario-body{padding:16px}
-.scenario-situation{background:var(--light);border-radius:6px;padding:12px;font-size:13px;line-height:1.6;margin-bottom:12px;border-left:3px solid var(--orange)}
+.scenario-situation{background:var(--navy-900,#050d1a);border-radius:6px;padding:12px;font-size:13px;line-height:1.6;margin-bottom:12px;border-left:3px solid var(--orange)}
 .scenario-options{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
-.scenario-option{padding:9px 12px;border:2px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;line-height:1.5;transition:all .15s;background:#fff;text-align:left;font-family:inherit;width:100%}
+.scenario-option{padding:9px 12px;border:2px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;line-height:1.5;transition:all .15s;background:rgba(15,31,56,0.88);text-align:left;font-family:inherit;width:100%}
 .scenario-option:hover{border-color:var(--orange);background:var(--orange-light)}
 .scenario-option.correct{border-color:var(--green);background:var(--green-light)}
 .scenario-option.incorrect{border-color:var(--red);background:var(--red-light)}
 .scenario-reveal{display:none}
 .scenario-reveal.show{display:block}
-.priority-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.priority-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px}
 .priority-item:last-child{border-bottom:none}
 .priority-badge{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
 .p1{background:var(--red-light);color:var(--red)}
 .p2{background:var(--amber-light);color:var(--amber)}
 .p3{background:var(--blue-light);color:var(--blue)}
 .p4{background:#f0f0f0;color:#555}
-.engagement-step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.engagement-step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px}
 .engagement-step:last-child{border-bottom:none}
 .step-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
 .step-done{background:var(--green-light);color:var(--green)}
 .step-pending{background:var(--amber-light);color:var(--amber)}
 .step-missing{background:var(--red-light);color:var(--red)}
 .compliance-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.compliance-label{font-size:12px;color:var(--dark);min-width:200px}
+.compliance-label{font-size:12px;color:#94a3b8;min-width:200px}
 .compliance-score{font-size:12px;font-weight:700;min-width:40px;text-align:right}
 .advisory-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{display:flex;flex-direction:column;gap:5px}
-.form-group label{font-size:12px;font-weight:700;color:var(--charcoal)}
-.form-group input,.form-group select,.form-group textarea{padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;color:var(--charcoal);background:#fff}
+.form-group label{font-size:12px;font-weight:700;color:#e2e8f0}
+.form-group input,.form-group select,.form-group textarea{padding:8px 12px;border:1px solid rgba(59,130,246,0.18);border-radius:6px;font-size:13px;font-family:inherit;color:#e2e8f0;background:#fff}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:2px solid var(--orange);border-color:transparent}
 .btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .15s}
 .btn-orange{background:var(--orange);color:#fff}
 .btn-orange:hover{background:var(--orange-dark)}
-.btn-dark{background:var(--charcoal);color:#fff}
-.btn-outline{background:transparent;color:var(--charcoal);border:1px solid var(--border)}
+.btn-dark{background:rgba(10,22,40,0.95);color:#fff}
+.btn-outline{background:transparent;color:#e2e8f0;border:1px solid rgba(59,130,246,0.18)}
 .btn-outline:hover{border-color:var(--orange);color:var(--orange)}
-.dim-btn{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:#fff;font-family:inherit;transition:all .15s}
+.dim-btn{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid rgba(59,130,246,0.18);background:rgba(15,31,56,0.88);font-family:inherit;transition:all .15s}
 .dim-btn.selected{background:var(--orange);color:#fff;border-color:var(--orange)}
 .radar-wrap{position:relative;width:100%;aspect-ratio:1/1}
 .radar-wrap canvas{width:100%!important;height:100%!important}
 .score-row{display:flex;align-items:center;padding:5px 0;font-size:12px;border-bottom:1px solid #f0f0f0;gap:6px}
 .score-row:last-child{border-bottom:none}
-.score-row .dim-name{color:#555;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score-row .dim-name{color:#94a3b8;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .score-bar-mini{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;min-width:40px}
 .score-bar-mini-fill{height:100%;border-radius:3px;transition:width .4s}
 .score-val{font-weight:700;font-size:12px;width:18px;text-align:right;flex-shrink:0}
@@ -133,10 +147,410 @@ ul.bullet-list{list-style:none}
 ul.bullet-list li{padding:4px 0;font-size:13px;display:flex;gap:7px;line-height:1.5}
 ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
 @media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}#sidebar{width:220px}#main{margin-left:220px}.page{padding:14px}}
+
+/* ═══ EDE DARK THEME OVERRIDES ═══ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--navy-900,#050d1a)!important;color:#e2e8f0!important;font-family:'Inter','Segoe UI',system-ui,sans-serif!important}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0a1628}::-webkit-scrollbar-thumb{background:#1e3560;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:#2563eb}
+/* Sidebar */
+#sidebar{background:linear-gradient(180deg,#0a1628 0%,#050d1a 100%)!important;border-right:1px solid rgba(59,130,246,0.12)!important}
+.sidebar-logo{border-bottom:2px solid #f97316!important;background:rgba(249,115,22,0.05)!important}
+.sidebar-logo h1,.sidebar-logo p{color:#e2e8f0!important}
+.sidebar-logo p{color:#64748b!important}
+.nav-section-label{color:#475569!important}
+.nav-item{color:#94a3b8!important;border-left:3px solid transparent!important}
+.nav-item:hover{background:rgba(37,99,235,0.1)!important;color:#e2e8f0!important}
+.nav-item.active{background:rgba(249,115,22,0.12)!important;color:#f97316!important;border-left-color:#f97316!important}
+.sidebar-footer{color:#475569!important;border-top:1px solid rgba(255,255,255,0.06)!important}
+/* Topbar */
+.topbar{background:rgba(10,22,40,0.92)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(59,130,246,0.12)!important}
+.topbar-title{color:#ffffff!important}
+.topbar-sub{color:#64748b!important}
+.topbar-badge{background:linear-gradient(135deg,#f97316,#ea580c)!important;box-shadow:0 4px 14px rgba(249,115,22,0.3)!important}
+/* Main content */
+#main{background:transparent!important;position:relative;z-index:10}
+.page{background:transparent!important}
+/* Cards */
+.card{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important;border-radius:10px!important;box-shadow:0 4px 24px rgba(0,0,0,0.3)!important;transition:all .2s!important}
+.card:hover{border-color:rgba(59,130,246,0.35)!important;box-shadow:0 8px 32px rgba(37,99,235,0.15)!important}
+.card-title{color:#ffffff!important}
+.card-sub{color:#64748b!important}
+/* Stat tiles */
+.stat-tile{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important;border-top:3px solid #f97316!important}
+.stat-tile .num{color:#f97316!important}
+.stat-tile .label,.stat-tile .desc{color:#94a3b8!important}
+/* Section headers */
+.section-header{border-left:4px solid #f97316!important}
+.section-header h2{color:#ffffff!important}
+.section-header p{color:#64748b!important}
+/* Tables */
+th{background:rgba(37,99,235,0.12)!important;color:#93c5fd!important;border-bottom:1px solid rgba(37,99,235,0.2)!important}
+td{border-bottom:1px solid rgba(255,255,255,0.05)!important;color:#cbd5e1!important}
+tr:nth-child(even) td{background:rgba(255,255,255,0.02)!important}
+tr:hover td{background:rgba(249,115,22,0.05)!important}
+/* Badges */
+.badge-orange{background:rgba(249,115,22,0.15)!important;color:#fb923c!important}
+.badge-green{background:rgba(34,197,94,0.15)!important;color:#4ade80!important}
+.badge-amber{background:rgba(245,158,11,0.15)!important;color:#fbbf24!important}
+.badge-red{background:rgba(239,68,68,0.15)!important;color:#f87171!important}
+.badge-blue{background:rgba(37,99,235,0.15)!important;color:#60a5fa!important}
+.badge-gray{background:rgba(100,116,139,0.15)!important;color:#94a3b8!important}
+/* Callouts */
+.callout-orange{background:rgba(249,115,22,0.1)!important;border-color:#f97316!important;color:#e2e8f0!important}
+.callout-green{background:rgba(34,197,94,0.1)!important;border-color:#22c55e!important;color:#e2e8f0!important}
+.callout-blue{background:rgba(37,99,235,0.1)!important;border-color:#2563eb!important;color:#e2e8f0!important}
+.callout-amber{background:rgba(245,158,11,0.1)!important;border-color:#f59e0b!important;color:#e2e8f0!important}
+.callout-red{background:rgba(239,68,68,0.1)!important;border-color:#ef4444!important;color:#e2e8f0!important}
+.callout strong{color:#ffffff!important}
+/* Tabs */
+.tab-bar{border-bottom:2px solid rgba(255,255,255,0.08)!important}
+.tab-btn{color:#64748b!important}
+.tab-btn:hover{color:#e2e8f0!important}
+.tab-btn.active{color:#f97316!important;border-bottom-color:#f97316!important}
+/* Buttons */
+.btn-orange{background:linear-gradient(135deg,#f97316,#ea580c)!important;box-shadow:0 4px 14px rgba(249,115,22,0.25)!important}
+.btn-orange:hover{transform:translateY(-1px)!important;box-shadow:0 6px 20px rgba(249,115,22,0.35)!important}
+.btn-dark{background:#0f1f38!important;color:#e2e8f0!important;border:1px solid rgba(59,130,246,0.2)!important}
+.btn-outline{background:transparent!important;color:#94a3b8!important;border:1px solid rgba(255,255,255,0.12)!important}
+.btn-outline:hover{border-color:#f97316!important;color:#f97316!important}
+/* Forms */
+input,select,textarea{background:rgba(15,31,56,0.8)!important;border:1px solid rgba(59,130,246,0.2)!important;color:#e2e8f0!important;border-radius:6px!important}
+input:focus,select:focus,textarea:focus{outline:2px solid #f97316!important;border-color:transparent!important}
+input::placeholder,textarea::placeholder{color:#475569!important}
+select option{background:#0a1628!important;color:#e2e8f0!important}
+/* Progress bars */
+.progress-bar-wrap{background:rgba(255,255,255,0.08)!important}
+.progress-bar-fill{background:linear-gradient(90deg,#f97316,#ea580c)!important}
+/* Check items */
+.check-box{border-color:rgba(255,255,255,0.15)!important;background:rgba(15,31,56,0.5)!important}
+.check-box.checked{background:#22c55e!important;border-color:#22c55e!important}
+.check-item{border-bottom:1px solid rgba(255,255,255,0.05)!important;color:#cbd5e1!important}
+/* Priority items */
+.priority-item{border-bottom:1px solid rgba(255,255,255,0.05)!important}
+.p1{background:rgba(239,68,68,0.15)!important;color:#f87171!important}
+.p2{background:rgba(245,158,11,0.15)!important;color:#fbbf24!important}
+.p3{background:rgba(37,99,235,0.15)!important;color:#60a5fa!important}
+.p4{background:rgba(100,116,139,0.15)!important;color:#94a3b8!important}
+/* Engagement steps */
+.engagement-step{border-bottom:1px solid rgba(255,255,255,0.05)!important}
+.step-done{background:rgba(34,197,94,0.15)!important;color:#4ade80!important}
+.step-pending{background:rgba(245,158,11,0.15)!important;color:#fbbf24!important}
+.step-missing{background:rgba(239,68,68,0.15)!important;color:#f87171!important}
+/* Signal streams */
+.signal-stream{border:1px solid rgba(59,130,246,0.15)!important}
+.signal-stream-header{background:rgba(15,31,56,0.6)!important}
+.signal-stream-title{color:#ffffff!important}
+.flag-green{background:rgba(34,197,94,0.15)!important;color:#4ade80!important}
+.flag-amber{background:rgba(245,158,11,0.15)!important;color:#fbbf24!important}
+.flag-red{background:rgba(239,68,68,0.15)!important;color:#f87171!important}
+/* Scenario cards */
+.scenario-card{border:1px solid rgba(59,130,246,0.15)!important}
+.scenario-header{background:rgba(10,22,40,0.9)!important}
+.scenario-body{background:rgba(15,31,56,0.5)!important}
+.scenario-situation{background:rgba(249,115,22,0.08)!important;border-left:3px solid #f97316!important;color:#e2e8f0!important}
+.scenario-option{background:rgba(15,31,56,0.6)!important;border:2px solid rgba(59,130,246,0.15)!important;color:#cbd5e1!important}
+.scenario-option:hover{border-color:#f97316!important;background:rgba(249,115,22,0.08)!important}
+.scenario-option.correct{border-color:#22c55e!important;background:rgba(34,197,94,0.1)!important}
+.scenario-option.incorrect{border-color:#ef4444!important;background:rgba(239,68,68,0.1)!important}
+/* Compliance bars */
+.compliance-label{color:#94a3b8!important}
+.compliance-score{color:#e2e8f0!important}
+/* Advisory form */
+.advisory-form label{color:#94a3b8!important}
+/* Dim buttons */
+.dim-btn{background:rgba(15,31,56,0.6)!important;border:1px solid rgba(59,130,246,0.2)!important;color:#94a3b8!important}
+.dim-btn.selected{background:#f97316!important;color:#fff!important;border-color:#f97316!important}
+/* Score rows */
+.score-row{border-bottom:1px solid rgba(255,255,255,0.04)!important;color:#cbd5e1!important}
+.score-row .dim-name{color:#94a3b8!important}
+.score-bar-mini{background:rgba(255,255,255,0.08)!important}
+/* Bullet lists */
+ul.bullet-list li{color:#cbd5e1!important}
+ul.bullet-list li::before{color:#f97316!important}
+/* General text */
+h1,h2,h3,h4,h5,h6{color:#ffffff!important}
+p{color:#cbd5e1!important}
+strong{color:#e2e8f0!important}
+label{color:#94a3b8!important}
+/* Nav items text */
+.nav-item span,.nav-item{color:#94a3b8!important}
+.nav-item.active,.nav-item.active span{color:#f97316!important}
+/* Topbar */
+#topbar-title{color:#ffffff!important}
+#topbar-sub{color:#64748b!important}
+/* M365 specific */
+.conf-banner{background:#050d1a!important;border-top:2px solid #f97316!important}
+.conf-text{color:#64748b!important}
+.conf-text strong{color:#f97316!important}
+/* Help pages */
+.help-hero,.sa-help-hero{background:rgba(10,22,40,0.95)!important;border-left:4px solid #f97316!important}
+.help-hero h2,.sa-help-hero h2{color:#ffffff!important}
+.help-hero p,.sa-help-hero p{color:#94a3b8!important}
+.help-sec,.sa-help-sec,.help-section{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important}
+.help-sec-hdr,.sa-help-sec-hdr,.help-section-header{background:rgba(10,22,40,0.6)!important;border-bottom:1px solid rgba(59,130,246,0.12)!important}
+.help-sec-title,.sa-help-sec-title,.help-section-title{color:#ffffff!important}
+.help-sec-sub,.sa-help-sec-sub,.help-section-sub{color:#64748b!important}
+.help-item,.sa-help-item{border-bottom:1px solid rgba(255,255,255,0.05)!important}
+.help-q,.sa-help-q,.help-item-q{color:#e2e8f0!important}
+.help-a,.sa-help-a,.help-item-a{color:#94a3b8!important}
+.help-toc-btn{background:rgba(249,115,22,0.1)!important;border:1px solid rgba(249,115,22,0.22)!important;color:#f97316!important}
+.help-toc-btn:hover{background:#f97316!important;color:#fff!important}
+/* Splash overrides for dark bg */
+.sp-feat{background:rgba(255,255,255,0.03)!important;border:1px solid rgba(255,255,255,0.06)!important}
+/* EEP Command Center specific */
+.prog-badge{background:#f97316!important}
+.kpi-card{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important}
+.kpi-value{color:#f97316!important}
+.kpi-label{color:#64748b!important}
+.pillar-card{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important}
+.pillar-card h3{color:#ffffff!important}
+.pillar-card p{color:#94a3b8!important}
+.commitment-item{border-bottom:1px solid rgba(255,255,255,0.05)!important;color:#cbd5e1!important}
+.commitment-num{background:rgba(249,115,22,0.15)!important;color:#f97316!important}
+.phase-card{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important}
+.phase-card h3{color:#ffffff!important}
+.cert-level{background:rgba(15,31,56,0.88)!important;border:1px solid rgba(59,130,246,0.18)!important}
+.cert-level h3{color:#ffffff!important}
+/* Self-assessment specific */
+.app-header{background:linear-gradient(135deg,#0a1628,#050d1a)!important;border-bottom:3px solid #f97316!important}
+.app-header h1{color:#ffffff!important}
+.app-header p{color:#64748b!important}
+.dimension-btn{background:rgba(15,31,56,0.6)!important;border:1px solid rgba(59,130,246,0.2)!important;color:#94a3b8!important}
+.dimension-btn.active{background:rgba(249,115,22,0.15)!important;border-color:#f97316!important;color:#f97316!important}
+.score-btn{background:rgba(15,31,56,0.6)!important;border:2px solid rgba(59,130,246,0.2)!important;color:#94a3b8!important}
+.score-btn.selected{background:#f97316!important;border-color:#f97316!important;color:#fff!important}
+.rubric-level{background:rgba(15,31,56,0.6)!important;border:1px solid rgba(59,130,246,0.15)!important}
+.rubric-level h4{color:#ffffff!important}
+.rubric-level p{color:#94a3b8!important}
+canvas{position:relative;z-index:2}
+/* Ensure content sits above canvas layers */
+#sidebar,#main,.app-header,.app-body{position:relative;z-index:10!important}
+
+
+/* ═══ LAYOUT FIX — sidebar offset ═══ */
+body{display:flex!important;min-height:100vh!important}
+#sidebar{width:260px!important;min-width:260px!important;flex-shrink:0!important;position:fixed!important;top:0!important;left:0!important;bottom:0!important;z-index:100!important;overflow-y:auto!important}
+#main{margin-left:260px!important;flex:1!important;min-height:100vh!important;width:calc(100% - 260px)!important;position:relative!important;z-index:10!important}
+.page{display:none!important;padding:24px 28px 48px!important}
+.page.active{display:block!important}
+.topbar{position:sticky!important;top:0!important;z-index:50!important;width:100%!important}
+/* Ensure canvases don't interfere with layout */
+#bg-canvas,#particle-canvas{position:fixed!important;top:0!important;left:0!important;width:100%!important;height:100%!important;z-index:0!important;pointer-events:none!important}
+/* Self-assessment layout (no sidebar) */
+.app-body{position:relative!important;z-index:10!important;max-width:900px!important;margin:0 auto!important;padding:24px!important}
+
+
+/* ═══ ACCESSIBILITY PANEL ═══ */
+#accessibility-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:9998}
+#accessibility-backdrop.visible{opacity:1;pointer-events:auto}
+#accessibility-panel{position:fixed;top:0;right:0;width:320px;height:100vh;background:linear-gradient(180deg,#0a1628 0%,#050d1a 100%);border-left:1px solid rgba(59,130,246,0.2);color:#e2e8f0;z-index:9999;transform:translateX(100%);transition:transform .35s cubic-bezier(0.1,0.9,0.2,1);box-shadow:-8px 0 32px rgba(0,0,0,0.5);overflow-y:auto}
+#accessibility-panel.open{transform:translateX(0)}
+.ap-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid rgba(59,130,246,0.15);background:rgba(249,115,22,0.08)}
+.ap-title{font-size:15px;font-weight:700;color:#fff}
+.ap-close{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#94a3b8;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:inherit}
+.ap-close:hover{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.3);color:#f87171}
+.ap-body{padding:20px;display:flex;flex-direction:column;gap:4px}
+.ap-section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;margin:14px 0 8px}
+.ap-section-label:first-child{margin-top:0}
+.ap-btn-row{display:flex;flex-wrap:wrap;gap:6px}
+.ap-btn{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;background:rgba(15,31,56,0.8);border:1px solid rgba(59,130,246,0.2);color:#94a3b8;cursor:pointer;font-family:inherit;transition:all .15s}
+.ap-btn:hover{border-color:rgba(249,115,22,0.4);color:#f97316}
+.ap-btn.ap-btn-active{background:rgba(249,115,22,0.15);border-color:#f97316;color:#f97316}
+.ap-divider{height:1px;background:rgba(255,255,255,0.06);margin:8px 0}
+.ap-shortcut{display:flex;align-items:center;gap:10px;font-size:12px;color:#64748b;padding:5px 0}
+.ap-shortcut kbd{background:rgba(15,31,56,0.8);border:1px solid rgba(59,130,246,0.2);color:#93c5fd;padding:2px 8px;border-radius:4px;font-family:monospace;font-size:11px}
+/* Settings trigger button in topbar */
+.ap-trigger{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:inherit}
+.ap-trigger:hover{background:rgba(249,115,22,0.12);border-color:rgba(249,115,22,0.3);color:#f97316}
+
+
+/* ═══ PRINT / PDF STYLESHEET ═══ */
+@media print {
+  /* Hide non-content elements */
+  #sidebar, #particle-canvas, #bg-canvas,
+  #accessibility-panel, #accessibility-backdrop,
+  #sp-eng, #sp-cmd, #sp-sa, #sp-prev, #sp-unb,
+  .topbar-badge, .ap-trigger, .conf-banner,
+  .btn-orange, .btn-outline, .btn-dark,
+  .tab-bar, .nav-item, .sidebar-footer,
+  [id^="sp-"], .sp-ring, .sp-inner,
+  .print-hide { display:none!important; }
+
+  /* Reset layout for print */
+  body { background:#fff!important; color:#111!important;
+         font-family:Georgia,serif!important; font-size:11pt!important;
+         display:block!important; margin:0!important; padding:0!important; }
+  #main { margin-left:0!important; width:100%!important;
+          background:#fff!important; }
+  .page { display:block!important; padding:0!important; }
+  .page:not(.active) { display:none!important; }
+
+  /* Print header */
+  .print-header { display:block!important; }
+
+  /* Cards */
+  .card { background:#fff!important; border:1px solid #ccc!important;
+          box-shadow:none!important; break-inside:avoid;
+          margin-bottom:12pt!important; padding:12pt!important; }
+  .card-title { color:#111!important; font-size:13pt!important; }
+  .card-sub { color:#555!important; }
+
+  /* Stat tiles */
+  .stat-tile { background:#f9f9f9!important; border:1px solid #ccc!important;
+               break-inside:avoid; }
+  .stat-tile .num { color:#f97316!important; }
+
+  /* Tables */
+  table { border-collapse:collapse!important; width:100%!important; }
+  th { background:#f0f0f0!important; color:#111!important;
+       border:1px solid #ccc!important; padding:6pt 8pt!important; }
+  td { border:1px solid #ddd!important; padding:5pt 8pt!important;
+       color:#222!important; }
+
+  /* Callouts */
+  .callout { border-left:3px solid #f97316!important;
+             background:#fff8f0!important; color:#111!important; }
+  .callout-blue { border-color:#2563eb!important; background:#f0f4ff!important; }
+  .callout-green { border-color:#22c55e!important; background:#f0fff4!important; }
+  .callout-red { border-color:#ef4444!important; background:#fff0f0!important; }
+
+  /* Badges */
+  .badge { border:1px solid #ccc!important; background:#f9f9f9!important;
+           color:#333!important; }
+
+  /* Section headers */
+  .section-header { border-left:4px solid #f97316!important; }
+  .section-header h2 { color:#111!important; }
+
+  /* Topbar — simplified for print */
+  .topbar { background:#fff!important; border-bottom:2px solid #f97316!important;
+            position:static!important; padding:8pt 12pt!important; }
+  .topbar-title { color:#111!important; font-size:14pt!important; }
+  .topbar-sub { color:#555!important; }
+
+  /* Grids */
+  .grid-2, .grid-3, .grid-4 { display:grid!important; }
+
+  /* Page breaks */
+  .card { page-break-inside:avoid; }
+  h2, h3 { page-break-after:avoid; }
+
+  /* Footer */
+  .print-footer { display:block!important; position:fixed; bottom:0;
+                  left:0; right:0; text-align:center; font-size:8pt;
+                  color:#888; border-top:1px solid #ddd; padding:4pt; }
+
+  /* Self-assessment specific */
+  .app-header { background:#fff!important; color:#111!important;
+                border-bottom:2px solid #f97316!important; }
+  .app-header h1 { color:#111!important; }
+  canvas { display:none!important; }
+}
+
 </style>
 <script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
 </head>
 <body>
+
+<!-- ═══ ACCESSIBILITY / SETTINGS PANEL ═══ -->
+<div id="accessibility-backdrop" onclick="closeAccessPanel()"></div>
+<div id="accessibility-panel" aria-hidden="true">
+  <div class="ap-header">
+    <div class="ap-title">⚙️ Display Settings</div>
+    <button class="ap-close" onclick="closeAccessPanel()">✕</button>
+  </div>
+  <div class="ap-body">
+    <div class="ap-section-label">Text Size</div>
+    <div class="ap-btn-row">
+      <button class="ap-btn" onclick="setFontSize(13)">Small</button>
+      <button class="ap-btn ap-btn-active" onclick="setFontSize(15)">Default</button>
+      <button class="ap-btn" onclick="setFontSize(17)">Large</button>
+      <button class="ap-btn" onclick="setFontSize(19)">X-Large</button>
+    </div>
+    <div class="ap-section-label">Sidebar</div>
+    <div class="ap-btn-row">
+      <button class="ap-btn" onclick="toggleSidebar()">Toggle Sidebar</button>
+    </div>
+    <div class="ap-section-label">Theme</div>
+    <div class="ap-btn-row">
+      <button class="ap-btn ap-btn-active" onclick="setTheme('dark')">Dark</button>
+      <button class="ap-btn" onclick="setTheme('light')">Light</button>
+    </div>
+    <div class="ap-section-label">Reduce Motion</div>
+    <div class="ap-btn-row">
+      <button class="ap-btn" id="ap-motion-btn" onclick="toggleMotion()">Disable Particles</button>
+    </div>
+    <div class="ap-divider"></div>
+    <div class="ap-section-label">Keyboard Shortcuts</div>
+    <div class="ap-shortcut"><kbd>?</kbd> Open this panel</div>
+    <div class="ap-shortcut"><kbd>Esc</kbd> Close panel</div>
+    <div class="ap-shortcut"><kbd>H</kbd> Go to Home</div>
+  </div>
+</div>
+
+
+<!-- EDE DARK THEME ENGINE -->
+<canvas id="bg-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+<canvas id="particle-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.35;"></canvas>
+<script>
+(function(){
+  // Background gradient
+  var bgc=document.getElementById('bg-canvas');
+  function drawBg(){
+    if(!bgc)return;
+    bgc.width=window.innerWidth;bgc.height=window.innerHeight;
+    var ctx=bgc.getContext('2d'),W=bgc.width,H=bgc.height;
+    var g=ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0,'#050d1a');g.addColorStop(0.5,'#0a1628');g.addColorStop(1,'#050d1a');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    var g1=ctx.createRadialGradient(W*.15,H*.2,0,W*.15,H*.2,W*.4);
+    g1.addColorStop(0,'rgba(37,99,235,0.1)');g1.addColorStop(1,'transparent');
+    ctx.fillStyle=g1;ctx.fillRect(0,0,W,H);
+    var g2=ctx.createRadialGradient(W*.85,H*.75,0,W*.85,H*.75,W*.3);
+    g2.addColorStop(0,'rgba(249,115,22,0.07)');g2.addColorStop(1,'transparent');
+    ctx.fillStyle=g2;ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(59,130,246,0.03)';ctx.lineWidth=1;
+    for(var x=0;x<W;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(var y=0;y<H;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  }
+  drawBg();window.addEventListener('resize',drawBg);
+  // Particles
+  var pc=document.getElementById('particle-canvas');
+  if(!pc)return;
+  var pctx=pc.getContext('2d'),parts=[];
+  function resizeP(){pc.width=window.innerWidth;pc.height=window.innerHeight;}
+  resizeP();window.addEventListener('resize',resizeP);
+  function mkP(){
+    var cols=['rgba(59,130,246,','rgba(37,99,235,','rgba(96,165,250,','rgba(249,115,22,'];
+    return{x:Math.random()*pc.width,y:Math.random()*pc.height,
+      vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35-.08,
+      sz:Math.random()*1.8+.4,op:Math.random()*.45+.1,
+      col:cols[Math.floor(Math.random()*cols.length)],
+      life:Math.random(),decay:Math.random()*.002+.001};
+  }
+  var cnt=Math.min(70,Math.floor(window.innerWidth*window.innerHeight/20000));
+  for(var i=0;i<cnt;i++)parts.push(mkP());
+  function animP(){
+    pctx.clearRect(0,0,pc.width,pc.height);
+    parts.forEach(function(p,i){
+      p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;
+      if(p.life<=0||p.x<-5||p.x>pc.width+5||p.y<-5||p.y>pc.height+5){parts[i]=mkP();return;}
+      pctx.beginPath();pctx.arc(p.x,p.y,p.sz,0,Math.PI*2);
+      pctx.fillStyle=p.col+(p.op*p.life)+')';pctx.fill();
+    });
+    for(var a=0;a<parts.length;a++){
+      for(var b=a+1;b<parts.length;b++){
+        var dx=parts[a].x-parts[b].x,dy=parts[a].y-parts[b].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<110){pctx.beginPath();pctx.moveTo(parts[a].x,parts[a].y);pctx.lineTo(parts[b].x,parts[b].y);
+          pctx.strokeStyle='rgba(59,130,246,'+(1-d/110)*.06+')';pctx.lineWidth=.5;pctx.stroke();}
+      }
+    }
+    requestAnimationFrame(animP);
+  }
+  animP();
+})();
+</script>
 <nav id="sidebar">
   <div class="sidebar-logo">
     <h1>Engineer Delivery Dashboard</h1>
@@ -192,6 +606,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
       <div class="topbar-sub" id="topbar-sub">Engineer Delivery Dashboard · Engagement Excellence Program</div>
     </div>
     <div style="display:flex;gap:8px;align-items:center;">
+      <button class="ap-trigger" onclick="openAccessPanel()" title="Display Settings (?)">⚙️</button>
       <button class="topbar-badge" onclick="showPage('priority')">⚡ Priority Inbox</button>
     </div>
   </div>
@@ -209,9 +624,9 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card">
       <div class="card-title"><span class="icon">⚡</span> Today's Priority Actions</div>
       <div class="card-sub">Items requiring your attention — click to navigate</div>
-      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Weekly Signal Review due</strong><br><span style="color:var(--mid);font-size:12px;">Complete before end of day — log all three streams</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('signals')">→ Go</button></div>
-      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Outcome Owner confirmation pending</strong><br><span style="color:var(--mid);font-size:12px;">Non-Negotiable I — must be in writing before delivery begins</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('engagement')">→ Go</button></div>
-      <div class="priority-item"><div class="priority-badge p3">P3</div><div style="flex:1;"><strong>CEES Session preparation</strong><br><span style="color:var(--mid);font-size:12px;">Confirm scenario contributor before bi-weekly session</span></div><button class="btn btn-outline" style="padding:5px 12px;font-size:12px;" onclick="showPage('scenarios')">→ Go</button></div>
+      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Weekly Signal Review due</strong><br><span style="color:#64748b;font-size:12px;">Complete before end of day — log all three streams</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('signals')">→ Go</button></div>
+      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Outcome Owner confirmation pending</strong><br><span style="color:#64748b;font-size:12px;">Non-Negotiable I — must be in writing before delivery begins</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('engagement')">→ Go</button></div>
+      <div class="priority-item"><div class="priority-badge p3">P3</div><div style="flex:1;"><strong>CEES Session preparation</strong><br><span style="color:#64748b;font-size:12px;">Confirm scenario contributor before bi-weekly session</span></div><button class="btn btn-outline" style="padding:5px 12px;font-size:12px;" onclick="showPage('scenarios')">→ Go</button></div>
       <button class="btn btn-orange" style="margin-top:12px;" onclick="showPage('priority')">View Full Priority Inbox →</button>
     </div>
     <div class="card">
@@ -230,10 +645,10 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card-title"><span class="icon">🏗️</span> EEP Framework Quick Reference</div>
     <div class="card-sub">Four components, one system — click any to navigate</div>
     <div class="grid-4" style="margin-top:8px;">
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('signals')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 1</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">EDEv4</div><div style="font-size:11px;color:#555;line-height:1.5;">Signal Intelligence · Ownership Clarity · Communication Discipline · Outcome Validation</div></div>
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('engagement')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 2</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">CEEDS</div><div style="font-size:11px;color:#555;line-height:1.5;">4 Pillars · 5 Operating Motions · CEES Sessions · Signal Over Opinion</div></div>
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('compliance')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 3</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">CE Framework</div><div style="font-size:11px;color:#555;line-height:1.5;">Credibility → Reliability → Referenceability · Know · Do · Tell</div></div>
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('readiness')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 4</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">Gov App</div><div style="font-size:11px;color:#555;line-height:1.5;">Pre-Engagement Intelligence · Maturity Baseline · Portfolio Visibility</div></div>
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('signals')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 1</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">EDEv4</div><div style="font-size:11px;color:#94a3b8;line-height:1.5;">Signal Intelligence · Ownership Clarity · Communication Discipline · Outcome Validation</div></div>
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('engagement')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 2</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">CEEDS</div><div style="font-size:11px;color:#94a3b8;line-height:1.5;">4 Pillars · 5 Operating Motions · CEES Sessions · Signal Over Opinion</div></div>
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('compliance')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 3</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">CE Framework</div><div style="font-size:11px;color:#94a3b8;line-height:1.5;">Credibility → Reliability → Referenceability · Know · Do · Tell</div></div>
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);cursor:pointer;" onclick="showPage('readiness')"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:5px;">COMPONENT 4</div><div style="font-size:14px;font-weight:700;margin-bottom:5px;">Gov App</div><div style="font-size:11px;color:#94a3b8;line-height:1.5;">Pre-Engagement Intelligence · Maturity Baseline · Portfolio Visibility</div></div>
     </div>
   </div>
 </div>
@@ -244,12 +659,12 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   <div class="card">
     <div class="card-title"><span class="icon">🔴</span> Active Work Items</div>
     <div id="priority-list">
-      <div class="priority-item"><div class="priority-badge p1">P1</div><div style="flex:1;"><strong>Signal Review overdue — Customer Friction stream not logged</strong><br><span style="color:var(--mid);font-size:12px;">Engagement: [Enter engagement name] · Due: Today · Non-Negotiable V</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('signals')">→ Signal Tracker</button></div>
-      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Outcome Owner not confirmed in writing</strong><br><span style="color:var(--mid);font-size:12px;">Non-Negotiable I — must be communicated to client before delivery begins</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('engagement')">→ Engagement Tracker</button></div>
-      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Communication pending Three Tests review</strong><br><span style="color:var(--mid);font-size:12px;">Apply all three tests before sending — no exceptions for seniority or schedule pressure</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('comms')">→ Three Tests</button></div>
-      <div class="priority-item"><div class="priority-badge p3">P3</div><div style="flex:1;"><strong>CEES Session preparation — scenario contributor not confirmed</strong><br><span style="color:var(--mid);font-size:12px;">Bi-weekly cadence — confirm before session · Never cancel, use library if needed</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('scenarios')">→ CEES Scenarios</button></div>
-      <div class="priority-item"><div class="priority-badge p3">P3</div><div style="flex:1;"><strong>Scoping call not scheduled — delivery in 3 weeks</strong><br><span style="color:var(--mid);font-size:12px;">Scoping call must happen 2-4 weeks before delivery — never book travel before CSAM/manager confirms</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('scoping')">→ Scoping Checklist</button></div>
-      <div class="priority-item"><div class="priority-badge p4">P4</div><div style="flex:1;"><strong>Monthly skills self-assessment due</strong><br><span style="color:var(--mid);font-size:12px;">20-30 minute individual exercise — all 6 dimensions · Rate based on observable evidence</span></div><button class="btn btn-outline" style="padding:5px 12px;font-size:12px;" onclick="showPage('selfassess')">→ Self-Assessment</button></div>
+      <div class="priority-item"><div class="priority-badge p1">P1</div><div style="flex:1;"><strong>Signal Review overdue — Customer Friction stream not logged</strong><br><span style="color:#64748b;font-size:12px;">Engagement: [Enter engagement name] · Due: Today · Non-Negotiable V</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('signals')">→ Signal Tracker</button></div>
+      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Outcome Owner not confirmed in writing</strong><br><span style="color:#64748b;font-size:12px;">Non-Negotiable I — must be communicated to client before delivery begins</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('engagement')">→ Engagement Tracker</button></div>
+      <div class="priority-item"><div class="priority-badge p2">P2</div><div style="flex:1;"><strong>Communication pending Three Tests review</strong><br><span style="color:#64748b;font-size:12px;">Apply all three tests before sending — no exceptions for seniority or schedule pressure</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('comms')">→ Three Tests</button></div>
+      <div class="priority-item"><div class="priority-badge p3">P3</div><div style="flex:1;"><strong>CEES Session preparation — scenario contributor not confirmed</strong><br><span style="color:#64748b;font-size:12px;">Bi-weekly cadence — confirm before session · Never cancel, use library if needed</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('scenarios')">→ CEES Scenarios</button></div>
+      <div class="priority-item"><div class="priority-badge p3">P3</div><div style="flex:1;"><strong>Scoping call not scheduled — delivery in 3 weeks</strong><br><span style="color:#64748b;font-size:12px;">Scoping call must happen 2-4 weeks before delivery — never book travel before CSAM/manager confirms</span></div><button class="btn btn-orange" style="padding:5px 12px;font-size:12px;" onclick="showPage('scoping')">→ Scoping Checklist</button></div>
+      <div class="priority-item"><div class="priority-badge p4">P4</div><div style="flex:1;"><strong>Monthly skills self-assessment due</strong><br><span style="color:#64748b;font-size:12px;">20-30 minute individual exercise — all 6 dimensions · Rate based on observable evidence</span></div><button class="btn btn-outline" style="padding:5px 12px;font-size:12px;" onclick="showPage('selfassess')">→ Self-Assessment</button></div>
     </div>
   </div>
   <div class="card">
@@ -289,14 +704,14 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card-title"><span class="icon">✅</span> Delivery Step Checklist</div>
     <div class="card-sub">Eight canonical delivery steps — each must be validated, not just self-reported</div>
     <div id="delivery-steps">
-      <div class="engagement-step"><div class="step-status step-pending" id="step-1-status">1</div><div style="flex:1;"><strong>SCOPE — Scoping call completed (2-4 weeks pre-delivery)</strong><br><span style="color:var(--mid);font-size:12px;">Scoping Recap email (#Scoping) sent · Scope confirmed in writing · Use TPL-SCOP</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(1,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(1,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(1,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-2-status">2</div><div style="flex:1;"><strong>PREEMAIL — Pre-engagement / Pre-Poll email sent</strong><br><span style="color:var(--mid);font-size:12px;">#AdaptivePolling tag · Correct recipients · Three Tests applied · Use TPL-POLL</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(2,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(2,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(2,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-3-status">3</div><div style="flex:1;"><strong>UPLOAD — Workshop materials uploaded early (not late)</strong><br><span style="color:var(--mid);font-size:12px;">On-time flag matters · Late uploads flagged amber even if done · Bill of materials confirmed</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(3,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(3,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(3,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-4-status">4</div><div style="flex:1;"><strong>TECHCONTACT — Correct technical contact entered on dispatch</strong><br><span style="color:var(--mid);font-size:12px;">Customer contact interacted with most · Documented in engagement record</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(4,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(4,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(4,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-5-status">5</div><div style="flex:1;"><strong>POLL — Adaptive polling executed</strong><br><span style="color:var(--mid);font-size:12px;">Pre-poll sent · Live poll run · Results captured · Lab environment via aka.ms/LOD confirmed</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(5,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(5,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(5,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-6-status">6</div><div style="flex:1;"><strong>POSTEMAIL — Daily/Final Recap email sent</strong><br><span style="color:var(--mid);font-size:12px;">#DeliveryRecap tag · Three Tests applied · Correct recipients · Use TPL-DREC or TPL-FREC</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(6,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(6,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(6,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-7-status">7</div><div style="flex:1;"><strong>CLOSEOUT — Closeout motion completed</strong><br><span style="color:var(--mid);font-size:12px;">2-week Follow-Up (#DeliveryFollow-Up) scheduled · Three validation questions asked · Use TPL-FOLL</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(7,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(7,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(7,'missing')">✗ Missing</button></div></div>
-      <div class="engagement-step"><div class="step-status step-pending" id="step-8-status">8</div><div style="flex:1;"><strong>SURVEY — Survey/closeout email sent · Client articulates value</strong><br><span style="color:var(--mid);font-size:12px;">Without interfering with CPE survey · Client states value in their own words · Documented</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(8,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(8,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(8,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-1-status">1</div><div style="flex:1;"><strong>SCOPE — Scoping call completed (2-4 weeks pre-delivery)</strong><br><span style="color:#64748b;font-size:12px;">Scoping Recap email (#Scoping) sent · Scope confirmed in writing · Use TPL-SCOP</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(1,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(1,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(1,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-2-status">2</div><div style="flex:1;"><strong>PREEMAIL — Pre-engagement / Pre-Poll email sent</strong><br><span style="color:#64748b;font-size:12px;">#AdaptivePolling tag · Correct recipients · Three Tests applied · Use TPL-POLL</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(2,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(2,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(2,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-3-status">3</div><div style="flex:1;"><strong>UPLOAD — Workshop materials uploaded early (not late)</strong><br><span style="color:#64748b;font-size:12px;">On-time flag matters · Late uploads flagged amber even if done · Bill of materials confirmed</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(3,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(3,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(3,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-4-status">4</div><div style="flex:1;"><strong>TECHCONTACT — Correct technical contact entered on dispatch</strong><br><span style="color:#64748b;font-size:12px;">Customer contact interacted with most · Documented in engagement record</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(4,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(4,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(4,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-5-status">5</div><div style="flex:1;"><strong>POLL — Adaptive polling executed</strong><br><span style="color:#64748b;font-size:12px;">Pre-poll sent · Live poll run · Results captured · Lab environment via aka.ms/LOD confirmed</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(5,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(5,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(5,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-6-status">6</div><div style="flex:1;"><strong>POSTEMAIL — Daily/Final Recap email sent</strong><br><span style="color:#64748b;font-size:12px;">#DeliveryRecap tag · Three Tests applied · Correct recipients · Use TPL-DREC or TPL-FREC</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(6,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(6,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(6,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-7-status">7</div><div style="flex:1;"><strong>CLOSEOUT — Closeout motion completed</strong><br><span style="color:#64748b;font-size:12px;">2-week Follow-Up (#DeliveryFollow-Up) scheduled · Three validation questions asked · Use TPL-FOLL</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(7,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(7,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(7,'missing')">✗ Missing</button></div></div>
+      <div class="engagement-step"><div class="step-status step-pending" id="step-8-status">8</div><div style="flex:1;"><strong>SURVEY — Survey/closeout email sent · Client articulates value</strong><br><span style="color:#64748b;font-size:12px;">Without interfering with CPE survey · Client states value in their own words · Documented</span></div><div style="display:flex;gap:6px;"><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(8,'done')">✓ Validated</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="markStep(8,'claimed')">~ Claimed</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:var(--red);" onclick="markStep(8,'missing')">✗ Missing</button></div></div>
     </div>
   </div>
 </div>
@@ -308,11 +723,11 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
       <div class="card-title"><span class="icon">📊</span> Overall Compliance Score</div>
       <div style="text-align:center;padding:20px 0;">
         <div style="font-size:56px;font-weight:700;color:var(--orange);" id="total-compliance-score">0%</div>
-        <div style="font-size:13px;color:var(--mid);margin-top:6px;">Weighted across all compliance items</div>
+        <div style="font-size:13px;color:#64748b;margin-top:6px;">Weighted across all compliance items</div>
         <div style="margin-top:12px;" id="compliance-level-badge"><span class="badge badge-gray">Not yet scored</span></div>
       </div>
       <div class="progress-bar-wrap" style="height:12px;"><div class="progress-bar-fill" id="compliance-progress" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mid);margin-top:4px;"><span>0%</span><span style="color:var(--amber);">70% threshold</span><span>100%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:4px;"><span>0%</span><span style="color:var(--amber);">70% threshold</span><span>100%</span></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="icon">⚖️</span> Scoring Model (0-100%)</div>
@@ -332,14 +747,14 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   <div class="card">
     <div class="card-title"><span class="icon">✅</span> Mark Compliance Items Complete</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div class="check-item"><div class="check-box" id="ci-1" onclick="toggleCompliance(1,15)"></div><div><strong>Scoping Recap with #Scoping tag</strong><br><span style="font-size:11px;color:var(--mid);">Hidden tag detected in CE Sent / PCC mailbox · Weight: 15%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-2" onclick="toggleCompliance(2,20)"></div><div><strong>Pre-Poll with #AdaptivePolling + Forms link</strong><br><span style="font-size:11px;color:var(--mid);">Hidden tag + Forms link present · Weight: 20%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-3" onclick="toggleCompliance(3,10)"></div><div><strong>Data Sheet attached to Pre-Poll & Scoping</strong><br><span style="font-size:11px;color:var(--mid);">Attachment check · Weight: 10%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-4" onclick="toggleCompliance(4,10)"></div><div><strong>RMOT in subject line of all required emails</strong><br><span style="font-size:11px;color:var(--mid);">Subject parsing · Weight: 10%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-5" onclick="toggleCompliance(5,10)"></div><div><strong>PCC in CC on all required emails</strong><br><span style="font-size:11px;color:var(--mid);">Recipient check · Weight: 10%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-6" onclick="toggleCompliance(6,15)"></div><div><strong>Daily/Final Recap with #DeliveryRecap</strong><br><span style="font-size:11px;color:var(--mid);">Hidden tag detected · Weight: 15%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-7" onclick="toggleCompliance(7,10)"></div><div><strong>Follow-Up with #DeliveryFollow-Up</strong><br><span style="font-size:11px;color:var(--mid);">Hidden tag detected · Weight: 10%</span></div></div>
-      <div class="check-item"><div class="check-box" id="ci-8" onclick="toggleCompliance(8,10)"></div><div><strong>All time-keeping tags logged [CT-05 through CT-10]</strong><br><span style="font-size:11px;color:var(--mid);">App time-keeping log · Weight: 10%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-1" onclick="toggleCompliance(1,15)"></div><div><strong>Scoping Recap with #Scoping tag</strong><br><span style="font-size:11px;color:#64748b;">Hidden tag detected in CE Sent / PCC mailbox · Weight: 15%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-2" onclick="toggleCompliance(2,20)"></div><div><strong>Pre-Poll with #AdaptivePolling + Forms link</strong><br><span style="font-size:11px;color:#64748b;">Hidden tag + Forms link present · Weight: 20%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-3" onclick="toggleCompliance(3,10)"></div><div><strong>Data Sheet attached to Pre-Poll & Scoping</strong><br><span style="font-size:11px;color:#64748b;">Attachment check · Weight: 10%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-4" onclick="toggleCompliance(4,10)"></div><div><strong>RMOT in subject line of all required emails</strong><br><span style="font-size:11px;color:#64748b;">Subject parsing · Weight: 10%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-5" onclick="toggleCompliance(5,10)"></div><div><strong>PCC in CC on all required emails</strong><br><span style="font-size:11px;color:#64748b;">Recipient check · Weight: 10%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-6" onclick="toggleCompliance(6,15)"></div><div><strong>Daily/Final Recap with #DeliveryRecap</strong><br><span style="font-size:11px;color:#64748b;">Hidden tag detected · Weight: 15%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-7" onclick="toggleCompliance(7,10)"></div><div><strong>Follow-Up with #DeliveryFollow-Up</strong><br><span style="font-size:11px;color:#64748b;">Hidden tag detected · Weight: 10%</span></div></div>
+      <div class="check-item"><div class="check-box" id="ci-8" onclick="toggleCompliance(8,10)"></div><div><strong>All time-keeping tags logged [CT-05 through CT-10]</strong><br><span style="font-size:11px;color:#64748b;">App time-keeping log · Weight: 10%</span></div></div>
     </div>
   </div>
 </div>
@@ -350,7 +765,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   <div class="callout callout-orange"><strong>Signal vs. Status:</strong> "I'm seeing a pattern of the client re-asking questions we've already answered" (signal) vs. "Things are going well" (status). Signal language is observable, specific, and actionable.</div>
   <div class="signal-stream" id="stream-friction">
     <div class="signal-stream-header" onclick="toggleStream('stream-friction')" style="background:var(--amber-light);">
-      <div><div class="signal-stream-title">📊 Stream 1: Customer Friction</div><div style="font-size:11px;color:#555;margin-top:2px;">Indicators that the client is experiencing confusion, dissatisfaction, or unmet expectation</div></div>
+      <div><div class="signal-stream-title">📊 Stream 1: Customer Friction</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">Indicators that the client is experiencing confusion, dissatisfaction, or unmet expectation</div></div>
       <div style="display:flex;gap:7px;align-items:center;">
         <button class="signal-flag flag-green" onclick="setFlag(event,'stream-friction','green')">🟢 Green</button>
         <button class="signal-flag flag-amber" onclick="setFlag(event,'stream-friction','amber')">🟡 Amber</button>
@@ -364,7 +779,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   </div>
   <div class="signal-stream" id="stream-clarity">
     <div class="signal-stream-header" onclick="toggleStream('stream-clarity')" style="background:var(--blue-light);">
-      <div><div class="signal-stream-title">💬 Stream 2: Communication Clarity</div><div style="font-size:11px;color:#555;margin-top:2px;">Indicators that our outbound messaging is landing with the intended meaning and producing the intended next action</div></div>
+      <div><div class="signal-stream-title">💬 Stream 2: Communication Clarity</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">Indicators that our outbound messaging is landing with the intended meaning and producing the intended next action</div></div>
       <div style="display:flex;gap:7px;align-items:center;">
         <button class="signal-flag flag-green" onclick="setFlag(event,'stream-clarity','green')">🟢 Green</button>
         <button class="signal-flag flag-amber" onclick="setFlag(event,'stream-clarity','amber')">🟡 Amber</button>
@@ -378,7 +793,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   </div>
   <div class="signal-stream" id="stream-ownership">
     <div class="signal-stream-header" onclick="toggleStream('stream-ownership')" style="background:var(--green-light);">
-      <div><div class="signal-stream-title">🎯 Stream 3: Ownership Follow-Through</div><div style="font-size:11px;color:#555;margin-top:2px;">Indicators that commitments made to the client are being tracked and closed on schedule</div></div>
+      <div><div class="signal-stream-title">🎯 Stream 3: Ownership Follow-Through</div><div style="font-size:11px;color:#94a3b8;margin-top:2px;">Indicators that commitments made to the client are being tracked and closed on schedule</div></div>
       <div style="display:flex;gap:7px;align-items:center;">
         <button class="signal-flag flag-green" onclick="setFlag(event,'stream-ownership','green')">🟢 Green</button>
         <button class="signal-flag flag-amber" onclick="setFlag(event,'stream-ownership','amber')">🟡 Amber</button>
@@ -393,9 +808,9 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   <div class="card">
     <div class="card-title"><span class="icon">📋</span> Three Communication Tests — Quick Reference</div>
     <div class="grid-3" style="margin-top:8px;">
-      <div style="padding:14px;background:var(--charcoal);color:#fff;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:6px;">TEST 1</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Repeat-Back Test</div><div style="font-size:12px;color:#ccc;line-height:1.5;">Could the client accurately restate the key content in their own words after one reading?</div></div>
-      <div style="padding:14px;background:var(--charcoal);color:#fff;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:6px;">TEST 2</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Stakes Test</div><div style="font-size:12px;color:#ccc;line-height:1.5;">Does the client understand what happens next if they do or do not take the requested action?</div></div>
-      <div style="padding:14px;background:var(--charcoal);color:#fff;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:6px;">TEST 3</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Next-Step Test</div><div style="font-size:12px;color:#ccc;line-height:1.5;">Is the immediate next action crystal clear — who does it, when, and how will completion be confirmed?</div></div>
+      <div style="padding:14px;background:rgba(10,22,40,0.95);color:#fff;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:6px;">TEST 1</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Repeat-Back Test</div><div style="font-size:12px;color:#ccc;line-height:1.5;">Could the client accurately restate the key content in their own words after one reading?</div></div>
+      <div style="padding:14px;background:rgba(10,22,40,0.95);color:#fff;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:6px;">TEST 2</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Stakes Test</div><div style="font-size:12px;color:#ccc;line-height:1.5;">Does the client understand what happens next if they do or do not take the requested action?</div></div>
+      <div style="padding:14px;background:rgba(10,22,40,0.95);color:#fff;border-radius:8px;"><div style="font-size:11px;font-weight:700;color:var(--orange);margin-bottom:6px;">TEST 3</div><div style="font-size:14px;font-weight:700;margin-bottom:6px;">Next-Step Test</div><div style="font-size:12px;color:#ccc;line-height:1.5;">Is the immediate next action crystal clear — who does it, when, and how will completion be confirmed?</div></div>
     </div>
   </div>
 </div>
@@ -413,8 +828,8 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card" id="test-1-card">
       <div class="card-title"><span class="icon">🔄</span> Test 1: Repeat-Back Test</div>
       <div class="card-sub">Could the client accurately restate the key content in their own words after one reading?</div>
-      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:4px;">Pass:</div><div style="font-size:12px;color:#555;">Core message in plain client language. No jargon, no unexplained acronyms, no passive constructions that obscure meaning.</div></div>
-      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:4px;">Fail:</div><div style="font-size:12px;color:#555;">Message contains technical language the client does not use. Meaning requires interpretation.</div></div>
+      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:4px;">Pass:</div><div style="font-size:12px;color:#94a3b8;">Core message in plain client language. No jargon, no unexplained acronyms, no passive constructions that obscure meaning.</div></div>
+      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:4px;">Fail:</div><div style="font-size:12px;color:#94a3b8;">Message contains technical language the client does not use. Meaning requires interpretation.</div></div>
       <div id="test-1-result" style="margin-top:10px;"></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
         <button class="btn btn-outline" style="flex:1;" onclick="setTestResult(1,'pass')">✓ Pass</button>
@@ -424,8 +839,8 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card" id="test-2-card">
       <div class="card-title"><span class="icon">⚡</span> Test 2: Stakes Test</div>
       <div class="card-sub">Does the client understand what happens next if they do or do not take the requested action?</div>
-      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:4px;">Pass:</div><div style="font-size:12px;color:#555;">Message explicitly states what the client needs to do, decide, or know — and what happens if they don't.</div></div>
-      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:4px;">Fail:</div><div style="font-size:12px;color:#555;">Message is technically accurate but describes what happened without connecting it to the client's world or required action.</div></div>
+      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:4px;">Pass:</div><div style="font-size:12px;color:#94a3b8;">Message explicitly states what the client needs to do, decide, or know — and what happens if they don't.</div></div>
+      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:4px;">Fail:</div><div style="font-size:12px;color:#94a3b8;">Message is technically accurate but describes what happened without connecting it to the client's world or required action.</div></div>
       <div id="test-2-result" style="margin-top:10px;"></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
         <button class="btn btn-outline" style="flex:1;" onclick="setTestResult(2,'pass')">✓ Pass</button>
@@ -435,8 +850,8 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card" id="test-3-card">
       <div class="card-title"><span class="icon">➡️</span> Test 3: Next-Step Test</div>
       <div class="card-sub">Is the immediate next action crystal clear — who does it, when, and how will completion be confirmed?</div>
-      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:4px;">Pass:</div><div style="font-size:12px;color:#555;">Message ends with a specific next step: who does what, by when, and what the client will hear next.</div></div>
-      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:4px;">Fail:</div><div style="font-size:12px;color:#555;">Message ends with "please let us know if you have questions" or no defined next step.</div></div>
+      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:4px;">Pass:</div><div style="font-size:12px;color:#94a3b8;">Message ends with a specific next step: who does what, by when, and what the client will hear next.</div></div>
+      <div style="margin-bottom:10px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:4px;">Fail:</div><div style="font-size:12px;color:#94a3b8;">Message ends with "please let us know if you have questions" or no defined next step.</div></div>
       <div id="test-3-result" style="margin-top:10px;"></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
         <button class="btn btn-outline" style="flex:1;" onclick="setTestResult(3,'pass')">✓ Pass</button>
@@ -467,11 +882,11 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <div class="card-sub">Run the Scoping Call with the customer and CSAM — confirm scope, agenda, audience, and expectations</div>
         <div class="callout callout-blue"><strong>Timeline Rule:</strong> The Scoping Call must happen 2-4 weeks before delivery. Scope, agenda, and expectations must be confirmed in writing after the call. This is the handoff into delivery preparation.</div>
         <div style="margin-top:12px;">
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Scoping call scheduled 2-4 weeks before delivery</strong><br><span style="font-size:11px;color:var(--mid);">With customer and CSAM — not just internal alignment</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Scope confirmed — correct workshop identified</strong><br><span style="font-size:11px;color:var(--mid);">MIP (consecutive days) vs VBD (broken up per customer need) — documented</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Audience confirmed — who will attend, technical level, prior experience</strong><br><span style="font-size:11px;color:var(--mid);">Drives workshop selection and lab environment decisions</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Constraints surfaced — time, environment, access, prerequisites</strong><br><span style="font-size:11px;color:var(--mid);">Everything that limits the engagement identified before commitment</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Scoping Recap email sent (#Scoping tag) — use TPL-SCOP</strong><br><span style="font-size:11px;color:var(--mid);">Written confirmation of agreed scope · Three Tests applied · PCC in CC</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Scoping call scheduled 2-4 weeks before delivery</strong><br><span style="font-size:11px;color:#64748b;">With customer and CSAM — not just internal alignment</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Scope confirmed — correct workshop identified</strong><br><span style="font-size:11px;color:#64748b;">MIP (consecutive days) vs VBD (broken up per customer need) — documented</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Audience confirmed — who will attend, technical level, prior experience</strong><br><span style="font-size:11px;color:#64748b;">Drives workshop selection and lab environment decisions</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Constraints surfaced — time, environment, access, prerequisites</strong><br><span style="font-size:11px;color:#64748b;">Everything that limits the engagement identified before commitment</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Scoping Recap email sent (#Scoping tag) — use TPL-SCOP</strong><br><span style="font-size:11px;color:#64748b;">Written confirmation of agreed scope · Three Tests applied · PCC in CC</span></div></div>
         </div>
       </div>
     </div>
@@ -496,10 +911,10 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <div class="card-sub">Before committing, align with the CSAM and your manager — one aligned voice to the customer through scoping</div>
         <div class="callout callout-red"><strong>Non-Negotiable:</strong> Never book travel before the manager/CSAM has confirmed the correct workshop and scope. This rule has no exceptions.</div>
         <div style="margin-top:12px;">
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Correct workshop verified with CSAM</strong><br><span style="font-size:11px;color:var(--mid);">CSAM confirms this is the right engagement for the customer's needs</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Manager alignment confirmed before any commitment</strong><br><span style="font-size:11px;color:var(--mid);">Manager confirms the workshop and scope — documented</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Travel NOT booked until alignment confirmed</strong><br><span style="font-size:11px;color:var(--mid);">No-travel-before-confirmation rule — no exceptions</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>One aligned voice to the customer through scoping</strong><br><span style="font-size:11px;color:var(--mid);">No conflicting messages from different team members</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Correct workshop verified with CSAM</strong><br><span style="font-size:11px;color:#64748b;">CSAM confirms this is the right engagement for the customer's needs</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Manager alignment confirmed before any commitment</strong><br><span style="font-size:11px;color:#64748b;">Manager confirms the workshop and scope — documented</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Travel NOT booked until alignment confirmed</strong><br><span style="font-size:11px;color:#64748b;">No-travel-before-confirmation rule — no exceptions</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>One aligned voice to the customer through scoping</strong><br><span style="font-size:11px;color:#64748b;">No conflicting messages from different team members</span></div></div>
         </div>
       </div>
     </div>
@@ -508,10 +923,10 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <div class="card-title"><span class="icon">📦</span> Module 5: Bill of Materials & Lab Environment</div>
         <div class="card-sub">Confirm the bill of materials and set up the lab environment before delivery prep begins</div>
         <div style="margin-top:8px;">
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Bill of materials confirmed against scoped workshop</strong><br><span style="font-size:11px;color:var(--mid);">All required materials identified and available</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Lab environment stood up via aka.ms/LOD</strong><br><span style="font-size:11px;color:var(--mid);">Cloud-hosted or local-host VMs — confirmed against bill of materials</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Delivery model documented: MIP or VBD</strong><br><span style="font-size:11px;color:var(--mid);">MIP = consecutive days · VBD = broken up over days/weeks per customer need</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Workshop materials uploaded early (not late)</strong><br><span style="font-size:11px;color:var(--mid);">Late uploads flagged amber even if done — on-time flag matters</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Bill of materials confirmed against scoped workshop</strong><br><span style="font-size:11px;color:#64748b;">All required materials identified and available</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Lab environment stood up via aka.ms/LOD</strong><br><span style="font-size:11px;color:#64748b;">Cloud-hosted or local-host VMs — confirmed against bill of materials</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Delivery model documented: MIP or VBD</strong><br><span style="font-size:11px;color:#64748b;">MIP = consecutive days · VBD = broken up over days/weeks per customer need</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Workshop materials uploaded early (not late)</strong><br><span style="font-size:11px;color:#64748b;">Late uploads flagged amber even if done — on-time flag matters</span></div></div>
         </div>
       </div>
     </div>
@@ -521,9 +936,9 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <div class="card-sub">Close the scoping loop — written confirmation of agreed scope before delivery prep begins</div>
         <div class="form-group" style="margin-bottom:12px;"><label>Scope Confirmation Email Draft</label><textarea rows="5" placeholder="Write your scope confirmation email here. Include: agreed scope, MIP/VBD details, delivery dates, audience, lab environment, and any constraints confirmed during the scoping call..."></textarea></div>
         <div style="margin-top:8px;">
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Written scope confirmation sent to customer</strong><br><span style="font-size:11px;color:var(--mid);">Agreed scope, MIP/VBD details, delivery dates documented in writing</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Customer acknowledged the scope confirmation</strong><br><span style="font-size:11px;color:var(--mid);">Written acknowledgment received — not just verbal</span></div></div>
-          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Handoff to delivery preparation complete</strong><br><span style="font-size:11px;color:var(--mid);">Scoping loop closed — delivery prep can begin</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Written scope confirmation sent to customer</strong><br><span style="font-size:11px;color:#64748b;">Agreed scope, MIP/VBD details, delivery dates documented in writing</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Customer acknowledged the scope confirmation</strong><br><span style="font-size:11px;color:#64748b;">Written acknowledgment received — not just verbal</span></div></div>
+          <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''"></div><div><strong>Handoff to delivery preparation complete</strong><br><span style="font-size:11px;color:#64748b;">Scoping loop closed — delivery prep can begin</span></div></div>
         </div>
       </div>
     </div>
@@ -545,8 +960,8 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
   <div class="card">
     <div class="card-title"><span class="icon">🏷️</span> Compliance Tag Reference — CT-01 through CT-10</div>
     <div class="grid-2" style="margin-top:8px;">
-      <div><div style="font-size:12px;font-weight:700;color:var(--orange);margin-bottom:8px;">EMAIL HASHTAGS (with required visible phrase)</div><table><tbody><tr><td><span class="badge badge-orange">CT-01</span></td><td><strong>#Scoping</strong></td><td style="font-size:11px;color:#555;">Scoping Recap email · "Scoping Recap"</td></tr><tr><td><span class="badge badge-orange">CT-02</span></td><td><strong>#AdaptivePolling</strong></td><td style="font-size:11px;color:#555;">Pre-Poll, Agenda · "Adaptive Polling"</td></tr><tr><td><span class="badge badge-orange">CT-03</span></td><td><strong>#DeliveryRecap</strong></td><td style="font-size:11px;color:#555;">Daily/Final Recap · "Delivery Recap"</td></tr><tr><td><span class="badge badge-orange">CT-04</span></td><td><strong>#DeliveryFollow-Up</strong></td><td style="font-size:11px;color:#555;">Follow-Up (2-week) · "Dispatch Follow-Up"</td></tr></tbody></table></div>
-      <div><div style="font-size:12px;font-weight:700;color:var(--orange);margin-bottom:8px;">TIME-KEEPING TAGS (auto-logged, no email)</div><table><tbody><tr><td><span class="badge badge-blue">CT-05</span></td><td><strong>[PRE-ENGAGEMENTCALL]</strong></td><td style="font-size:11px;color:#555;">Pre-Engagement Call marked complete</td></tr><tr><td><span class="badge badge-blue">CT-06</span></td><td><strong>[DELIVERYPREPARATION]</strong></td><td style="font-size:11px;color:#555;">Preparation checklist completed</td></tr><tr><td><span class="badge badge-blue">CT-07</span></td><td><strong>[ADAPTIVEPOLLING]</strong></td><td style="font-size:11px;color:#555;">Adaptive polling created and sent</td></tr><tr><td><span class="badge badge-blue">CT-08</span></td><td><strong>[RESEARCH]</strong></td><td style="font-size:11px;color:#555;">Research phase complete</td></tr><tr><td><span class="badge badge-blue">CT-09</span></td><td><strong>[FINALRECAP]</strong></td><td style="font-size:11px;color:#555;">Final Recap email sent</td></tr><tr><td><span class="badge badge-blue">CT-10</span></td><td><strong>[DAILYRECAP]</strong></td><td style="font-size:11px;color:#555;">Daily Recap email sent</td></tr></tbody></table></div>
+      <div><div style="font-size:12px;font-weight:700;color:var(--orange);margin-bottom:8px;">EMAIL HASHTAGS (with required visible phrase)</div><table><tbody><tr><td><span class="badge badge-orange">CT-01</span></td><td><strong>#Scoping</strong></td><td style="font-size:11px;color:#94a3b8;">Scoping Recap email · "Scoping Recap"</td></tr><tr><td><span class="badge badge-orange">CT-02</span></td><td><strong>#AdaptivePolling</strong></td><td style="font-size:11px;color:#94a3b8;">Pre-Poll, Agenda · "Adaptive Polling"</td></tr><tr><td><span class="badge badge-orange">CT-03</span></td><td><strong>#DeliveryRecap</strong></td><td style="font-size:11px;color:#94a3b8;">Daily/Final Recap · "Delivery Recap"</td></tr><tr><td><span class="badge badge-orange">CT-04</span></td><td><strong>#DeliveryFollow-Up</strong></td><td style="font-size:11px;color:#94a3b8;">Follow-Up (2-week) · "Dispatch Follow-Up"</td></tr></tbody></table></div>
+      <div><div style="font-size:12px;font-weight:700;color:var(--orange);margin-bottom:8px;">TIME-KEEPING TAGS (auto-logged, no email)</div><table><tbody><tr><td><span class="badge badge-blue">CT-05</span></td><td><strong>[PRE-ENGAGEMENTCALL]</strong></td><td style="font-size:11px;color:#94a3b8;">Pre-Engagement Call marked complete</td></tr><tr><td><span class="badge badge-blue">CT-06</span></td><td><strong>[DELIVERYPREPARATION]</strong></td><td style="font-size:11px;color:#94a3b8;">Preparation checklist completed</td></tr><tr><td><span class="badge badge-blue">CT-07</span></td><td><strong>[ADAPTIVEPOLLING]</strong></td><td style="font-size:11px;color:#94a3b8;">Adaptive polling created and sent</td></tr><tr><td><span class="badge badge-blue">CT-08</span></td><td><strong>[RESEARCH]</strong></td><td style="font-size:11px;color:#94a3b8;">Research phase complete</td></tr><tr><td><span class="badge badge-blue">CT-09</span></td><td><strong>[FINALRECAP]</strong></td><td style="font-size:11px;color:#94a3b8;">Final Recap email sent</td></tr><tr><td><span class="badge badge-blue">CT-10</span></td><td><strong>[DAILYRECAP]</strong></td><td style="font-size:11px;color:#94a3b8;">Daily Recap email sent</td></tr></tbody></table></div>
     </div>
   </div>
 </div>
@@ -565,7 +980,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <div class="form-group"><label>Tone</label><select id="adv-tone"><option>Formal</option><option>Neutral</option><option>Conversational</option></select></div>
         <div class="form-group"><label>Impact Level Filter</label><select id="adv-impact"><option>All</option><option>High only</option><option>Medium and above</option></select></div>
       </div>
-      <div style="margin-top:14px;"><div style="font-size:12px;font-weight:700;color:var(--charcoal);margin-bottom:8px;">Services to Include (click to toggle)</div>
+      <div style="margin-top:14px;"><div style="font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:8px;">Services to Include (click to toggle)</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;" id="services-pills">
         <button class="btn btn-outline" style="padding:4px 10px;font-size:11px;border-radius:20px;" onclick="toggleService(this)">Exchange</button>
         <button class="btn btn-outline" style="padding:4px 10px;font-size:11px;border-radius:20px;" onclick="toggleService(this)">Teams</button>
@@ -584,20 +999,20 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
       <div class="card-sub">Add M365 service change updates to include in the advisory</div>
       <div class="form-group" style="margin-bottom:10px;"><label>Paste Update Text (from Message Center or curated)</label><textarea id="adv-update-text" rows="4" placeholder="Paste M365 Message Center update or service change description here..."></textarea></div>
       <button class="btn btn-outline" onclick="addAdvisoryUpdate()" style="margin-bottom:12px;">+ Add Update</button>
-      <div id="advisory-updates"><div style="font-size:12px;color:var(--mid);text-align:center;padding:20px;">No updates added yet. Paste update text above and click Add Update.</div></div>
+      <div id="advisory-updates"><div style="font-size:12px;color:#64748b;text-align:center;padding:20px;">No updates added yet. Paste update text above and click Add Update.</div></div>
     </div>
   </div>
   <div class="card">
     <div class="card-title"><span class="icon">🚀</span> Generate Advisory — 4-Phase Pipeline</div>
     <div id="advisory-pipeline" style="display:none;">
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-        <div id="phase-1" style="flex:1;padding:10px;border-radius:6px;background:var(--light);border:1px solid var(--border);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 1</div><div style="color:var(--mid);">Gathering</div></div>
-        <div id="phase-2" style="flex:1;padding:10px;border-radius:6px;background:var(--light);border:1px solid var(--border);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 2</div><div style="color:var(--mid);">Industry Lens</div></div>
-        <div id="phase-3" style="flex:1;padding:10px;border-radius:6px;background:var(--light);border:1px solid var(--border);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 3</div><div style="color:var(--mid);">Drafting</div></div>
-        <div id="phase-4" style="flex:1;padding:10px;border-radius:6px;background:var(--light);border:1px solid var(--border);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 4</div><div style="color:var(--mid);">Packaging</div></div>
+        <div id="phase-1" style="flex:1;padding:10px;border-radius:6px;background:var(--navy-900,#050d1a);border:1px solid rgba(59,130,246,0.18);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 1</div><div style="color:#64748b;">Gathering</div></div>
+        <div id="phase-2" style="flex:1;padding:10px;border-radius:6px;background:var(--navy-900,#050d1a);border:1px solid rgba(59,130,246,0.18);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 2</div><div style="color:#64748b;">Industry Lens</div></div>
+        <div id="phase-3" style="flex:1;padding:10px;border-radius:6px;background:var(--navy-900,#050d1a);border:1px solid rgba(59,130,246,0.18);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 3</div><div style="color:#64748b;">Drafting</div></div>
+        <div id="phase-4" style="flex:1;padding:10px;border-radius:6px;background:var(--navy-900,#050d1a);border:1px solid rgba(59,130,246,0.18);text-align:center;font-size:12px;"><div style="font-weight:700;">Phase 4</div><div style="color:#64748b;">Packaging</div></div>
       </div>
       <div class="progress-bar-wrap" style="height:10px;margin-bottom:10px;"><div class="progress-bar-fill" id="advisory-progress" style="width:0%"></div></div>
-      <div id="advisory-status" style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:10px;">Initializing...</div>
+      <div id="advisory-status" style="font-size:13px;color:#64748b;text-align:center;margin-bottom:10px;">Initializing...</div>
     </div>
     <div id="advisory-output" style="display:none;" class="callout callout-green">
       <strong>Advisory Ready!</strong> Your Weekly M365 Change Advisory has been generated.<br>
@@ -611,7 +1026,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
       <button class="btn btn-orange" id="generate-btn" onclick="generateAdvisory()" disabled style="opacity:0.5;">Generate Advisory</button>
       <button class="btn btn-outline" onclick="quickExport()">⚡ Quick Export (skip phases 2-3)</button>
-      <span style="font-size:12px;color:var(--mid);" id="advisory-ready-msg">Enter customer name to enable generation</span>
+      <span style="font-size:12px;color:#64748b;" id="advisory-ready-msg">Enter customer name to enable generation</span>
     </div>
   </div>
 </div>
@@ -634,12 +1049,12 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
       <div class="card-title"><span class="icon">📏</span> Rate Each Dimension</div>
       <div class="card-sub">1=Below Standard · 2=Developing · 3=At Standard · 4=Above Standard</div>
       <div id="dimension-ratings">
-        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">📡 Signal Intelligence</div><div style="font-size:11px;color:var(--mid);margin-bottom:6px;">Monitoring all three signal streams weekly, surfacing within 48 hours, using signal language</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(0,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(0,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(0,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(0,4,this)">4 — Above</button></div></div>
-        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">🎯 Ownership Clarity</div><div style="font-size:11px;color:var(--mid);margin-bottom:6px;">Named Outcome Owner, communicated in writing, full runbook, no orphaned workstreams</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(1,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(1,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(1,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(1,4,this)">4 — Above</button></div></div>
-        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">✉️ Communication Discipline</div><div style="font-size:11px;color:var(--mid);margin-bottom:6px;">All three tests applied to every communication, rewrite when fails, no exceptions</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(2,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(2,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(2,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(2,4,this)">4 — Above</button></div></div>
-        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">✅ Outcome Validation</div><div style="font-size:11px;color:var(--mid);margin-bottom:6px;">Three validation questions every close, client articulates value in writing before close</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(3,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(3,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(3,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(3,4,this)">4 — Above</button></div></div>
-        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">🏛️ Trust Architecture</div><div style="font-size:11px;color:var(--mid);margin-bottom:6px;">Identifies active trust layer, applies behaviors, uses CE Framework vocabulary consistently</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(4,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(4,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(4,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(4,4,this)">4 — Above</button></div></div>
-        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">🌱 Program Stewardship</div><div style="font-size:11px;color:var(--mid);margin-bottom:6px;">Contributes to playbook, surfaces anti-patterns, active quarterly review (L2+ only)</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(5,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(5,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(5,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(5,4,this)">4 — Above</button></div></div>
+        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">📡 Signal Intelligence</div><div style="font-size:11px;color:#64748b;margin-bottom:6px;">Monitoring all three signal streams weekly, surfacing within 48 hours, using signal language</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(0,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(0,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(0,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(0,4,this)">4 — Above</button></div></div>
+        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">🎯 Ownership Clarity</div><div style="font-size:11px;color:#64748b;margin-bottom:6px;">Named Outcome Owner, communicated in writing, full runbook, no orphaned workstreams</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(1,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(1,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(1,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(1,4,this)">4 — Above</button></div></div>
+        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">✉️ Communication Discipline</div><div style="font-size:11px;color:#64748b;margin-bottom:6px;">All three tests applied to every communication, rewrite when fails, no exceptions</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(2,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(2,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(2,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(2,4,this)">4 — Above</button></div></div>
+        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">✅ Outcome Validation</div><div style="font-size:11px;color:#64748b;margin-bottom:6px;">Three validation questions every close, client articulates value in writing before close</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(3,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(3,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(3,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(3,4,this)">4 — Above</button></div></div>
+        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">🏛️ Trust Architecture</div><div style="font-size:11px;color:#64748b;margin-bottom:6px;">Identifies active trust layer, applies behaviors, uses CE Framework vocabulary consistently</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(4,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(4,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(4,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(4,4,this)">4 — Above</button></div></div>
+        <div style="margin-bottom:12px;"><div style="font-size:13px;font-weight:700;margin-bottom:4px;">🌱 Program Stewardship</div><div style="font-size:11px;color:#64748b;margin-bottom:6px;">Contributes to playbook, surfaces anti-patterns, active quarterly review (L2+ only)</div><div style="display:flex;gap:6px;"><button class="dim-btn" onclick="setDimScore(5,1,this)">1 — Below</button><button class="dim-btn" onclick="setDimScore(5,2,this)">2 — Developing</button><button class="dim-btn" onclick="setDimScore(5,3,this)">3 — At Standard</button><button class="dim-btn" onclick="setDimScore(5,4,this)">4 — Above</button></div></div>
       </div>
       <div id="assessment-insights" style="margin-top:12px;"></div>
     </div>
@@ -661,7 +1076,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <button class="scenario-option" onclick="selectOption(this,'sc1',false)">D. Escalate internally first and wait for leadership guidance before communicating anything to the client.</button>
       </div>
       <div class="scenario-reveal" id="sc1-reveal"><div class="callout callout-green"><strong>✓ Correct: Option C</strong><br>The EEP standard requires proactive communication before the client raises the issue. A missed commitment that the team surfaces proactively — with a new committed date — is a trust-building event. A missed commitment that the client surfaces first is a trust-damaging event. The difference is not the missed commitment. The difference is who surfaces it first. Option A is a signal failure. Option B fails the Next-Step Test. Option D delays client communication unnecessarily.</div></div>
-      <button onclick="revealScenario('sc1')" style="background:var(--charcoal);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
+      <button onclick="revealScenario('sc1')" style="background:rgba(10,22,40,0.95);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
     </div>
   </div>
   <div class="scenario-card">
@@ -675,7 +1090,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <button class="scenario-option" onclick="selectOption(this,'sc2',false)">D. Skip the status update this week since there's nothing urgent to communicate.</button>
       </div>
       <div class="scenario-reveal" id="sc2-reveal"><div class="callout callout-green"><strong>✓ Correct: Option B</strong><br>The Three Tests apply to every client-facing communication — major or minor. There are no exceptions for "just a status update." Option C fails the Next-Step Test — "please let us know if you have any questions" is not a specific next action; it's a passive invitation that produces no observable client behavior. Option B correctly applies the test: revise until the communication passes, then send.</div></div>
-      <button onclick="revealScenario('sc2')" style="background:var(--charcoal);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
+      <button onclick="revealScenario('sc2')" style="background:rgba(10,22,40,0.95);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
     </div>
   </div>
   <div class="scenario-card">
@@ -689,7 +1104,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <button class="scenario-option" onclick="selectOption(this,'sc3',false)">D. Note the positive sentiment in the engagement log and flag it as a green signal for all three streams.</button>
       </div>
       <div class="scenario-reveal" id="sc3-reveal"><div class="callout callout-green"><strong>✓ Correct: Option B</strong><br>"The client seems happy" is status language — it is a subjective impression, not an observable signal. The Signal Review is a diagnostic session, not a sentiment check. Option B is the correct facilitation move: name the language pattern, redirect to the three-stream model, and ask for observable behavioral evidence. "What did the client do or say?" is the right question. The answer to that question is a signal. The impression is not.</div></div>
-      <button onclick="revealScenario('sc3')" style="background:var(--charcoal);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
+      <button onclick="revealScenario('sc3')" style="background:rgba(10,22,40,0.95);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
     </div>
   </div>
   <div class="scenario-card">
@@ -703,7 +1118,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <button class="scenario-option" onclick="selectOption(this,'sc4',false)">D. Ask your manager to close it since they have the authority to make exceptions to the close process.</button>
       </div>
       <div class="scenario-reveal" id="sc4-reveal"><div class="callout callout-green"><strong>✓ Correct: Option C</strong><br>Non-Negotiable Commitment III is explicit: no engagement is administratively closed without a validated client articulation of value received. A signed milestone document is not the same as a client who can articulate what they received and why it mattered. Option A confuses task completion with value validation. Option B defers the validation indefinitely. Option D attempts to route around the standard through seniority — the charter is explicit that seniority does not constitute an exemption.</div></div>
-      <button onclick="revealScenario('sc4')" style="background:var(--charcoal);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
+      <button onclick="revealScenario('sc4')" style="background:rgba(10,22,40,0.95);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Reveal Answer</button>
     </div>
   </div>
 </div>
@@ -716,18 +1131,18 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
       <div class="card-title"><span class="icon">📈</span> Overall Readiness</div>
       <div style="text-align:center;padding:16px 0;">
         <div style="font-size:52px;font-weight:700;color:var(--orange);" id="readiness-pct">0%</div>
-        <div style="font-size:12px;color:var(--mid);margin-top:4px;">of 80-90% readiness threshold</div>
+        <div style="font-size:12px;color:#64748b;margin-top:4px;">of 80-90% readiness threshold</div>
         <div style="margin-top:10px;" id="readiness-badge"><span class="badge badge-gray">Below readiness threshold</span></div>
       </div>
       <div class="progress-bar-wrap" style="height:12px;"><div class="progress-bar-fill" id="readiness-bar" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mid);margin-top:4px;"><span>0%</span><span style="color:var(--amber);">80% threshold</span><span>100%</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:4px;"><span>0%</span><span style="color:var(--amber);">80% threshold</span><span>100%</span></div>
     </div>
     <div class="card">
       <div class="card-title"><span class="icon">🎓</span> Certification Status</div>
       <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--light);border-radius:6px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">L1</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">EEP Practitioner</div><div style="font-size:11px;color:var(--mid);">Target: 4-6 weeks from onboarding · All client-facing team members</div></div><select style="font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;" onchange="updateReadiness()"><option>Not started</option><option>In progress</option><option>Certified</option></select></div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--light);border-radius:6px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">L2</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">EEP Lead</div><div style="font-size:11px;color:var(--mid);">Target: 6-9 months from L1 · Requires 6+ months active delivery under the standard</div></div><select style="font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;" onchange="updateReadiness()"><option>Not started</option><option>In progress</option><option>Certified</option></select></div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--light);border-radius:6px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">L3</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">EEP Trainer</div><div style="font-size:11px;color:var(--mid);">Target: 3-6 months from L2 · Nomination-based — not all L2 Leads will pursue L3</div></div><select style="font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;" onchange="updateReadiness()"><option>Not started</option><option>Nominated</option><option>In progress</option><option>Certified</option></select></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--navy-900,#050d1a);border-radius:6px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">L1</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">EEP Practitioner</div><div style="font-size:11px;color:#64748b;">Target: 4-6 weeks from onboarding · All client-facing team members</div></div><select style="font-size:11px;padding:4px 8px;border:1px solid rgba(59,130,246,0.18);border-radius:4px;" onchange="updateReadiness()"><option>Not started</option><option>In progress</option><option>Certified</option></select></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--navy-900,#050d1a);border-radius:6px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">L2</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">EEP Lead</div><div style="font-size:11px;color:#64748b;">Target: 6-9 months from L1 · Requires 6+ months active delivery under the standard</div></div><select style="font-size:11px;padding:4px 8px;border:1px solid rgba(59,130,246,0.18);border-radius:4px;" onchange="updateReadiness()"><option>Not started</option><option>In progress</option><option>Certified</option></select></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--navy-900,#050d1a);border-radius:6px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">L3</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">EEP Trainer</div><div style="font-size:11px;color:#64748b;">Target: 3-6 months from L2 · Nomination-based — not all L2 Leads will pursue L3</div></div><select style="font-size:11px;padding:4px 8px;border:1px solid rgba(59,130,246,0.18);border-radius:4px;" onchange="updateReadiness()"><option>Not started</option><option>Nominated</option><option>In progress</option><option>Certified</option></select></div>
       </div>
     </div>
   </div>
@@ -769,10 +1184,10 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card-title"><span class="icon">🔐</span> Authentication Status</div>
     <div id="auth-status-content">
       <div style="display:flex;align-items:center;gap:16px;padding:16px 0;">
-        <div style="width:48px;height:48px;border-radius:50%;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:24px;">👤</div>
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--navy-900,#050d1a);display:flex;align-items:center;justify-content:center;font-size:24px;">👤</div>
         <div>
           <div style="font-size:15px;font-weight:700;" id="auth-name">Not signed in</div>
-          <div style="font-size:12px;color:var(--mid);" id="auth-email">Connect your Microsoft 365 account to get started</div>
+          <div style="font-size:12px;color:#64748b;" id="auth-email">Connect your Microsoft 365 account to get started</div>
           <div style="margin-top:6px;" id="auth-badge"><span class="badge badge-gray">Demo Mode</span></div>
         </div>
         <div style="margin-left:auto;display:flex;gap:8px;">
@@ -791,31 +1206,31 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
       <strong>Why is this needed?</strong> Microsoft requires an App Registration to authenticate users and access Microsoft Graph API (calendar, email, tasks). This is a standard OAuth 2.0 security requirement — your credentials are never stored in this app.
     </div>
     <div style="display:flex;flex-direction:column;gap:0;">
-      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">1</div>
-        <div><strong>Go to Azure Portal</strong><br><span style="font-size:12px;color:var(--mid);">Visit <a href="https://portal.azure.com" target="_blank" style="color:var(--orange);">portal.azure.com</a> → Microsoft Entra ID → App registrations → New registration</span></div>
+        <div><strong>Go to Azure Portal</strong><br><span style="font-size:12px;color:#64748b;">Visit <a href="https://portal.azure.com" target="_blank" style="color:var(--orange);">portal.azure.com</a> → Microsoft Entra ID → App registrations → New registration</span></div>
       </div>
-      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">2</div>
-        <div><strong>Configure the App Registration</strong><br><span style="font-size:12px;color:var(--mid);">Name: "Engineer Delivery Dashboard" · Supported account types: "Accounts in this organizational directory only" · Redirect URI: <code style="background:var(--light);padding:2px 6px;border-radius:3px;">http://localhost</code> (type: Single-page application)</span></div>
+        <div><strong>Configure the App Registration</strong><br><span style="font-size:12px;color:#64748b;">Name: "Engineer Delivery Dashboard" · Supported account types: "Accounts in this organizational directory only" · Redirect URI: <code style="background:var(--navy-900,#050d1a);padding:2px 6px;border-radius:3px;">http://localhost</code> (type: Single-page application)</span></div>
       </div>
-      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">3</div>
-        <div><strong>Add API Permissions</strong><br><span style="font-size:12px;color:var(--mid);">API Permissions → Add permission → Microsoft Graph → Delegated permissions → Add: <code style="background:var(--light);padding:2px 6px;border-radius:3px;">User.Read</code>, <code style="background:var(--light);padding:2px 6px;border-radius:3px;">Calendars.Read</code>, <code style="background:var(--light);padding:2px 6px;border-radius:3px;">Mail.Read</code>, <code style="background:var(--light);padding:2px 6px;border-radius:3px;">Tasks.Read</code></span></div>
+        <div><strong>Add API Permissions</strong><br><span style="font-size:12px;color:#64748b;">API Permissions → Add permission → Microsoft Graph → Delegated permissions → Add: <code style="background:var(--navy-900,#050d1a);padding:2px 6px;border-radius:3px;">User.Read</code>, <code style="background:var(--navy-900,#050d1a);padding:2px 6px;border-radius:3px;">Calendars.Read</code>, <code style="background:var(--navy-900,#050d1a);padding:2px 6px;border-radius:3px;">Mail.Read</code>, <code style="background:var(--navy-900,#050d1a);padding:2px 6px;border-radius:3px;">Tasks.Read</code></span></div>
       </div>
-      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">4</div>
-        <div><strong>Copy your Client ID</strong><br><span style="font-size:12px;color:var(--mid);">Overview tab → Application (client) ID → Copy the GUID (looks like: <code style="background:var(--light);padding:2px 6px;border-radius:3px;">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>)</span></div>
+        <div><strong>Copy your Client ID</strong><br><span style="font-size:12px;color:#64748b;">Overview tab → Application (client) ID → Copy the GUID (looks like: <code style="background:var(--navy-900,#050d1a);padding:2px 6px;border-radius:3px;">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>)</span></div>
       </div>
       <div style="display:flex;gap:14px;padding:14px 0;">
         <div style="width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">5</div>
-        <div style="flex:1;"><strong>Enter your Client ID below and sign in</strong><br><span style="font-size:12px;color:var(--mid);">Paste your Client ID, save it, then click "Sign in with Microsoft" above</span>
+        <div style="flex:1;"><strong>Enter your Client ID below and sign in</strong><br><span style="font-size:12px;color:#64748b;">Paste your Client ID, save it, then click "Sign in with Microsoft" above</span>
           <div style="display:flex;gap:8px;margin-top:10px;align-items:center;">
-            <input type="text" id="client-id-input" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;" value="">
+            <input type="text" id="client-id-input" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" style="flex:1;padding:8px 12px;border:1px solid rgba(59,130,246,0.18);border-radius:6px;font-size:13px;font-family:inherit;" value="">
             <button class="btn btn-orange" onclick="saveClientId()">Save Client ID</button>
             <button class="btn btn-outline" onclick="clearClientId()">Clear</button>
           </div>
-          <div id="client-id-status" style="font-size:12px;margin-top:6px;color:var(--mid);"></div>
+          <div id="client-id-status" style="font-size:12px;margin-top:6px;color:#64748b;"></div>
         </div>
       </div>
     </div>
@@ -826,25 +1241,25 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
     <div class="card-title"><span class="icon">🛡️</span> What This App Accesses</div>
     <div class="card-sub">Minimal permissions — read-only access to your Microsoft 365 data</div>
     <div class="grid-4" style="margin-top:8px;">
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
         <div style="font-size:20px;margin-bottom:6px;">👤</div>
         <div style="font-size:13px;font-weight:700;margin-bottom:4px;">User.Read</div>
-        <div style="font-size:11px;color:var(--mid);">Your name, email, and profile photo for the dashboard header</div>
+        <div style="font-size:11px;color:#64748b;">Your name, email, and profile photo for the dashboard header</div>
       </div>
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
         <div style="font-size:20px;margin-bottom:6px;">📅</div>
         <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Calendars.Read</div>
-        <div style="font-size:11px;color:var(--mid);">Today's and upcoming calendar events — read only, no modifications</div>
+        <div style="font-size:11px;color:#64748b;">Today's and upcoming calendar events — read only, no modifications</div>
       </div>
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
         <div style="font-size:20px;margin-bottom:6px;">📧</div>
         <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Mail.Read</div>
-        <div style="font-size:11px;color:var(--mid);">Recent inbox messages — read only, no send or delete access</div>
+        <div style="font-size:11px;color:#64748b;">Recent inbox messages — read only, no send or delete access</div>
       </div>
-      <div style="background:var(--light);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
+      <div style="background:var(--navy-900,#050d1a);border-radius:8px;padding:14px;border-top:3px solid var(--orange);">
         <div style="font-size:20px;margin-bottom:6px;">✅</div>
         <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Tasks.Read</div>
-        <div style="font-size:11px;color:var(--mid);">Microsoft To Do tasks — read only, surfaces flagged items in Priority Inbox</div>
+        <div style="font-size:11px;color:#64748b;">Microsoft To Do tasks — read only, surfaces flagged items in Priority Inbox</div>
       </div>
     </div>
     <div class="callout callout-green" style="margin-top:14px;">
@@ -878,7 +1293,7 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
         <div id="calendar-events" style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
           <!-- populated by JS -->
         </div>
-        <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
+        <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;">
           <div class="card-title" style="font-size:13px;margin-bottom:8px;"><span class="icon">📆</span> Upcoming (Next 7 Days)</div>
           <div id="upcoming-events" style="display:flex;flex-direction:column;gap:6px;">
             <!-- populated by JS -->
@@ -927,28 +1342,28 @@ ul.bullet-list li::before{content:"▸";color:var(--orange);flex-shrink:0}
 
 <!-- HELP PAGE -->
 <style>
-.help-hero{background:var(--charcoal);color:#fff;padding:24px 28px;border-radius:8px;margin-bottom:18px;border-left:4px solid var(--orange)}
+.help-hero{background:rgba(10,22,40,0.95);color:#fff;padding:24px 28px;border-radius:8px;margin-bottom:18px;border-left:4px solid var(--orange)}
 .help-hero h2{font-size:19px;font-weight:800;margin-bottom:5px}
 .help-hero p{font-size:13px;color:#aaa;line-height:1.6}
 .help-toc{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
 .help-toc-btn{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:700;background:rgba(255,98,0,.1);border:1px solid rgba(255,98,0,.22);color:var(--orange);cursor:pointer;font-family:inherit;transition:all .15s}
 .help-toc-btn:hover{background:var(--orange);color:#fff}
-.help-sec{background:#fff;border:1px solid var(--border);border-radius:8px;margin-bottom:14px;overflow:hidden}
-.help-sec-hdr{display:flex;align-items:center;gap:13px;padding:14px 20px;background:var(--light,#F5F5F5);border-bottom:1px solid var(--border)}
+.help-sec{background:rgba(15,31,56,0.88);border:1px solid rgba(59,130,246,0.18);border-radius:8px;margin-bottom:14px;overflow:hidden}
+.help-sec-hdr{display:flex;align-items:center;gap:13px;padding:14px 20px;background:var(--navy-900,#050d1a);border-bottom:1px solid rgba(255,255,255,0.06)}
 .help-sec-icon{font-size:22px;flex-shrink:0}
-.help-sec-title{font-size:14px;font-weight:700;color:var(--charcoal)}
+.help-sec-title{font-size:14px;font-weight:700;color:#e2e8f0}
 .help-sec-sub{font-size:11px;color:var(--mid,#9E9E9E);margin-top:1px}
-.help-item{padding:13px 20px;border-bottom:1px solid var(--border)}
+.help-item{padding:13px 20px;border-bottom:1px solid rgba(255,255,255,0.06)}
 .help-item:last-child{border-bottom:none}
-.help-q{font-size:13px;font-weight:700;color:var(--charcoal);margin-bottom:5px;display:flex;align-items:flex-start;gap:8px}
+.help-q{font-size:13px;font-weight:700;color:#e2e8f0;margin-bottom:5px;display:flex;align-items:flex-start;gap:8px}
 .help-q-badge{background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:1px}
-.help-a{font-size:13px;color:#555;line-height:1.7;padding-left:26px}
+.help-a{font-size:13px;color:#94a3b8;line-height:1.7;padding-left:26px}
 .help-a ul{margin:5px 0 0 16px}
 .help-a ul li{margin-bottom:3px}
-.help-a code{background:var(--light,#F5F5F5);border:1px solid var(--border);padding:1px 6px;border-radius:3px;font-size:12px;font-family:monospace}
-.help-a .help-tip{background:#FFF8E1;border-left:3px solid var(--amber,#F57C00);padding:8px 12px;margin-top:8px;border-radius:0 6px 6px 0;font-size:12px;color:#555}
-.help-a .help-tip strong{color:var(--amber,#F57C00)}
-.help-a .help-note{background:#E3F2FD;border-left:3px solid var(--blue,#1565C0);padding:8px 12px;margin-top:8px;border-radius:0 6px 6px 0;font-size:12px;color:#555}
+.help-a code{background:var(--navy-900,#050d1a);border:1px solid rgba(59,130,246,0.18);padding:1px 6px;border-radius:3px;font-size:12px;font-family:monospace}
+.help-a .help-tip{background:#FFF8E1;border-left:3px solid var(--amber,#f59e0b);padding:8px 12px;margin-top:8px;border-radius:0 6px 6px 0;font-size:12px;color:#555}
+.help-a .help-tip strong{color:var(--amber,#f59e0b)}
+.help-a .help-note{background:#E3F2FD;border-left:3px solid var(--blue,#2563eb);padding:8px 12px;margin-top:8px;border-radius:0 6px 6px 0;font-size:12px;color:#555}
 </style>
 <div class="page" id="page-help">
   <div class="help-hero">
@@ -1239,7 +1654,7 @@ function addPriorityItem(){
   const list=document.getElementById('priority-list');
   const div=document.createElement('div');
   div.className='priority-item';
-  div.innerHTML='<div class="priority-badge '+priority+'">'+priority.toUpperCase()+'</div><div style="flex:1;"><strong>'+desc+'</strong><br><span style="color:var(--mid);font-size:12px;">Route: '+route+'</span></div><button class="btn btn-outline" style="padding:5px 12px;font-size:12px;" onclick="this.parentElement.remove()">Remove</button>';
+  div.innerHTML='<div class="priority-badge '+priority+'">'+priority.toUpperCase()+'</div><div style="flex:1;"><strong>'+desc+'</strong><br><span style="color:#64748b;font-size:12px;">Route: '+route+'</span></div><button class="btn btn-outline" style="padding:5px 12px;font-size:12px;" onclick="this.parentElement.remove()">Remove</button>';
   list.appendChild(div);
   document.getElementById('new-item-desc').value='';
 }
@@ -1264,8 +1679,8 @@ function addAdvisoryUpdate(){
 function renderAdvisoryUpdates(){
   const container=document.getElementById('advisory-updates');
   if(!container)return;
-  if(advisoryUpdates.length===0){container.innerHTML='<div style="font-size:12px;color:var(--mid);text-align:center;padding:20px;">No updates added yet.</div>';return;}
-  container.innerHTML=advisoryUpdates.map((u,i)=>'<div style="padding:8px;background:var(--light);border-radius:6px;margin-bottom:6px;font-size:12px;display:flex;gap:8px;align-items:flex-start;"><span style="flex:1;">'+u.substring(0,120)+(u.length>120?'...':'')+'</span><button onclick="removeUpdate('+i+')" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">×</button></div>').join('');
+  if(advisoryUpdates.length===0){container.innerHTML='<div style="font-size:12px;color:#64748b;text-align:center;padding:20px;">No updates added yet.</div>';return;}
+  container.innerHTML=advisoryUpdates.map((u,i)=>'<div style="padding:8px;background:var(--navy-900,#050d1a);border-radius:6px;margin-bottom:6px;font-size:12px;display:flex;gap:8px;align-items:flex-start;"><span style="flex:1;">'+u.substring(0,120)+(u.length>120?'...':'')+'</span><button onclick="removeUpdate('+i+')" style="background:none;border:none;cursor:pointer;color:var(--red);font-size:14px;flex-shrink:0;">×</button></div>').join('');
 }
 function removeUpdate(i){advisoryUpdates.splice(i,1);renderAdvisoryUpdates();}
 function toggleService(btn){btn.classList.toggle('btn-orange');btn.classList.toggle('btn-outline');}
@@ -1356,7 +1771,7 @@ function drawRadar(){
     ctx.beginPath();
     for(let i=0;i<n;i++){const angle=(i/n)*2*Math.PI-Math.PI/2;const val=(dimScores[i]||0)/maxVal;const px=cx+r*val*Math.cos(angle);const py=cy+r*val*Math.sin(angle);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}
     ctx.closePath();ctx.fillStyle='rgba(255,98,0,0.18)';ctx.fill();ctx.strokeStyle='rgba(255,98,0,0.9)';ctx.lineWidth=2.5;ctx.stroke();
-    for(let i=0;i<n;i++){const angle=(i/n)*2*Math.PI-Math.PI/2;const val=(dimScores[i]||0)/maxVal;const px=cx+r*val*Math.cos(angle);const py=cy+r*val*Math.sin(angle);ctx.beginPath();ctx.arc(px,py,size*0.022,0,2*Math.PI);ctx.fillStyle=dimScores[i]>0?'#FF6200':'rgba(255,98,0,0.3)';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();}
+    for(let i=0;i<n;i++){const angle=(i/n)*2*Math.PI-Math.PI/2;const val=(dimScores[i]||0)/maxVal;const px=cx+r*val*Math.cos(angle);const py=cy+r*val*Math.sin(angle);ctx.beginPath();ctx.arc(px,py,size*0.022,0,2*Math.PI);ctx.fillStyle=dimScores[i]>0?'#f97316':'rgba(255,98,0,0.3)';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();}
   }
   const labelR=r+size*0.1;
   for(let i=0;i<n;i++){const angle=(i/n)*2*Math.PI-Math.PI/2;const lx=cx+labelR*Math.cos(angle);const ly=cy+labelR*Math.sin(angle);const words=DIMS[i].split(' ');ctx.fillStyle='#222';ctx.font='bold '+(size*0.031)+'px Calibri,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';const lineH=size*0.038;const totalH=words.length*lineH;words.forEach((word,w)=>{ctx.fillText(word,lx,ly-totalH/2+w*lineH+lineH/2);});}
@@ -1459,7 +1874,7 @@ function saveClientId() {
 function clearClientId() {
   localStorage.removeItem('eep_m365_client_id');
   document.getElementById('client-id-input').value = '';
-  document.getElementById('client-id-status').innerHTML = '<span style="color:var(--mid);">Client ID cleared.</span>';
+  document.getElementById('client-id-status').innerHTML = '<span style="color:#64748b;">Client ID cleared.</span>';
   msalInstance = null;
   m365Account = null;
   setDemoMode();
@@ -1573,7 +1988,7 @@ function setLiveMode(account) {
   if (topbarRight && !document.getElementById('topbar-user')) {
     const userEl = document.createElement('div');
     userEl.id = 'topbar-user';
-    userEl.style.cssText = 'display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mid);';
+    userEl.style.cssText = 'display:flex;align-items:center;gap:8px;font-size:12px;color:#64748b;';
     userEl.innerHTML = '<span style="width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">' + (name[0]||'U') + '</span><span>' + name + '</span>';
     topbarRight.prepend(userEl);
   }
@@ -1679,7 +2094,7 @@ function renderCalendarEvents(today, upcoming) {
   dateLabel.textContent = now.toLocaleDateString([], {weekday:'long', year:'numeric', month:'long', day:'numeric'});
 
   if (!today.length) {
-    calEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--mid);font-size:13px;">📅 No events scheduled for today</div>';
+    calEl.innerHTML = '<div style="text-align:center;padding:20px;color:#64748b;font-size:13px;">📅 No events scheduled for today</div>';
   } else {
     calEl.innerHTML = today.map(ev => {
       const start = new Date(ev.start?.dateTime || ev.start?.date);
@@ -1690,12 +2105,12 @@ function renderCalendarEvents(today, upcoming) {
       return `<div style="display:flex;gap:10px;padding:10px;border-radius:6px;background:${isNow?'var(--orange-light)':isPast?'var(--light)':'#fff'};border:1px solid ${isNow?'var(--orange)':'var(--border)'};align-items:flex-start;">
         <div style="text-align:center;min-width:44px;flex-shrink:0;">
           <div style="font-size:11px;font-weight:700;color:${isNow?'var(--orange)':'var(--mid)'};">${fmtTime(ev.start?.dateTime)}</div>
-          <div style="font-size:10px;color:var(--mid);">${fmtTime(ev.end?.dateTime)}</div>
+          <div style="font-size:10px;color:#64748b;">${fmtTime(ev.end?.dateTime)}</div>
         </div>
         <div style="flex:1;min-width:0;">
           <div style="font-size:13px;font-weight:${isNow?'700':'600'};color:${isPast?'var(--mid)':'var(--charcoal)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${ev.subject||'(No title)'}</div>
-          ${loc?`<div style="font-size:11px;color:var(--mid);margin-top:2px;">📍 ${loc}</div>`:''}
-          ${ev.organizer?.emailAddress?.name?`<div style="font-size:11px;color:var(--mid);">👤 ${ev.organizer.emailAddress.name}</div>`:''}
+          ${loc?`<div style="font-size:11px;color:#64748b;margin-top:2px;">📍 ${loc}</div>`:''}
+          ${ev.organizer?.emailAddress?.name?`<div style="font-size:11px;color:#64748b;">👤 ${ev.organizer.emailAddress.name}</div>`:''}
         </div>
         ${isNow?'<span class="badge badge-orange" style="flex-shrink:0;">NOW</span>':''}
         ${ev.isOnlineMeeting&&ev.onlineMeetingUrl?`<a href="${ev.onlineMeetingUrl}" target="_blank" class="btn btn-orange" style="padding:4px 10px;font-size:11px;flex-shrink:0;text-decoration:none;">Join</a>`:''}
@@ -1704,13 +2119,13 @@ function renderCalendarEvents(today, upcoming) {
   }
 
   if (!upcoming.length) {
-    upEl.innerHTML = '<div style="font-size:12px;color:var(--mid);padding:8px 0;">No upcoming events in the next 7 days</div>';
+    upEl.innerHTML = '<div style="font-size:12px;color:#64748b;padding:8px 0;">No upcoming events in the next 7 days</div>';
   } else {
     upEl.innerHTML = upcoming.slice(0,8).map(ev => {
-      return `<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);align-items:center;">
+      return `<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center;">
         <div style="min-width:60px;font-size:11px;font-weight:700;color:var(--orange);">${fmtDate(ev.start?.dateTime||ev.start?.date)}</div>
         <div style="font-size:12px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${ev.subject||'(No title)'}</div>
-        <div style="font-size:11px;color:var(--mid);flex-shrink:0;">${fmtTime(ev.start?.dateTime)}</div>
+        <div style="font-size:11px;color:#64748b;flex-shrink:0;">${fmtTime(ev.start?.dateTime)}</div>
       </div>`;
     }).join('');
   }
@@ -1724,7 +2139,7 @@ function renderInboxMessages(messages, filter) {
   else if (filter === 'important') filtered = messages.filter(m => m.importance === 'high');
 
   if (!filtered.length) {
-    el.innerHTML = `<div style="text-align:center;padding:20px;color:var(--mid);font-size:13px;">📭 No ${filter==='all'?'':filter+' '}messages</div>`;
+    el.innerHTML = `<div style="text-align:center;padding:20px;color:#64748b;font-size:13px;">📭 No ${filter==='all'?'':filter+' '}messages</div>`;
     return;
   }
   el.innerHTML = filtered.slice(0,12).map(msg => {
@@ -1736,13 +2151,13 @@ function renderInboxMessages(messages, filter) {
         <div style="flex:1;min-width:0;">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
             ${!msg.isRead?'<span style="width:7px;height:7px;border-radius:50%;background:var(--orange);flex-shrink:0;"></span>':''}
-            <span style="font-size:12px;font-weight:${!msg.isRead?'700':'600'};color:var(--charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.subject||'(No subject)'}</span>
+            <span style="font-size:12px;font-weight:${!msg.isRead?'700':'600'};color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.subject||'(No subject)'}</span>
           </div>
-          <div style="font-size:11px;color:var(--mid);">From: ${from}</div>
-          ${msg.bodyPreview?`<div style="font-size:11px;color:#666;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.bodyPreview.substring(0,80)}...</div>`:''}
+          <div style="font-size:11px;color:#64748b;">From: ${from}</div>
+          ${msg.bodyPreview?`<div style="font-size:11px;color:#64748b;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.bodyPreview.substring(0,80)}...</div>`:''}
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
-          <div style="font-size:10px;color:var(--mid);">${fmtRelTime(msg.receivedDateTime)}</div>
+          <div style="font-size:10px;color:#64748b;">${fmtRelTime(msg.receivedDateTime)}</div>
           ${isFlagged?'<span style="font-size:14px;" title="Flagged">🚩</span>':''}
           ${isImportant?'<span style="font-size:14px;" title="High importance">❗</span>':''}
         </div>
@@ -1762,7 +2177,7 @@ function filterInbox(btn, filter) {
 function renderTasks(tasks) {
   const el = document.getElementById('tasks-list');
   if (!tasks.length) {
-    el.innerHTML = '<div style="font-size:12px;color:var(--mid);padding:8px 0;">No open tasks</div>';
+    el.innerHTML = '<div style="font-size:12px;color:#64748b;padding:8px 0;">No open tasks</div>';
     return;
   }
   const now = new Date();
@@ -1770,11 +2185,11 @@ function renderTasks(tasks) {
     const due = t.dueDateTime ? new Date(t.dueDateTime.dateTime) : null;
     const isOverdue = due && due < now;
     const isDueToday = due && due.toDateString() === now.toDateString();
-    return `<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);">
+    return `<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
       <span style="font-size:14px;flex-shrink:0;">${t.importance==='high'?'❗':'☐'}</span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.title}</div>
-        <div style="font-size:11px;color:var(--mid);">${t.listName||'Tasks'}${due?` · ${isOverdue?'<span style="color:var(--red);font-weight:700;">Overdue: ':isDueToday?'<span style="color:var(--amber);font-weight:700;">Due today</span>':'Due: '}${isOverdue||isDueToday?'':fmtDate(t.dueDateTime?.dateTime)}${isOverdue?fmtDate(t.dueDateTime?.dateTime)+'</span>':''}`:''}</div>
+        <div style="font-size:11px;color:#64748b;">${t.listName||'Tasks'}${due?` · ${isOverdue?'<span style="color:var(--red);font-weight:700;">Overdue: ':isDueToday?'<span style="color:var(--amber);font-weight:700;">Due today</span>':'Due: '}${isOverdue||isDueToday?'':fmtDate(t.dueDateTime?.dateTime)}${isOverdue?fmtDate(t.dueDateTime?.dateTime)+'</span>':''}`:''}</div>
       </div>
       ${isOverdue?'<span class="badge badge-red">Overdue</span>':isDueToday?'<span class="badge badge-amber">Today</span>':''}
     </div>`;
@@ -1831,11 +2246,11 @@ function renderDemoData() {
     return `<div style="display:flex;gap:10px;padding:10px;border-radius:6px;background:${isNow?'var(--orange-light)':ev.past?'var(--light)':'#fff'};border:1px solid ${isNow?'var(--orange)':'var(--border)'};align-items:flex-start;">
       <div style="text-align:center;min-width:44px;flex-shrink:0;">
         <div style="font-size:11px;font-weight:700;color:${isNow?'var(--orange)':'var(--mid)'};">${startT}</div>
-        <div style="font-size:10px;color:var(--mid);">${endT}</div>
+        <div style="font-size:10px;color:#64748b;">${endT}</div>
       </div>
       <div style="flex:1;min-width:0;">
         <div style="font-size:13px;font-weight:${isNow?'700':'600'};color:${ev.past?'var(--mid)':'var(--charcoal)'};">${ev.subject}</div>
-        <div style="font-size:11px;color:var(--mid);margin-top:2px;">📍 ${ev.loc}</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px;">📍 ${ev.loc}</div>
       </div>
       ${isNow?'<span class="badge badge-orange">NOW</span>':''}
       ${ev.isOnline&&!ev.past?'<button class="btn btn-orange" style="padding:4px 10px;font-size:11px;flex-shrink:0;">Join</button>':''}
@@ -1852,10 +2267,10 @@ function renderDemoData() {
     {day:'Next Mon', subject:'New Hire EEP Onboarding Session', time:'9:00 AM'},
   ];
   document.getElementById('upcoming-events').innerHTML = upcomingDemo.map(ev =>
-    `<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);align-items:center;">
+    `<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);align-items:center;">
       <div style="min-width:60px;font-size:11px;font-weight:700;color:var(--orange);">${ev.day}</div>
       <div style="font-size:12px;flex:1;">${ev.subject}</div>
-      <div style="font-size:11px;color:var(--mid);">${ev.time}</div>
+      <div style="font-size:11px;color:#64748b;">${ev.time}</div>
     </div>`).join('');
 
   renderDemoInbox('all');
@@ -1881,20 +2296,20 @@ function renderDemoInbox(filter) {
   else if (filter === 'important') filtered = demoMessages.filter(m => m.important);
 
   const el = document.getElementById('inbox-messages');
-  if (!filtered.length) { el.innerHTML = `<div style="text-align:center;padding:20px;color:var(--mid);font-size:13px;">📭 No ${filter} messages</div>`; return; }
+  if (!filtered.length) { el.innerHTML = `<div style="text-align:center;padding:20px;color:#64748b;font-size:13px;">📭 No ${filter} messages</div>`; return; }
   el.innerHTML = filtered.map(msg =>
     `<div style="padding:10px;border-radius:6px;border:1px solid ${msg.unread?'var(--orange)':'var(--border)'};background:${msg.unread?'var(--orange-light)':'#fff'};">
       <div style="display:flex;align-items:flex-start;gap:8px;">
         <div style="flex:1;min-width:0;">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
             ${msg.unread?'<span style="width:7px;height:7px;border-radius:50%;background:var(--orange);flex-shrink:0;"></span>':''}
-            <span style="font-size:12px;font-weight:${msg.unread?'700':'600'};color:var(--charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.subject}</span>
+            <span style="font-size:12px;font-weight:${msg.unread?'700':'600'};color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.subject}</span>
           </div>
-          <div style="font-size:11px;color:var(--mid);">From: ${msg.from}</div>
-          <div style="font-size:11px;color:#666;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.preview}</div>
+          <div style="font-size:11px;color:#64748b;">From: ${msg.from}</div>
+          <div style="font-size:11px;color:#64748b;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${msg.preview}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
-          <div style="font-size:10px;color:var(--mid);">${msg.time}</div>
+          <div style="font-size:10px;color:#64748b;">${msg.time}</div>
           ${msg.flagged?'<span style="font-size:14px;">🚩</span>':''}
           ${msg.important?'<span style="font-size:14px;">❗</span>':''}
         </div>
@@ -1911,11 +2326,11 @@ function renderDemoTasks() {
     {title:'Complete Outcome Validation questions — Tailspin', list:'EEP Tasks', due:'Wed', overdue:false, important:false},
   ];
   document.getElementById('tasks-list').innerHTML = tasks.map(t =>
-    `<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);">
+    `<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
       <span style="font-size:14px;flex-shrink:0;">${t.important?'❗':'☐'}</span>
       <div style="flex:1;min-width:0;">
         <div style="font-size:13px;font-weight:600;">${t.title}</div>
-        <div style="font-size:11px;color:var(--mid);">${t.list} · <span style="color:${t.overdue?'var(--red)':t.due==='Today'?'var(--amber)':'var(--mid)'};font-weight:${t.overdue||t.due==='Today'?'700':'400'};">${t.due}</span></div>
+        <div style="font-size:11px;color:#64748b;">${t.list} · <span style="color:${t.overdue?'var(--red)':t.due==='Today'?'var(--amber)':'var(--mid)'};font-weight:${t.overdue||t.due==='Today'?'700':'400'};">${t.due}</span></div>
       </div>
       ${t.overdue?'<span class="badge badge-red">Overdue</span>':t.due==='Today'?'<span class="badge badge-amber">Today</span>':''}
     </div>`).join('');
@@ -1954,7 +2369,7 @@ window.showPage = function(id) {
   left: 0;
   right: 0;
   background: #0a0a0a;
-  border-top: 2px solid #FF6200;
+  border-top: 2px solid #f97316;
   padding: 8px 24px;
   display: flex;
   align-items: center;
@@ -1968,13 +2383,13 @@ window.showPage = function(id) {
   letter-spacing: 0.5px;
 }
 .conf-banner .conf-text strong {
-  color: #FF6200;
+  color: #f97316;
 }
 .conf-banner .conf-link {
   font-size: 11px;
-  color: #FF6200;
+  color: #f97316;
   text-decoration: none;
-  border: 1px solid #FF6200;
+  border: 1px solid #f97316;
   padding: 3px 10px;
   border-radius: 2px;
   white-space: nowrap;
@@ -1993,7 +2408,7 @@ window.showPage = function(id) {
 .conf-modal {
   background: #141414;
   border: 1px solid #2a2a2a;
-  border-top: 3px solid #FF6200;
+  border-top: 3px solid #f97316;
   max-width: 680px;
   width: 90%;
   max-height: 80vh;
@@ -2002,14 +2417,14 @@ window.showPage = function(id) {
   border-radius: 4px;
   font-family: Calibri, Segoe UI, Arial, sans-serif;
 }
-.conf-modal h2 { color: #FF6200; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+.conf-modal h2 { color: #f97316; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
 .conf-modal h1 { color: #fff; font-size: 22px; margin-bottom: 8px; }
 .conf-modal p { color: #ccc; font-size: 14px; line-height: 1.8; margin-bottom: 12px; }
 .conf-modal ul { list-style: none; margin: 8px 0 16px 0; }
 .conf-modal ul li { color: #ccc; font-size: 14px; line-height: 1.8; padding: 4px 0 4px 20px; position: relative; border-bottom: 1px solid #1e1e1e; }
-.conf-modal ul li::before { content: "✕"; position: absolute; left: 0; color: #FF6200; font-size: 11px; font-weight: 700; }
-.conf-modal .conf-close { background: #FF6200; color: #fff; border: none; padding: 10px 28px; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 2px; margin-top: 16px; letter-spacing: 1px; }
-.conf-modal .conf-section-title { color: #FF6200; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin: 20px 0 8px 0; }
+.conf-modal ul li::before { content: "✕"; position: absolute; left: 0; color: #f97316; font-size: 11px; font-weight: 700; }
+.conf-modal .conf-close { background: #f97316; color: #fff; border: none; padding: 10px 28px; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 2px; margin-top: 16px; letter-spacing: 1px; }
+.conf-modal .conf-section-title { color: #f97316; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin: 20px 0 8px 0; }
 </style>
 <div class="conf-banner">
   <span class="conf-text"><strong>CONFIDENTIAL &amp; PROPRIETARY</strong> — Mike Garcia. View-only access. Unauthorized use prohibited.</span>
@@ -2052,29 +2467,29 @@ window.showPage = function(id) {
 @keyframes spIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .sp-ring{width:84px;height:84px;border-radius:50%;background:rgba(255,98,0,.12);border:2px solid rgba(255,98,0,.35);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;box-shadow:0 0 40px rgba(255,98,0,.18);animation:spPulse 2.5s ease-in-out infinite}
 @keyframes spPulse{0%,100%{box-shadow:0 0 40px rgba(255,98,0,.18)}50%{box-shadow:0 0 64px rgba(255,98,0,.32)}}
-.sp-badge{display:inline-block;background:rgba(255,98,0,.12);border:1px solid rgba(255,98,0,.28);color:#FF6200;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px}
+.sp-badge{display:inline-block;background:rgba(255,98,0,.12);border:1px solid rgba(255,98,0,.28);color:#f97316;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px}
 .sp-title{font-size:26px;font-weight:800;color:#fff;margin-bottom:7px;letter-spacing:-.4px;line-height:1.2}
 .sp-sub{font-size:13px;color:#888;margin-bottom:22px;line-height:1.65}
 .sp-prog{height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-bottom:20px;overflow:hidden}
-.sp-prog-bar{height:100%;background:linear-gradient(90deg,#FF6200,#CC4E00);border-radius:2px;width:0%;transition:width .35s ease}
+.sp-prog-bar{height:100%;background:linear-gradient(90deg,#f97316,#ea580c);border-radius:2px;width:0%;transition:width .35s ease}
 .sp-feats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:22px;text-align:left}
 .sp-feat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:11px;display:flex;align-items:flex-start;gap:9px}
 .sp-feat span{font-size:18px;flex-shrink:0;margin-top:1px}
 .sp-feat b{display:block;font-size:12px;font-weight:700;color:#fff;margin-bottom:2px}
-.sp-feat small{font-size:11px;color:#666;line-height:1.4}
+.sp-feat small{font-size:11px;color:#64748b;line-height:1.4}
 .sp-div{height:1px;background:linear-gradient(90deg,transparent,rgba(255,98,0,.25),transparent);margin-bottom:18px}
 .sp-conf{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:8px;padding:11px 15px;margin-bottom:16px;text-align:left}
 .sp-conf-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#ef4444;margin-bottom:5px}
 .sp-conf p{font-size:11px;color:#999;line-height:1.6}
 .sp-conf p strong{color:#fff}
 .sp-cb-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:16px;text-align:left}
-.sp-cb-row input{width:16px;height:16px;accent-color:#FF6200;flex-shrink:0;margin-top:2px;cursor:pointer}
+.sp-cb-row input{width:16px;height:16px;accent-color:#f97316;flex-shrink:0;margin-top:2px;cursor:pointer}
 .sp-cb-row label{font-size:12px;color:#888;cursor:pointer;line-height:1.5}
 .sp-cb-row label strong{color:#ddd}
-.sp-btn{width:100%;padding:13px;background:linear-gradient(135deg,#FF6200,#CC4E00);color:#fff;font-size:14px;font-weight:700;letter-spacing:.4px;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .2s;opacity:.35;pointer-events:none}
+.sp-btn{width:100%;padding:13px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;font-size:14px;font-weight:700;letter-spacing:.4px;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .2s;opacity:.35;pointer-events:none}
 .sp-btn.sp-ready{opacity:1;pointer-events:all;box-shadow:0 8px 24px rgba(255,98,0,.32)}
 .sp-btn.sp-ready:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,98,0,.42)}
-.sp-ver{margin-top:12px;font-size:10px;color:#444;letter-spacing:.4px}
+.sp-ver{margin-top:12px;font-size:10px;color:#94a3b8;letter-spacing:.4px}
 </style>
 <div id="sp-eng">
   <div class="sp-inner">
@@ -2116,7 +2531,365 @@ window.showPage = function(id) {
     });
   }
 })();
+
+// ── ACCESSIBILITY PANEL ──────────────────────────────────────────────────
+function openAccessPanel(){
+  document.getElementById('accessibility-panel').classList.add('open');
+  document.getElementById('accessibility-panel').setAttribute('aria-hidden','false');
+  document.getElementById('accessibility-backdrop').classList.add('visible');
+}
+function closeAccessPanel(){
+  document.getElementById('accessibility-panel').classList.remove('open');
+  document.getElementById('accessibility-panel').setAttribute('aria-hidden','true');
+  document.getElementById('accessibility-backdrop').classList.remove('visible');
+}
+function setFontSize(sz){
+  document.body.style.fontSize=sz+'px';
+  document.querySelectorAll('.ap-btn').forEach(function(b){
+    if(b.textContent.trim()==='Small'&&sz===13||b.textContent.trim()==='Default'&&sz===15||b.textContent.trim()==='Large'&&sz===17||b.textContent.trim()==='X-Large'&&sz===19){
+      b.classList.add('ap-btn-active');
+    } else if(['Small','Default','Large','X-Large'].includes(b.textContent.trim())){
+      b.classList.remove('ap-btn-active');
+    }
+  });
+  localStorage.setItem('ede_fontsize',sz);
+}
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var mn=document.getElementById('main');
+  if(!sb||!mn)return;
+  if(sb.style.transform==='translateX(-100%)'){
+    sb.style.transform='';mn.style.marginLeft='260px';mn.style.width='calc(100% - 260px)';
+  } else {
+    sb.style.transform='translateX(-100%)';mn.style.marginLeft='0';mn.style.width='100%';
+  }
+}
+var _motionOff=false;
+function toggleMotion(){
+  _motionOff=!_motionOff;
+  var pc=document.getElementById('particle-canvas');
+  var bc=document.getElementById('bg-canvas');
+  if(pc)pc.style.display=_motionOff?'none':'';
+  if(bc)bc.style.opacity=_motionOff?'0.3':'1';
+  var btn=document.getElementById('ap-motion-btn');
+  if(btn){btn.textContent=_motionOff?'Enable Particles':'Disable Particles';btn.classList.toggle('ap-btn-active',_motionOff);}
+  localStorage.setItem('ede_motion_off',_motionOff?'1':'0');
+}
+function setTheme(t){
+  document.querySelectorAll('.ap-btn').forEach(function(b){
+    if((b.textContent.trim()==='Dark'&&t==='dark')||(b.textContent.trim()==='Light'&&t==='light')){b.classList.add('ap-btn-active');}
+    else if(b.textContent.trim()==='Dark'||b.textContent.trim()==='Light'){b.classList.remove('ap-btn-active');}
+  });
+  if(t==='light'){
+    document.body.style.background='#f1f5f9';
+    document.body.style.color='#1e293b';
+  } else {
+    document.body.style.background='';
+    document.body.style.color='';
+  }
+  localStorage.setItem('ede_theme',t);
+}
+// Keyboard shortcuts
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeAccessPanel();
+  if(e.key==='?'&&!e.target.matches('input,textarea,select'))openAccessPanel();
+  if(e.key.toLowerCase()==='h'&&!e.target.matches('input,textarea,select')){
+    if(typeof showPage==='function')showPage('home');
+  }
+});
+// Restore saved preferences
+(function(){
+  var fs=localStorage.getItem('ede_fontsize');
+  if(fs)document.body.style.fontSize=fs+'px';
+  var mo=localStorage.getItem('ede_motion_off');
+  if(mo==='1'){_motionOff=false;toggleMotion();}
+})();
+
+
+// ── EXPORT & PRINT ──────────────────────────────────────────────────────
+function toggleExportMenu(){
+  var m=document.getElementById('export-menu');
+  var fab=document.getElementById('export-fab');
+  var open=m.style.display==='flex';
+  m.style.display=open?'none':'flex';
+  fab.style.transform=open?'':'rotate(45deg)';
+  fab.textContent=open?'↑':'✕';
+}
+
+// Close export menu when clicking outside
+document.addEventListener('click',function(e){
+  var tb=document.getElementById('export-toolbar');
+  if(tb&&!tb.contains(e.target)){
+    var m=document.getElementById('export-menu');
+    var fab=document.getElementById('export-fab');
+    if(m){m.style.display='none';}
+    if(fab){fab.style.transform='';fab.textContent='↑';}
+  }
+});
+
+function printDashboard(){
+  // Set print date
+  var pd=document.getElementById('print-date');
+  if(pd)pd.textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  toggleExportMenu();
+  setTimeout(function(){window.print();},200);
+}
+
+function gatherDashboardData(){
+  var data={
+    exported: new Date().toISOString(),
+    dashboard: document.title || 'EEP Dashboard',
+    author: 'Mike Garcia',
+    version: '1.0',
+    sections: {}
+  };
+
+  // Gather active page content
+  var activePage=document.querySelector('.page.active');
+  if(activePage){
+    data.sections.activePage=activePage.id||'unknown';
+    // Stat tiles
+    var stats=[];
+    activePage.querySelectorAll('.stat-tile').forEach(function(t){
+      var num=t.querySelector('.num');
+      var lbl=t.querySelector('.label,.desc');
+      if(num||lbl)stats.push({value:(num?num.textContent.trim():''),label:(lbl?lbl.textContent.trim():'')});
+    });
+    if(stats.length)data.sections.stats=stats;
+
+    // Tables
+    var tables=[];
+    activePage.querySelectorAll('table').forEach(function(tbl,ti){
+      var rows=[];
+      var headers=[];
+      tbl.querySelectorAll('th').forEach(function(h){headers.push(h.textContent.trim());});
+      tbl.querySelectorAll('tr').forEach(function(r){
+        var cells=[];
+        r.querySelectorAll('td').forEach(function(c){cells.push(c.textContent.trim());});
+        if(cells.length)rows.push(cells);
+      });
+      if(rows.length)tables.push({headers:headers,rows:rows});
+    });
+    if(tables.length)data.sections.tables=tables;
+
+    // Cards
+    var cards=[];
+    activePage.querySelectorAll('.card').forEach(function(c){
+      var title=c.querySelector('.card-title');
+      if(title)cards.push({title:title.textContent.trim()});
+    });
+    if(cards.length)data.sections.cards=cards;
+  }
+
+  // Gather localStorage EEP data
+  var eepData={};
+  ['ede_fontsize','ede_theme','ede_motion_off'].forEach(function(k){
+    var v=localStorage.getItem(k);
+    if(v)eepData[k]=v;
+  });
+  // Compliance scores
+  var compScore=document.getElementById('total-compliance-score');
+  if(compScore)eepData.complianceScore=compScore.textContent.trim();
+  // Engagement progress
+  var engPct=document.getElementById('eng-pct');
+  if(engPct)eepData.engagementProgress=engPct.textContent.trim();
+  // Radar scores
+  var radarScores={};
+  ['si','oc','cd','ov','ta','ps'].forEach(function(d){
+    var el=document.getElementById('score-'+d);
+    if(el)radarScores[d]=el.textContent.trim();
+  });
+  if(Object.keys(radarScores).length)eepData.radarScores=radarScores;
+  data.eepData=eepData;
+
+  return data;
+}
+
+function exportJSON(){
+  var data=gatherDashboardData();
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='eep-dashboard-export-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toggleExportMenu();
+  showExportToast('JSON exported successfully');
+}
+
+function exportCSV(){
+  var data=gatherDashboardData();
+  var rows=[['EEP Dashboard Export','',''],
+            ['Exported',data.exported,''],
+            ['Dashboard',data.dashboard,''],
+            ['Author',data.author,''],
+            ['','','']];
+
+  // Stats
+  if(data.sections.stats&&data.sections.stats.length){
+    rows.push(['METRICS','Value','Label']);
+    data.sections.stats.forEach(function(s){rows.push(['',s.value,s.label]);});
+    rows.push(['','','']);
+  }
+
+  // Tables
+  if(data.sections.tables&&data.sections.tables.length){
+    data.sections.tables.forEach(function(t,i){
+      rows.push(['TABLE '+(i+1),'','']);
+      if(t.headers.length)rows.push(t.headers);
+      t.rows.forEach(function(r){rows.push(r);});
+      rows.push(['','','']);
+    });
+  }
+
+  // EEP data
+  if(data.eepData){
+    rows.push(['EEP DATA','Key','Value']);
+    Object.keys(data.eepData).forEach(function(k){
+      var v=data.eepData[k];
+      if(typeof v==='object'){
+        Object.keys(v).forEach(function(k2){rows.push(['',k+'.'+k2,v[k2]]);});
+      } else {
+        rows.push(['',k,v]);
+      }
+    });
+  }
+
+  var csv=rows.map(function(r){
+    return r.map(function(c){
+      var s=String(c||'').replace(/"/g,'""');
+      return s.includes(',')||s.includes('"')||s.includes('\n')?'"'+s+'"':s;
+    }).join(',');
+  }).join('\n');
+
+  var blob=new Blob([csv],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='eep-dashboard-export-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toggleExportMenu();
+  showExportToast('CSV exported successfully');
+}
+
+function copyMarkdown(){
+  var data=gatherDashboardData();
+  var md='# '+data.dashboard+'\n\n';
+  md+='**Exported:** '+new Date().toLocaleDateString()+'  \n';
+  md+='**Author:** '+data.author+'  \n';
+  md+='**Version:** '+data.version+'\n\n';
+
+  if(data.sections.stats&&data.sections.stats.length){
+    md+='## Key Metrics\n\n';
+    md+='| Metric | Value |\n|--------|-------|\n';
+    data.sections.stats.forEach(function(s){md+='| '+s.label+' | '+s.value+' |\n';});
+    md+='\n';
+  }
+
+  if(data.sections.tables&&data.sections.tables.length){
+    data.sections.tables.forEach(function(t,i){
+      md+='## Table '+(i+1)+'\n\n';
+      if(t.headers.length){
+        md+='| '+t.headers.join(' | ')+' |\n';
+        md+='| '+t.headers.map(function(){return '---';}).join(' | ')+' |\n';
+      }
+      t.rows.forEach(function(r){md+='| '+r.join(' | ')+' |\n';});
+      md+='\n';
+    });
+  }
+
+  md+='---\n*CONFIDENTIAL & PROPRIETARY — Mike Garcia · EEP Framework*\n';
+
+  navigator.clipboard.writeText(md).then(function(){
+    showExportToast('Markdown copied to clipboard');
+  }).catch(function(){
+    var ta=document.createElement('textarea');
+    ta.value=md;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    showExportToast('Markdown copied to clipboard');
+  });
+  toggleExportMenu();
+}
+
+function showExportToast(msg){
+  var t=document.createElement('div');
+  t.textContent='✓ '+msg;
+  t.style.cssText='position:fixed;bottom:90px;right:24px;z-index:99999;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#4ade80;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:inherit;animation:fadeInUp .3s ease;pointer-events:none;';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){document.body.removeChild(t);},300);},2500);
+}
+
 </script>
+
+
+<!-- ═══ EXPORT / PRINT TOOLBAR ═══ -->
+<div id="export-toolbar" class="print-hide" style="
+  position:fixed;bottom:24px;right:24px;z-index:9990;
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+  <div id="export-menu" style="
+    display:none;flex-direction:column;gap:6px;
+    background:rgba(10,22,40,0.97);border:1px solid rgba(59,130,246,0.25);
+    border-radius:10px;padding:12px;min-width:200px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#475569;margin-bottom:4px;">Export Options</div>
+    <button onclick="printDashboard()" style="
+      display:flex;align-items:center;gap:8px;padding:9px 14px;
+      background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.25);
+      color:#f97316;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;
+      font-family:inherit;transition:all .15s;text-align:left;width:100%;">
+      🖨️ Print / Save as PDF
+    </button>
+    <button onclick="exportJSON()" style="
+      display:flex;align-items:center;gap:8px;padding:9px 14px;
+      background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.25);
+      color:#60a5fa;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;
+      font-family:inherit;transition:all .15s;text-align:left;width:100%;">
+      📄 Export as JSON
+    </button>
+    <button onclick="exportCSV()" style="
+      display:flex;align-items:center;gap:8px;padding:9px 14px;
+      background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);
+      color:#4ade80;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;
+      font-family:inherit;transition:all .15s;text-align:left;width:100%;">
+      📊 Export as CSV
+    </button>
+    <button onclick="copyMarkdown()" style="
+      display:flex;align-items:center;gap:8px;padding:9px 14px;
+      background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);
+      color:#a78bfa;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;
+      font-family:inherit;transition:all .15s;text-align:left;width:100%;">
+      📋 Copy as Markdown
+    </button>
+  </div>
+  <button onclick="toggleExportMenu()" id="export-fab" style="
+    width:48px;height:48px;border-radius:50%;
+    background:linear-gradient(135deg,#f97316,#ea580c);
+    border:none;color:#fff;font-size:20px;cursor:pointer;
+    box-shadow:0 4px 20px rgba(249,115,22,0.4);
+    transition:all .2s;display:flex;align-items:center;justify-content:center;"
+    title="Export / Print">
+    ↑
+  </button>
+</div>
+<!-- Print header (hidden on screen, shown on print) -->
+<div class="print-header" style="display:none;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:8pt 0;border-bottom:2px solid #f97316;margin-bottom:16pt;">
+    <div>
+      <div style="font-size:18pt;font-weight:800;color:#111;">EEP Framework Dashboard</div>
+      <div style="font-size:10pt;color:#555;">Built on original frameworks by Mike Garcia · Confidential & Proprietary</div>
+    </div>
+    <div style="font-size:9pt;color:#888;text-align:right;">
+      Printed: <span id="print-date"></span><br>
+      Version 1.0 · June 2026
+    </div>
+  </div>
+</div>
+<!-- Print footer -->
+<div class="print-footer" style="display:none;">
+  CONFIDENTIAL & PROPRIETARY — Mike Garcia · EEP Framework · Unauthorized use prohibited
+</div>
 
 </body>
 </html>
