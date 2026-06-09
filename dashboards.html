@@ -1,66 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dashboards · EEP & Delivery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboards · EEP & Delivery</title>
+
+<!-- Use the SAME stylesheet as the selector page -->
+<link href="css/styles.css" rel="stylesheet"/>
+
 </head>
+<body>
+<canvas id="particle-canvas"></canvas>
 
-<body class="page-bg">
-  <main>
+<div class="page-wrap">
 
-    <header class="hero">
-      <h1>Select a Dashboard</h1>
-      <p>Leadership dashboards provide program‑level visibility. Engineer dashboards support daily delivery and competency development.</p>
-    </header>
+<header>
+  <div class="header-title">
+    <span>EDE</span> / CEES / EEP  Dashboards
+  </div>
+  <div class="header-badge">Restricted Access</div>
+</header>
 
-    <!-- Leadership -->
-    <section>
-      <h2>Leadership Dashboards</h2>
-      <div class="options-grid">
+<div class="selection-wrap">
 
-        <div class="option-tile" onclick="location.href='dashboards/eep-command-center.html'">
-          <div class="option-icon">📊</div>
-          <div class="option-title">EEP Command Center</div>
-          <div class="option-desc">Executive‑grade visibility into delivery, trust, modernization, and program structure.</div>
-        </div>
+  <div class="selection-header">
+    <div class="eyebrow">Authorized Access Granted</div>
+    <h1>Dashboards</h1>
+    <p>Select a dashboard below to launch real‑time operational views and performance insights.</p>
+  </div>
 
-        <div class="option-tile" onclick="location.href='dashboards/eep-command-center-unbranded.html'">
-          <div class="option-icon">🌐</div>
-          <div class="option-title">EEP Command Center (Unbranded)</div>
-          <div class="option-desc">A clean, neutral version for partners, customers, and external briefings.</div>
-        </div>
+  <!-- DASHBOARD PANELS -->
+  <div class="panel-grid">
 
-        <div class="option-tile" onclick="location.href='dashboards/eep-command-center-preview.html'">
-          <div class="option-icon">🧭</div>
-          <div class="option-title">EEP Command Center (Preview)</div>
-          <div class="option-desc">A forward‑looking preview of upcoming EEP capabilities and enhancements.</div>
-        </div>
+    <!-- EEP Command Center -->
+    <a class="panel dashboards" href="dashboards/eep-command-center.html">
+      <div class="panel-badge">📊</div>
+      <div class="panel-label">Leadership</div>
+      <h2>EEP Command Center</h2>
+      <p class="panel-desc">
+        Executive‑grade visibility into delivery, trust, modernization, and program structure.
+      </p>
+      <ul class="panel-bullets">
+        <li>Delivery & Modernization Signals</li>
+        <li>Engagement Health Overview</li>
+        <li>Leadership‑Ready Summaries</li>
+      </ul>
+      <span class="panel-cta">Open Dashboard →</span>
+    </a>
 
-      </div>
-    </section>
+    <!-- Unbranded -->
+    <a class="panel dashboards" href="dashboards/eep-command-center-unbranded.html">
+      <div class="panel-badge">🌐</div>
+      <div class="panel-label">Leadership</div>
+      <h2>EEP Command Center (Unbranded)</h2>
+      <p class="panel-desc">
+        A clean, neutral version for partners, customers, and external briefings.
+      </p>
+      <ul class="panel-bullets">
+        <li>Neutral Branding</li>
+        <li>Customer‑Safe Views</li>
+        <li>Executive Summaries</li>
+      </ul>
+      <span class="panel-cta">Open Dashboard →</span>
+    </a>
 
-    <!-- Engineer -->
-    <section>
-      <h2>Engineer Dashboards</h2>
-      <div class="options-grid">
+    <!-- Preview -->
+    <a class="panel dashboards" href="dashboards/eep-command-center-preview.html">
+      <div class="panel-badge">🧭</div>
+      <div class="panel-label">Leadership</div>
+      <h2>EEP Command Center (Preview)</h2>
+      <p class="panel-desc">
+        A forward‑looking preview of upcoming EEP capabilities and enhancements.
+      </p>
+      <ul class="panel-bullets">
+        <li>Experimental Features</li>
+        <li>Future Signal Models</li>
+        <li>Early Access Views</li>
+      </ul>
+      <span class="panel-cta">Open Dashboard →</span>
+    </a>
 
-        <div class="option-tile" onclick="location.href='dashboards/engineer-delivery-dashboard.html'">
-          <div class="option-icon">🛠️</div>
-          <div class="option-title">Engineer Delivery Dashboard</div>
-          <div class="option-desc">Your daily delivery workspace for engagements, signals, and priority actions.</div>
-        </div>
+    <!-- Engineer Delivery Dashboard -->
+    <a class="panel dashboards" href="dashboards/engineer-delivery-dashboard.html">
+      <div class="panel-badge">🛠️</div>
+      <div class="panel-label">Engineer</div>
+      <h2>Engineer Delivery Dashboard</h2>
+      <p class="panel-desc">
+        Your daily delivery workspace for engagements, signals, and priority actions.
+      </p>
+      <ul class="panel-bullets">
+        <li>Daily Priorities</li>
+        <li>Engagement Status</li>
+        <li>Signal Quality Tracking</li>
+      </ul>
+      <span class="panel-cta">Open Dashboard →</span>
+    </a>
 
-        <div class="option-tile" onclick="location.href='dashboards/eep-self-assessment.html'">
-          <div class="option-icon">📈</div>
-          <div class="option-title">EEP Self‑Assessment Tool</div>
-          <div class="option-desc">Score yourself across the six EEP dimensions and track competency growth.</div>
-        </div>
+    <!-- Self Assessment -->
+    <a class="panel dashboards" href="dashboards/eep-self-assessment.html">
+      <div class="panel-badge">📈</div>
+      <div class="panel-label">Engineer</div>
+      <h2>EEP Self‑Assessment Tool</h2>
+      <p class="panel-desc">
+        Score yourself across the six EEP dimensions and track competency growth.
+      </p>
+      <ul class="panel-bullets">
+        <li>Six‑Dimension Scoring</li>
+        <li>Progress Tracking</li>
+        <li>Competency Insights</li>
+      </ul>
+      <span class="panel-cta">Open Tool →</span>
+    </a>
 
-      </div>
-    </section>
+  </div><!-- /panel-grid -->
 
-  </main>
+</div><!-- /selection-wrap -->
+
+<footer>EDE / CEES / EEP Frameworks · Confidential · Authorized Personnel Only</footer>
+
+</div><!-- /page-wrap -->
+
+<script src="js/main.js"></script>
+
 </body>
 </html>
